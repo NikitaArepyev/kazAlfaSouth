@@ -23,19 +23,19 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Дашборд</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      <h1 className="mb-6 text-2xl font-bold text-foreground">Дашборд</h1>
+      <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {cards.map((c) => (
-          <Link key={c.href} href={c.href} className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-            <div className="text-3xl font-bold text-blue-900">{c.value}</div>
-            <div className="text-sm text-gray-500 mt-1">{c.label}</div>
+          <Link key={c.href} href={c.href} className="rounded-2xl border border-border bg-surface p-6 shadow-sm transition-shadow hover:shadow-md">
+            <div className="text-3xl font-bold text-brand-700">{c.value}</div>
+            <div className="mt-1 text-sm text-subtle">{c.label}</div>
           </Link>
         ))}
       </div>
 
-      <div className="bg-white p-6 rounded-2xl border border-gray-200">
-        <h2 className="font-bold mb-2">Быстрый старт</h2>
-        <ul className="text-sm text-gray-600 list-disc pl-5 space-y-1">
+      <div className="rounded-2xl border border-border bg-surface p-6">
+        <h2 className="mb-2 font-bold text-foreground">Быстрый старт</h2>
+        <ul className="list-disc space-y-1 pl-5 text-sm text-muted">
           <li>Заполните контакты и теглайн в разделе «Контакты» и «Настройки / SEO».</li>
           <li>Добавьте подтверждённые бренды и опубликуйте кейсы после согласования с заказчиком.</li>
           <li>Заявки с форм сайта попадают в раздел «Заявки» и выгружаются в CSV.</li>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CaretRight } from "@/components/ui/icons";
 
 type Crumb = { name: string; href?: string };
 
@@ -16,24 +17,26 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
 
   return (
     <nav aria-label="Хлебные крошки" className="container mx-auto px-4 pt-6">
-      <ol className="flex flex-wrap items-center gap-2 text-sm text-gray-500">
-        {items.map((it, i) => (
-          <li key={i} className="flex items-center gap-2">
-            {it.href && i !== items.length - 1 ? (
-              <Link href={it.href} className="hover:text-blue-600 transition-colors">
-                {it.name}
-              </Link>
-            ) : (
-              <span className="text-gray-700 font-medium">{it.name}</span>
-            )}
-            {i !== items.length - 1 && <span className="text-gray-300">/</span>}
-          </li>
-        ))}
+      <ol className="flex flex-wrap items-center gap-1.5 text-sm">
+        {items.map((it, i) => {
+          const last = i === items.length - 1;
+          return (
+            <li key={i} className="flex items-center gap-1.5">
+              {it.href && !last ? (
+                <Link href={it.href} className="text-muted transition-colors hover:text-brand-700">
+                  {it.name}
+                </Link>
+              ) : (
+                <span className="font-medium text-foreground" aria-current={last ? "page" : undefined}>
+                  {it.name}
+                </span>
+              )}
+              {!last && <CaretRight className="h-3.5 w-3.5 text-subtle" weight="regular" />}
+            </li>
+          );
+        })}
       </ol>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </nav>
   );
 }

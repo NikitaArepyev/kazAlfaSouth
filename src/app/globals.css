@@ -1,26 +1,179 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", "Noto Sans Cyrillic", sans-serif;
-}
+/* ------------------------------------------------------------------ */
+/* Dark mode: manual toggle via `.dark` on <html>                     */
+/* ------------------------------------------------------------------ */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* ------------------------------------------------------------------ */
+/* Brand + neutral token scales (single source of truth)              */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #111827;
+  /* Brand blue — the only accent. No purple. */
+  --brand-50: #eef4ff;
+  --brand-100: #dbe6ff;
+  --brand-200: #bcd2ff;
+  --brand-300: #8fb4ff;
+  --brand-400: #5b8df6;
+  --brand-500: #2f6bed;
+  --brand-600: #1f57d6;
+  --brand-700: #1b46ad;
+  --brand-800: #1c3c89;
+  --brand-900: #1d366b;
+  --brand-950: #142147;
+  --brand-contrast: #ffffff;
+
+  /* Neutrals — off-white / off-black, never pure #000/#fff */
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --surface-2: #f3f4f7;
+  --border: #e6e8ec;
+  --border-strong: #d3d8df;
+  --fg: #0f1216;
+  --fg-muted: #555c66;
+  --fg-subtle: #8a9099;
+
+  /* Toned shadows (never pure black) */
+  --shadow-sm: 0 1px 2px 0 rgb(15 18 22 / 0.05), 0 1px 3px 0 rgb(15 18 22 / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(15 18 22 / 0.08), 0 2px 6px -2px rgb(15 18 22 / 0.05);
+  --shadow-lg: 0 14px 34px -10px rgb(15 18 22 / 0.14), 0 4px 12px -4px rgb(15 18 22 / 0.08);
+
+  /* Radii — Shape Consistency Lock (cards / buttons / inputs share scale) */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 28px;
+  --radius-full: 999px;
+
+  /* Easing tokens */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* z-index scale */
+  --z-sticky: 40;
+  --z-header: 50;
+  --z-overlay: 60;
+  --z-modal: 70;
+  --z-toast: 80;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
+.dark {
+  --bg: #0c0e12;
+  --surface: #14171c;
+  --surface-2: #1b1f26;
+  --border: #262b33;
+  --border-strong: #333a44;
+  --fg: #edeff2;
+  --fg-muted: #9aa1ab;
+  --fg-subtle: #6b7280;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 6px 16px -4px rgb(0 0 0 / 0.55), 0 2px 6px -2px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 18px 40px -12px rgb(0 0 0 / 0.65), 0 6px 14px -6px rgb(0 0 0 / 0.5);
 }
 
-.prose {
-  @apply max-w-none;
+/* ------------------------------------------------------------------ */
+/* Tailwind v4 theme mapping                                          */
+/* ------------------------------------------------------------------ */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Noto Sans Cyrillic", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-foreground: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-subtle: var(--fg-subtle);
+
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+  --color-brand-contrast: var(--brand-contrast);
+
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-3xl: var(--radius-3xl);
+  --radius-full: var(--radius-full);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --ease-out: var(--ease-out);
+  --ease-in-out: var(--ease-in-out);
+  --ease-drawer: var(--ease-drawer);
+}
+
+/* Centered, capped container — consistent across the site */
+@utility container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 80rem;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--brand-500);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  /* Reduced motion: keep content visible, drop transform movement */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Thin, calm scrollbar in dark surfaces */
+.dark * {
+  scrollbar-color: var(--border-strong) transparent;
 }

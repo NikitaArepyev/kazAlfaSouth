@@ -1,6 +1,9 @@
-import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { getContent } from "@/lib/content";
+import Reveal from "@/components/ui/Reveal";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import { Check, ArrowRight } from "@/components/ui/icons";
 import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -30,57 +33,92 @@ export default async function ProjectsPage() {
     <div className="pb-20">
       <Breadcrumbs items={[{ name: "Главная", href: "/" }, { name: "Опыт работы" }]} />
 
-      <div className="container mx-auto px-4 max-w-4xl pt-6">
-        <h1 className="text-4xl font-bold mb-6">Опыт работы</h1>
-
-        <p className="text-gray-600 mb-12 max-w-2xl">
-          С 2014 года ТОО «КазАльфаЮг» поставляет компрессорное оборудование, запасные части и расходные
-          материалы, а также выполняет техническое обслуживание и ремонт промышленного оборудования.
-          Детальные кейсы публикуются после согласования с заказчиками и подтверждения права на раскрытие.
-        </p>
+      <div className="container mx-auto max-w-4xl px-4 pt-10">
+        <Reveal>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">Опыт работы</h1>
+        </Reveal>
+        <Reveal>
+          <p className="mt-4 max-w-2xl text-muted">
+            С 2014 года ТОО «КазАльфаЮг» поставляет компрессорное оборудование, запасные части и расходные
+            материалы, а также выполняет техническое обслуживание и ремонт промышленного оборудования.
+            Детальные кейсы публикуются после согласования с заказчиками и подтверждения права на раскрытие.
+          </p>
+        </Reveal>
 
         {cases.length > 0 && (
-          <div className="space-y-6 mb-16">
-            {cases.map((c) => (
-              <div key={c.id} className="bg-white border border-gray-200 rounded-2xl p-8">
-                <div className="flex flex-wrap items-center gap-2 mb-3">
-                  {c.industry && <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{c.industry}</span>}
-                  {c.equipment && <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 bg-gray-100 px-3 py-1 rounded-full">{c.equipment}</span>}
-                </div>
-                <h3 className="text-xl font-bold mb-4">{c.client ? c.client : "Проект по запросу заказчика"}</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                  <div><div className="font-semibold text-gray-700 mb-1">Задача</div><div className="text-gray-600">{c.task}</div></div>
-                  <div><div className="font-semibold text-gray-700 mb-1">Решение</div><div className="text-gray-600">{c.solution}</div></div>
-                  <div><div className="font-semibold text-gray-700 mb-1">Результат</div><div className="text-gray-600">{c.result}</div></div>
-                </div>
-              </div>
+          <div className="mt-12 space-y-6">
+            {cases.map((c, i) => (
+              <Reveal key={c.id} delay={(i % 3) * 0.06}>
+                <Card>
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    {c.industry && (
+                      <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-700">
+                        {c.industry}
+                      </span>
+                    )}
+                    {c.equipment && (
+                      <span className="rounded-full bg-surface-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted">
+                        {c.equipment}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground">
+                    {c.client ? c.client : "Проект по запросу заказчика"}
+                  </h3>
+                  <div className="mt-4 grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
+                    <div>
+                      <div className="mb-1 font-semibold text-foreground">Задача</div>
+                      <div className="text-muted">{c.task}</div>
+                    </div>
+                    <div>
+                      <div className="mb-1 font-semibold text-foreground">Решение</div>
+                      <div className="text-muted">{c.solution}</div>
+                    </div>
+                    <div>
+                      <div className="mb-1 font-semibold text-foreground">Результат</div>
+                      <div className="text-muted">{c.result}</div>
+                    </div>
+                  </div>
+                </Card>
+              </Reveal>
             ))}
           </div>
         )}
 
-        <h2 className="text-2xl font-bold mb-6">Отрасли заказчиков</h2>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-16">
+        <Reveal>
+          <h2 className="mt-16 text-2xl font-bold tracking-tight text-foreground">Отрасли заказчиков</h2>
+        </Reveal>
+        <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {INDUSTRIES.map((ind, i) => (
-            <li key={i} className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl font-medium">
-              <span className="text-blue-500">✔</span> {ind}
-            </li>
+            <Reveal key={i} delay={(i % 2) * 0.05}>
+              <li className="flex items-center gap-3 rounded-xl bg-surface-2 p-4 font-medium text-foreground">
+                <Check className="h-5 w-5 shrink-0 text-brand-600" weight="bold" /> {ind}
+              </li>
+            </Reveal>
           ))}
         </ul>
 
-        <div className="bg-blue-50 border border-blue-100 rounded-2xl p-10 text-center">
-          <h2 className="text-2xl font-bold mb-3">Нужен подбор или расчёт?</h2>
-          <p className="text-gray-600 mb-6">
-            Направьте модель оборудования, серийный номер, партномер или техническое задание — подготовим предложение.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/#request-form" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all">
-              Запросить предложение
-            </Link>
-            <Link href="/contacts" className="border border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-600 hover:text-white transition-all">
-              Контакты
-            </Link>
+        <Reveal>
+          <div className="mt-16 overflow-hidden rounded-2xl border border-border bg-brand-600 px-8 py-12 text-brand-contrast md:px-12">
+            <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">Нужен подбор или расчёт?</h2>
+                <p className="mt-2 max-w-md text-brand-100">
+                  Направьте модель оборудования, серийный номер, партномер или техническое задание —
+                  подготовим предложение.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Button href="/#request-form" className="!bg-white !text-brand-700 hover:!bg-brand-50" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
+                  Запросить предложение
+                </Button>
+                <Button href="/contacts" variant="secondary" className="!border-white/30 !bg-transparent !text-white hover:!bg-white/10">
+                  Контакты
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </div>
   );

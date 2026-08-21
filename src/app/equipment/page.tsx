@@ -1,5 +1,10 @@
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Card from "@/components/ui/Card";
+import Reveal from "@/components/ui/Reveal";
+import Button from "@/components/ui/Button";
+import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import { Check, ArrowRight, Cube, Factory, Wind } from "@/components/ui/icons";
 import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -18,18 +23,24 @@ const CATEGORIES = [
     description: "Дизельные и электрические компрессоры на шасси для строительных и дорожных работ.",
     features: ["Области применения", "Тип привода", "Рабочее давление", "Производительность"],
     href: "/equipment/mobile",
+    icon: Cube,
+    label: "Передвижной компрессор на шасси",
   },
   {
     title: "Стационарные компрессоры",
     description: "Винтовые и поршневые компрессоры для промышленных предприятий и цехов.",
     features: ["Режим работы", "Наличие резерва", "Качество воздуха", "Электросеть"],
     href: "/equipment/stationary",
+    icon: Factory,
+    label: "Стационарная компрессорная станция",
   },
   {
     title: "Осушители и подготовка воздуха",
     description: "Оборудование для удаления влаги и очистки сжатого воздуха.",
     features: ["Рефрижераторные", "Адсорбционные", "Фильтры", "Сепараторы"],
     href: "/equipment/air-treatment",
+    icon: Wind,
+    label: "Осушитель и система подготовки воздуха",
   },
 ];
 
@@ -38,47 +49,66 @@ export default function EquipmentPage() {
     <div className="pb-20">
       <Breadcrumbs items={[{ name: "Главная", href: "/" }, { name: "Оборудование" }]} />
 
-      <div className="container mx-auto px-4 pt-6">
-        <h1 className="text-4xl font-bold mb-4">Оборудование</h1>
-        <p className="text-gray-600 mb-12 max-w-2xl">
-          Поставляем компрессорное оборудование от ведущих мировых производителей и выполняем технический
-          подбор под ваши задачи. Точный перечень брендов и моделей подтверждается менеджером. Технические
-          характеристики уточняются после согласования требований.
-        </p>
+      <div className="container mx-auto px-4 pt-10">
+        <Reveal>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">Оборудование</h1>
+          <p className="mt-4 max-w-2xl text-muted">
+            Поставляем компрессорное оборудование от ведущих мировых производителей и выполняем технический
+            подбор под ваши задачи. Точный перечень брендов и моделей подтверждается менеджером. Технические
+            характеристики уточняются после согласования требований.
+          </p>
+        </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {CATEGORIES.map((cat, i) => (
-            <div key={i} className="border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
-              <div className="bg-gray-100 h-48 flex items-center justify-center">
-                <span className="text-gray-400 font-bold text-lg">Фото ожидается</span>
-              </div>
-              <div className="p-8 flex-grow">
-                <h3 className="text-xl font-bold mb-4">{cat.title}</h3>
-                <p className="text-sm text-gray-500 mb-6">{cat.description}</p>
-                <ul className="space-y-2 mb-8">
+            <Reveal key={i} delay={i * 0.06}>
+              <Card bezel className="flex flex-col">
+                <MediaPlaceholder
+                  label={cat.label}
+                  icon={<cat.icon className="h-7 w-7" weight="regular" />}
+                  ratio="16 / 10"
+                  className="mb-6"
+                />
+                <h3 className="text-xl font-bold text-foreground">{cat.title}</h3>
+                <p className="mt-2 text-sm text-muted">{cat.description}</p>
+                <ul className="mt-5 grid gap-2">
                   {cat.features.map((feat, j) => (
-                    <li key={j} className="text-sm flex items-center gap-2">
-                      <span className="text-blue-500">✓</span> {feat}
+                    <li key={j} className="flex items-center gap-2 text-sm text-muted">
+                      <Check className="h-4 w-4 shrink-0 text-brand-600" weight="bold" /> {feat}
                     </li>
                   ))}
                 </ul>
-                <Link href={cat.href} className="block text-center border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold py-3 rounded-xl transition-all">
+                <Link
+                  href={cat.href}
+                  className="group mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700"
+                >
                   Подробнее
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" weight="bold" />
                 </Link>
-              </div>
-            </div>
+              </Card>
+            </Reveal>
           ))}
         </div>
 
-        <div className="mt-16 bg-blue-900 text-white rounded-3xl p-10 text-center">
-          <h2 className="text-2xl font-bold mb-3">Нужен подбор оборудования?</h2>
-          <p className="text-blue-200 mb-6">
-            Направьте требуемые параметры — подготовим техническое решение и коммерческое предложение.
-          </p>
-          <Link href="/#request-form" className="inline-block bg-white text-blue-900 px-10 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all">
-            Запросить КП
-          </Link>
-        </div>
+        <Reveal>
+          <div className="mt-16 overflow-hidden rounded-2xl border border-border bg-brand-600 px-8 py-12 text-brand-contrast md:px-12 md:py-16">
+            <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">Нужен подбор оборудования?</h2>
+                <p className="mt-2 max-w-xl text-brand-100">
+                  Направьте требуемые параметры — подготовим техническое решение и коммерческое предложение.
+                </p>
+              </div>
+              <Button
+                href="/#request-form"
+                className="!bg-white !text-brand-700 hover:!bg-brand-50"
+                icon={<ArrowRight className="h-4 w-4" weight="bold" />}
+              >
+                Запросить КП
+              </Button>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </div>
   );

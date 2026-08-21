@@ -1,20 +1,21 @@
-import Link from "next/link";
+import Button from "@/components/ui/Button";
+import { ArrowRight } from "@/components/ui/icons";
 
 export default function NotFound() {
   return (
     <div className="container mx-auto px-4 py-32 text-center">
-      <div className="text-6xl font-bold text-blue-900 mb-4">404</div>
-      <h1 className="text-2xl font-bold mb-4">Страница не найдена</h1>
-      <p className="text-gray-600 mb-8">
+      <div className="text-6xl font-bold tracking-tight text-brand-600">404</div>
+      <h1 className="mt-4 text-2xl font-bold text-foreground">Страница не найдена</h1>
+      <p className="mx-auto mt-3 max-w-md text-muted">
         Возможно, страница была перемещена. Вернитесь на главную или воспользуйтесь контактами.
       </p>
-      <div className="flex gap-4 justify-center">
-        <Link href="/" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all">
+      <div className="mt-8 flex justify-center gap-3">
+        <Button href="/" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
           На главную
-        </Link>
-        <Link href="/contacts" className="border border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-600 hover:text-white transition-all">
+        </Button>
+        <Button href="/contacts" variant="secondary">
           Контакты
-        </Link>
+        </Button>
       </div>
     </div>
   );

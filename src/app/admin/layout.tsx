@@ -18,29 +18,31 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
-      <aside className="w-60 bg-gray-900 text-white flex flex-col">
-        <div className="p-4 font-bold border-b border-gray-700">КазАльфаЮг · CMS</div>
-        <nav className="flex-1 p-3 space-y-1">
+    <div className="flex min-h-screen bg-background">
+      <aside className="flex w-60 flex-col border-r border-border bg-surface-2">
+        <div className="border-b border-border p-4 font-bold tracking-tight text-foreground">
+          КАЗ<span className="text-brand-600">АЛЬФА</span>ЮГ · CMS
+        </div>
+        <nav className="flex-1 space-y-1 p-3">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="block px-3 py-2 rounded-lg hover:bg-gray-800 text-sm font-medium"
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-surface hover:text-brand-700"
             >
               {l.label}
             </Link>
           ))}
         </nav>
-        <div className="p-3 border-t border-gray-700 space-y-1">
-          <div className="text-xs text-gray-400 px-3">Роль: {isAdmin ? "Администратор" : "Редактор"}</div>
-          <Link href="/" className="block px-3 py-2 rounded-lg hover:bg-gray-800 text-sm">
+        <div className="space-y-1 border-t border-border p-3">
+          <div className="px-3 text-xs text-subtle">Роль: {isAdmin ? "Администратор" : "Редактор"}</div>
+          <Link href="/" className="block rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-surface hover:text-brand-700">
             ← На сайт
           </Link>
           <LogoutButton />
         </div>
       </aside>
-      <main className="flex-1 p-8 overflow-auto">{children}</main>
+      <main className="flex-1 overflow-auto bg-background p-8">{children}</main>
     </div>
   );
 }
@@ -48,9 +50,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 function LogoutButton() {
   return (
     <form action="/api/admin/logout" method="post">
-      <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-800 text-sm text-red-300">
-        Выйти
-      </button>
+          <button className="w-full rounded-lg px-3 py-2 text-left text-sm text-red-400 transition-colors hover:bg-surface">
+            Выйти
+          </button>
     </form>
   );
 }

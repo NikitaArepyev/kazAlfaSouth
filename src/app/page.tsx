@@ -1,8 +1,25 @@
 import Link from "next/link";
 import { COMPANY_INFO } from "@/lib/constants";
-import LeadForm from "@/components/LeadForm";
 import { getContent } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
+import Section from "@/components/ui/Section";
+import Card from "@/components/ui/Card";
+import Reveal from "@/components/ui/Reveal";
+import LeadForm from "@/components/LeadForm";
+import Button from "@/components/ui/Button";
+import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import {
+  CalendarDots,
+  MapTrifold,
+  Gear,
+  ShieldCheck,
+  Cube,
+  Plug,
+  Wrench,
+  Funnel,
+  ArrowRight,
+  WhatsappLogo,
+} from "@/components/ui/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -14,121 +31,171 @@ export async function generateMetadata() {
   );
 }
 
+const TRUST = [
+  { icon: CalendarDots, title: `Работаем с ${COMPANY_INFO.foundedYear} года`, desc: "Стабильный опыт на рынке" },
+  { icon: MapTrifold, title: "Казахстан и Центральная Азия", desc: "Поставки в любой регион" },
+  { icon: Gear, title: "Технический подбор", desc: "По модели и партномеру" },
+  { icon: ShieldCheck, title: "Альтернативные решения", desc: "Проверенные аналоги с гарантией" },
+];
+
 const NEED_CARDS = [
-  { title: "Купить оборудование", href: "/equipment", action: "Ведёт в раздел оборудования / опросный лист" },
-  { title: "Подобрать запасную часть", href: "/#request-form", action: "Открывает техническую форму по номеру / модели" },
-  { title: "Найти альтернативу оригиналу", href: "/#request-form", action: "Открывает форму подбора аналога" },
-  { title: "Заказать сервис", href: "/service", action: "Ведёт на страницу сервиса" },
-  { title: "Отправить в ремонт", href: "/#request-form", action: "Ведёт на форму ремонта" },
-  { title: "Расходные материалы", href: "/consumables", action: "Ведёт на фильтры, масла и комплекты" },
+  { title: "Купить оборудование", href: "/equipment", icon: Cube, span: "lg:col-span-2", action: "Ведёт в раздел оборудования / опросный лист" },
+  { title: "Подобрать запасную часть", href: "/#request-form", icon: Plug, span: "", action: "Открывает техническую форму по номеру / модели" },
+  { title: "Найти альтернативу оригиналу", href: "/#request-form", icon: ShieldCheck, span: "", action: "Открывает форму подбора аналога" },
+  { title: "Заказать сервис", href: "/service", icon: Gear, span: "", action: "Ведёт на страницу сервиса" },
+  { title: "Отправить в ремонт", href: "/#request-form", icon: Wrench, span: "", action: "Ведёт на форму ремонта" },
+  { title: "Расходные материалы", href: "/consumables", icon: Funnel, span: "", action: "Ведёт на фильтры, масла и комплекты" },
 ];
 
 export default async function Home() {
   const content = await getContent();
   const tagline = content.tagline;
+  const wa = COMPANY_INFO.contacts.sales.whatsapp;
+
   return (
-    <div>
-      {/* 6.1 Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+    <>
+      {/* Hero — asymmetric split */}
+      <section className="relative overflow-hidden border-b border-border">
+        <div
+          className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-transparent dark:from-brand-950/40"
+          aria-hidden
+        />
+        <div className="container mx-auto grid items-center gap-12 px-4 py-20 md:py-28 lg:grid-cols-[1.05fr_0.95fr]">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">
+              <span className="h-3 w-[2px] rounded-full bg-brand-500" aria-hidden />
+              Промышленные компрессорные системы
+            </span>
+            <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight text-foreground md:text-5xl">
               {tagline}
             </h1>
-            <p className="text-xl text-blue-100 mb-10 leading-relaxed">
-              Поставляем передвижные и стационарные компрессоры, оригинальные и альтернативные запасные части, фильтры, сепараторы, масла и сервисные комплекты. Выполняем техническое обслуживание, диагностику и ремонт.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              Поставляем передвижные и стационарные компрессоры, оригинальные и альтернативные запасные
+              части, фильтры, сепараторы, масла и сервисные комплекты. Выполняем техническое обслуживание,
+              диагностику и ремонт.
             </p>
-            <div className="flex flex-wrap gap-4 mb-8">
-              <Link href="/#request-form" className="bg-white text-blue-900 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Button href="/#request-form" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
                 Запросить КП
-              </Link>
-              <Link href="/#request-form" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all">
+              </Button>
+              <Button href="/#request-form" variant="secondary" icon={<Plug className="h-4 w-4" weight="bold" />}>
                 Подобрать запчасть
-              </Link>
-              <a href={`https://wa.me/${COMPANY_INFO.contacts.sales.whatsapp}`} target="_blank" rel="noopener noreferrer" className="bg-green-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-green-600 transition-all">
-                Написать в WhatsApp
+              </Button>
+              <a
+                href={`https://wa.me/${wa}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center gap-2 rounded-lg px-4 text-sm font-semibold text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
+              >
+                <WhatsappLogo className="h-5 w-5 text-brand-600" weight="fill" />
+                WhatsApp
               </a>
             </div>
-            <p className="text-sm text-blue-200">
-              Для расчёта направьте модель оборудования, серийный номер, партномер, фотографию детали или техническое задание.
+            <p className="mt-6 text-sm text-subtle">
+              Для расчёта направьте модель оборудования, серийный номер, партномер, фотографию детали или
+              техническое задание.
             </p>
-          </div>
-        </div>
-      </section>
+          </Reveal>
 
-      {/* 6.2 Trust Block */}
-      <section className="py-16 bg-gray-50 border-b border-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex gap-4">
-              <div className="text-blue-600 text-3xl">📅</div>
-              <div>
-                <div className="font-bold">Работаем с {COMPANY_INFO.foundedYear} года</div>
-                <div className="text-sm text-gray-500">Стабильный опыт на рынке</div>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="text-blue-600 text-3xl">📍</div>
-              <div>
-                <div className="font-bold">Казахстан и Центральная Азия</div>
-                <div className="text-sm text-gray-500">Поставки в любой регион</div>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="text-blue-600 text-3xl">⚙️</div>
-              <div>
-                <div className="font-bold">Технический подбор</div>
-                <div className="text-sm text-gray-500">По модели и партномеру</div>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="text-blue-600 text-3xl">🛡️</div>
-              <div>
-                <div className="font-bold">Альтернативные решения</div>
-                <div className="text-sm text-gray-500">Проверенные аналоги с гарантией</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6.3 "What you need" Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Что вам требуется?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {NEED_CARDS.map((card, i) => (
-              <Link key={i} href={card.href} className="group p-8 border border-gray-200 rounded-2xl hover:border-blue-500 hover:shadow-xl transition-all flex flex-col justify-between">
-                <div>
-                  <h3 className="text-xl font-bold mb-4 group-hover:text-blue-600 transition-colors">{card.title}</h3>
-                  <p className="text-gray-500 text-sm">{card.action}</p>
-                </div>
-                <div className="mt-8 text-blue-600 font-semibold flex items-center gap-2">
-                  Перейти <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6.5 Быстрый запрос */}
-      <section id="request-form" className="py-20 bg-blue-900 text-white">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Быстрый запрос</h2>
-            <p className="text-blue-200">Опишите вашу задачу, и мы подготовим предложение</p>
-          </div>
-          <div className="bg-white rounded-2xl p-8 text-gray-900">
-            <LeadForm
-              formType="quick_request"
-              submitLabel="Отправить запрос"
-              messageLabel="Кратко опишите запрос"
-              messagePlaceholder="Модель оборудования, серийный номер, партномер, фотография детали или техническое задание"
+          <Reveal delay={0.12}>
+            <MediaPlaceholder
+              label="Промышленный компрессор"
+              caption="TODO: фото оборудования на объекте заказчика"
+              icon={<Cube className="h-7 w-7" weight="regular" />}
+              ratio="4 / 3"
             />
-          </div>
+          </Reveal>
         </div>
       </section>
-    </div>
+
+      {/* Trust block */}
+      <Section
+        eyebrow="Почему КазАльфаЮг"
+        title="Надёжный поставщик технических решений"
+        description="Работаем с промышленными предприятиями Казахстана и Центральной Азии: от подбора до сервисного сопровождения."
+      >
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {TRUST.map((t, i) => (
+            <Reveal key={i} delay={i * 0.06}>
+              <Card>
+                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                  <t.icon className="h-5 w-5" weight="regular" />
+                </span>
+                <div className="font-bold text-foreground">{t.title}</div>
+                <div className="mt-1 text-sm text-muted">{t.desc}</div>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* What you need — restrained bento */}
+      <Section
+        surface
+        eyebrow="Навигация по запросу"
+        title="Что вам требуется?"
+        description="Выберите направление — мы подберём оборудование, запчасть или сервис под вашу задачу."
+      >
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {NEED_CARDS.map((card, i) => (
+            <Reveal key={i} delay={(i % 3) * 0.06} className={card.span}>
+              <Link
+                href={card.href}
+                className="group block h-full rounded-xl border border-border bg-surface p-6 shadow-sm transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-md md:p-8"
+              >
+                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-brand-contrast">
+                  <card.icon className="h-5 w-5" weight="regular" />
+                </span>
+                <h3 className="text-lg font-bold text-foreground">{card.title}</h3>
+                <p className="mt-2 text-sm text-muted">{card.action}</p>
+                <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">
+                  Подробнее
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" weight="bold" />
+                </span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Quick request */}
+      <Section id="request-form" className="scroll-mt-24">
+        <div className="overflow-hidden rounded-2xl border border-border bg-brand-600 px-6 py-12 text-brand-contrast md:px-12 md:py-16">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <Reveal>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Быстрый запрос</h2>
+              <p className="mt-4 max-w-md text-brand-100">
+                Опишите вашу задачу — модель, серийный номер, партномер или техническое задание. Подготовим
+                предложение с проверкой применимости.
+              </p>
+              <ul className="mt-8 space-y-3 text-sm text-brand-100">
+                <li className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-brand-200" weight="fill" /> Проверка применимости инженерами
+                </li>
+                <li className="flex items-center gap-2">
+                  <ArrowRight className="h-4 w-4 text-brand-200" weight="bold" /> Оригинал и проверенные аналоги
+                </li>
+              </ul>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="rounded-xl border border-white/15 bg-surface p-6 text-foreground shadow-lg md:p-8">
+                <LeadFormHome />
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+function LeadFormHome() {
+  return (
+    <LeadForm
+      formType="quick_request"
+      submitLabel="Отправить запрос"
+      messageLabel="Кратко опишите запрос"
+      messagePlaceholder="Модель оборудования, серийный номер, партномер, фотография детали или техническое задание"
+    />
   );
 }

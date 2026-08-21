@@ -4,6 +4,9 @@ import { useState } from "react";
 
 type Seo = Record<string, { title?: string; description?: string }>;
 
+const input =
+  "rounded-lg border border-border bg-surface p-2 text-foreground placeholder:text-subtle focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40";
+
 const PAGES: { key: string; label: string }[] = [
   { key: "home", label: "Главная" },
   { key: "equipment", label: "Оборудование" },
@@ -37,33 +40,33 @@ export default function SettingsForm({ tagline, seo }: { tagline: string; seo: S
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Настройки и SEO</h1>
-      <div className="bg-white p-6 rounded-2xl border border-gray-200 space-y-4 max-w-3xl mb-6">
+      <h1 className="mb-4 text-2xl font-bold text-foreground">Настройки и SEO</h1>
+      <div className="mb-6 max-w-3xl space-y-4 rounded-2xl border border-border bg-surface p-6">
         <div>
-          <label className="block text-sm font-medium mb-1">Теглайн (слоган) сайта</label>
-          <input value={tg} onChange={(e) => setTg(e.target.value)} className="w-full border border-gray-300 rounded-lg p-3" />
+          <label className="mb-1 block text-sm font-medium text-foreground">Теглайн (слоган) сайта</label>
+          <input value={tg} onChange={(e) => setTg(e.target.value)} className={`w-full ${input}`} />
         </div>
       </div>
 
-      <h2 className="text-lg font-bold mb-3">SEO по страницам</h2>
+      <h2 className="mb-3 text-lg font-bold text-foreground">SEO по страницам</h2>
       <div className="space-y-4">
         {PAGES.map((p) => (
-          <div key={p.key} className="bg-white p-4 rounded-xl border border-gray-200">
-            <div className="font-semibold mb-2">{p.label}</div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              <input value={data[p.key]?.title || ""} onChange={(e) => update(p.key, "title", e.target.value)} placeholder="Title" className="border border-gray-300 rounded-lg p-2" />
-              <input value={data[p.key]?.description || ""} onChange={(e) => update(p.key, "description", e.target.value)} placeholder="Description" className="border border-gray-300 rounded-lg p-2" />
+          <div key={p.key} className="rounded-xl border border-border bg-surface p-4">
+            <div className="mb-2 font-semibold text-foreground">{p.label}</div>
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+              <input value={data[p.key]?.title || ""} onChange={(e) => update(p.key, "title", e.target.value)} placeholder="Title" className={input} />
+              <input value={data[p.key]?.description || ""} onChange={(e) => update(p.key, "description", e.target.value)} placeholder="Description" className={input} />
             </div>
           </div>
         ))}
       </div>
 
       <div className="mt-6">
-        <button onClick={save} disabled={status === "saving"} className="bg-green-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-700 disabled:opacity-60">
+        <button onClick={save} disabled={status === "saving"} className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-brand-contrast transition-colors hover:bg-brand-700 disabled:opacity-60">
           {status === "saving" ? "Сохранение..." : "Сохранить"}
         </button>
-        {status === "saved" && <span className="ml-3 text-green-600 font-medium">Сохранено</span>}
-        {status === "error" && <span className="ml-3 text-red-600 font-medium">Ошибка</span>}
+        {status === "saved" && <span className="ml-3 font-medium text-brand-700">Сохранено</span>}
+        {status === "error" && <span className="ml-3 font-medium text-red-600">Ошибка</span>}
       </div>
     </div>
   );

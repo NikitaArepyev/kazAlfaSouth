@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Analytics from "@/components/Analytics";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { getContent } from "@/lib/content";
+
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.classList.toggle('dark',t==='dark');}else{var m=window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',m);}}catch(e){}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kazalfayug.kz"),
@@ -58,21 +63,30 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="ru">
-      <body className="antialiased relative">
+    <html
+      lang="ru"
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <div className="flex flex-col min-h-screen">
-          <Header
-            sales={{ name: c.salesName, phone: c.salesPhone, whatsapp: c.salesWhatsapp }}
-          />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </div>
-        <FloatingWhatsApp whatsapp={c.salesWhatsapp} />
-        <Analytics />
+        <ThemeProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header
+              sales={{ name: c.salesName, phone: c.salesPhone, whatsapp: c.salesWhatsapp }}
+            />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
+          <FloatingWhatsApp whatsapp={c.salesWhatsapp} />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

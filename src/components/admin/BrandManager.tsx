@@ -3,6 +3,9 @@
 import { useState } from "react";
 import type { Brand } from "@/lib/content";
 
+const input =
+  "rounded-lg border border-border bg-surface p-2 text-foreground placeholder:text-subtle focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40";
+
 export default function BrandManager({ initial }: { initial: Brand[] }) {
   const [brands, setBrands] = useState<Brand[]>(initial);
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
@@ -35,22 +38,22 @@ export default function BrandManager({ initial }: { initial: Brand[] }) {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Бренды</h1>
-        <button onClick={add} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+      <div className="mb-4 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-foreground">Бренды</h1>
+        <button onClick={add} className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-brand-contrast transition-colors hover:bg-brand-700">
           + Добавить бренд
         </button>
       </div>
 
       <div className="space-y-3">
         {brands.map((b) => (
-          <div key={b.id} className="bg-white p-4 rounded-xl border border-gray-200 grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
-            <input value={b.name} onChange={(e) => update(b.id, { name: e.target.value })} placeholder="Название" className="md:col-span-3 border border-gray-300 rounded-lg p-2" />
-            <input value={b.status} onChange={(e) => update(b.id, { status: e.target.value })} placeholder="Статус / описание" className="md:col-span-5 border border-gray-300 rounded-lg p-2" />
-            <label className="md:col-span-2 flex items-center gap-2 text-sm">
-              <input type="checkbox" checked={b.active} onChange={(e) => update(b.id, { active: e.target.checked })} /> Активен
+          <div key={b.id} className="grid grid-cols-1 items-center gap-3 rounded-xl border border-border bg-surface p-4 md:grid-cols-12">
+            <input value={b.name} onChange={(e) => update(b.id, { name: e.target.value })} placeholder="Название" className={`md:col-span-3 ${input}`} />
+            <input value={b.status} onChange={(e) => update(b.id, { status: e.target.value })} placeholder="Статус / описание" className={`md:col-span-5 ${input}`} />
+            <label className="flex items-center gap-2 text-sm text-muted md:col-span-2">
+              <input type="checkbox" checked={b.active} onChange={(e) => update(b.id, { active: e.target.checked })} className="accent-brand-600" /> Активен
             </label>
-            <button onClick={() => remove(b.id)} className="md:col-span-2 text-red-600 text-sm hover:underline">
+            <button onClick={() => remove(b.id)} className="text-sm text-red-500 hover:underline md:col-span-2">
               Удалить
             </button>
           </div>
@@ -58,11 +61,11 @@ export default function BrandManager({ initial }: { initial: Brand[] }) {
       </div>
 
       <div className="mt-6 flex items-center gap-4">
-        <button onClick={save} disabled={status === "saving"} className="bg-green-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-700 disabled:opacity-60">
+        <button onClick={save} disabled={status === "saving"} className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-brand-contrast transition-colors hover:bg-brand-700 disabled:opacity-60">
           {status === "saving" ? "Сохранение..." : "Сохранить"}
         </button>
-        {status === "saved" && <span className="text-green-600 font-medium">Сохранено</span>}
-        {status === "error" && <span className="text-red-600 font-medium">{error}</span>}
+        {status === "saved" && <span className="font-medium text-brand-700">Сохранено</span>}
+        {status === "error" && <span className="font-medium text-red-600">{error}</span>}
       </div>
     </div>
   );

@@ -3,6 +3,9 @@
 import { useState } from "react";
 import type { Contacts } from "@/lib/content";
 
+const input =
+  "w-full rounded-lg border border-border bg-surface p-3 text-foreground placeholder:text-subtle focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40";
+
 const FIELDS: { key: keyof Contacts; label: string; placeholder?: string }[] = [
   { key: "salesName", label: "Отдел продаж — имя" },
   { key: "salesPhone", label: "Отдел продаж — телефон", placeholder: "+7 705 993 88 88" },
@@ -34,25 +37,25 @@ export default function ContactsForm({ initial }: { initial: Contacts }) {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Контакты</h1>
-      <p className="text-sm text-gray-500 mb-6">Эти данные используются в шапке, подвале и на странице «Контакты».</p>
-      <div className="bg-white p-6 rounded-2xl border border-gray-200 space-y-4 max-w-2xl">
+      <h1 className="mb-4 text-2xl font-bold text-foreground">Контакты</h1>
+      <p className="mb-6 text-sm text-muted">Эти данные используются в шапке, подвале и на странице «Контакты».</p>
+      <div className="max-w-2xl space-y-4 rounded-2xl border border-border bg-surface p-6">
         {FIELDS.map((f) => (
           <div key={f.key}>
-            <label className="block text-sm font-medium mb-1">{f.label}</label>
+            <label className="mb-1 block text-sm font-medium text-foreground">{f.label}</label>
             <input
               value={contacts[f.key]}
               onChange={(e) => update(f.key, e.target.value)}
               placeholder={f.placeholder}
-              className="w-full border border-gray-300 rounded-lg p-3"
+              className={input}
             />
           </div>
         ))}
-        <button onClick={save} disabled={status === "saving"} className="bg-green-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-700 disabled:opacity-60">
+        <button onClick={save} disabled={status === "saving"} className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-brand-contrast transition-colors hover:bg-brand-700 disabled:opacity-60">
           {status === "saving" ? "Сохранение..." : "Сохранить"}
         </button>
-        {status === "saved" && <span className="ml-3 text-green-600 font-medium">Сохранено</span>}
-        {status === "error" && <span className="ml-3 text-red-600 font-medium">Ошибка</span>}
+        {status === "saved" && <span className="ml-3 font-medium text-brand-700">Сохранено</span>}
+        {status === "error" && <span className="ml-3 font-medium text-red-600">Ошибка</span>}
       </div>
     </div>
   );

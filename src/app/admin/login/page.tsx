@@ -2,6 +2,8 @@
 
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Button from "@/components/ui/Button";
+import { Lock } from "@/components/ui/icons";
 
 function LoginForm() {
   const router = useRouter();
@@ -31,27 +33,30 @@ function LoginForm() {
 
   return (
     <div className="container mx-auto px-4 py-32 max-w-sm">
-      <h1 className="text-2xl font-bold mb-6 text-center">Вход в админ-панель</h1>
-      <form onSubmit={submit} className="space-y-4 bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
-        <div>
-          <label className="block text-sm font-medium mb-1">Пароль</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            autoFocus
-          />
+      <div className="rounded-2xl border border-border bg-surface p-8 shadow-sm">
+        <div className="mb-6 flex flex-col items-center text-center">
+          <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+            <Lock className="h-5 w-5" weight="regular" />
+          </span>
+          <h1 className="text-2xl font-bold text-foreground">Вход в админ-панель</h1>
         </div>
-        {error && <p className="text-sm text-red-600 font-medium">{error}</p>}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all"
-        >
-          {loading ? "Вход..." : "Войти"}
-        </button>
-      </form>
+        <form onSubmit={submit} className="space-y-4">
+          <div>
+            <label className="mb-1 block text-sm font-medium text-foreground">Пароль</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-foreground placeholder:text-subtle focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+              autoFocus
+            />
+          </div>
+          {error && <p className="text-sm font-medium text-red-600">{error}</p>}
+          <Button type="submit" disabled={loading} fullWidth>
+            {loading ? "Вход..." : "Войти"}
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }

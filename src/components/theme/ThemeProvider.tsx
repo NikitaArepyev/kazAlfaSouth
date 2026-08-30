@@ -4,7 +4,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useState,
 } from "react";
 
@@ -29,12 +28,13 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof document === "undefined") {
+      return "light";
+    }
 
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setThemeState(isDark ? "dark" : "light");
-  }, []);
+    return document.documentElement.classList.contains("dark") ? "dark" : "light";
+  });
 
   const setTheme = useCallback((t: Theme) => {
     setThemeState(t);

@@ -14,8 +14,13 @@ import { cn } from "@/lib/cn";
 type SalesProps = { name: string; phone: string; whatsapp: string };
 
 const listVariants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.05, delayChildren: 0.04 } },
+  hidden: { opacity: 0, y: -12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.34, ease: EASE_OUT, staggerChildren: 0.05, delayChildren: 0.04 },
+  },
+  exit: { opacity: 0, y: -8, transition: { duration: 0.22, ease: EASE_OUT } },
 };
 const itemVariants = {
   hidden: { opacity: 0, y: 12 },
@@ -35,8 +40,10 @@ export default function Header({ sales }: { sales: SalesProps }) {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    document.documentElement.classList.toggle("mobile-menu-open", open);
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.classList.remove("mobile-menu-open");
     };
   }, [open]);
 
@@ -146,33 +153,36 @@ export default function Header({ sales }: { sales: SalesProps }) {
             key="mobile-menu"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: EASE_OUT }}
-            className="fixed inset-x-0 bottom-0 top-20 z-overlay border-t border-border bg-background/85 backdrop-blur-xl xl:hidden"
+            className="fixed inset-x-0 top-20 z-overlay h-[calc(100dvh-5rem)] overflow-hidden border-t border-border bg-background/92 supports-[backdrop-filter]:backdrop-blur-2xl xl:hidden"
           >
             <motion.nav
               variants={reduce ? undefined : listVariants}
               initial={reduce ? false : "hidden"}
-              animate="show"
-              className="container mx-auto flex flex-col gap-1 px-4 py-6"
+              animate={reduce ? undefined : "show"}
+              exit={reduce ? undefined : "exit"}
+              className="container mx-auto flex h-full flex-col overflow-y-auto px-4 py-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
             >
-              {MENU_ITEMS.map((item) => (
-                <motion.div key={item.href} variants={reduce ? undefined : itemVariants}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center justify-between rounded-lg px-3 py-4 text-lg font-medium text-foreground transition-colors hover:bg-surface-2 hover:text-brand-700"
-                  >
-                    {item.label}
-                    <ArrowRight className="h-4 w-4 text-subtle" weight="regular" />
-                  </Link>
-                </motion.div>
-              ))}
-              <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="flex-1 space-y-1">
+                {MENU_ITEMS.map((item) => (
+                  <motion.div key={item.href} variants={reduce ? undefined : itemVariants}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="group flex items-center justify-between rounded-xl border border-transparent bg-transparent px-3 py-4 text-lg font-medium text-foreground transition-[transform,background-color,border-color,color] duration-200 ease-out hover:translate-x-1 hover:border-border hover:bg-surface-2 hover:text-brand-700"
+                    >
+                      {item.label}
+                      <ArrowRight className="h-4 w-4 text-subtle transition-transform duration-200 ease-out group-hover:translate-x-1 group-hover:text-brand-600" weight="regular" />
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+              <div className="mt-6 grid grid-cols-1 gap-3 border-t border-border pt-5 sm:grid-cols-2">
                 <a
                   href={telHref}
                   onClick={() => track("phone_click", { location: "mobile_menu" })}
-                  className="flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-3 font-bold text-brand-contrast"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3 font-bold text-brand-contrast shadow-sm transition-[transform,background-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-md"
                 >
                   <Phone className="h-4 w-4" weight="bold" /> {sales.phone}
                 </a>
@@ -181,7 +191,7 @@ export default function Header({ sales }: { sales: SalesProps }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track("whatsapp_click", { location: "mobile_menu" })}
-                  className="flex items-center justify-center gap-2 rounded-lg border border-border-strong px-4 py-3 font-bold text-foreground"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-4 py-3 font-bold text-foreground transition-[transform,border-color,background-color,color] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand-600 hover:text-brand-700"
                 >
                   <WhatsappLogo className="h-4 w-4" weight="fill" /> WhatsApp
                 </a>

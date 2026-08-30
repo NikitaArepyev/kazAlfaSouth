@@ -22,7 +22,7 @@ type RevealProps = {
  */
 export default function Reveal({
   delay = 0,
-  y = 18,
+  y = 22,
   className,
   id,
   style,
@@ -43,10 +43,10 @@ export default function Reveal({
       id={id}
       style={style}
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-      transition={{ duration: 0.6, ease: EASE_OUT, delay }}
+      initial={{ opacity: 0, y, scale: 0.985 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "0px 0px -12% 0px", amount: 0.2 }}
+      transition={{ duration: 0.68, ease: EASE_OUT, delay }}
     >
       {children}
     </motion.div>

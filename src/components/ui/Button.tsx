@@ -30,8 +30,8 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const base =
   "group inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold " +
-  "transition-[transform,background-color,color,border-color,box-shadow] duration-200 ease-out " +
-  "active:scale-[0.98] focus-visible:outline-none disabled:opacity-60 disabled:pointer-events-none";
+  "transition-[transform,background-color,color,border-color,box-shadow] duration-250 ease-out " +
+  "hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none disabled:opacity-60 disabled:pointer-events-none";
 
 const variants: Record<Variant, string> = {
   primary:

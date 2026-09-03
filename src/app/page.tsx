@@ -61,7 +61,7 @@ export default async function Home() {
           aria-hidden
         />
         <div className="container mx-auto grid items-center gap-12 px-4 py-20 md:py-28 lg:grid-cols-[1.05fr_0.95fr]">
-          <Reveal>
+          <Reveal direction="left" distance={28}>
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">
               <span className="h-3 w-[2px] rounded-full bg-brand-500" aria-hidden />
               Промышленные компрессорные системы
@@ -97,7 +97,7 @@ export default async function Home() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.12}>
+          <Reveal delay={0.12} direction="right" distance={32}>
             <MediaPlaceholder
               label="Промышленный компрессор"
               caption="TODO: фото оборудования на объекте заказчика"
@@ -116,7 +116,7 @@ export default async function Home() {
       >
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {TRUST.map((t, i) => (
-            <Reveal key={i} delay={i * 0.06}>
+            <Reveal key={i} delay={i * 0.06} direction="scale" distance={18}>
               <Card>
                 <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
                   <t.icon className="h-5 w-5" weight="regular" />
@@ -138,7 +138,7 @@ export default async function Home() {
       >
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {NEED_CARDS.map((card, i) => (
-            <Reveal key={i} delay={(i % 3) * 0.06} className={card.span}>
+            <Reveal key={i} delay={(i % 3) * 0.06} direction="up" distance={18} className={card.span}>
               <Link
                 href={card.href}
                 className="group block h-full rounded-xl border border-border bg-surface p-6 shadow-sm transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-md md:p-8"
@@ -162,7 +162,7 @@ export default async function Home() {
       <Section id="request-form" className="scroll-mt-24">
         <div className="overflow-hidden rounded-2xl border border-border bg-brand-600 px-6 py-12 text-brand-contrast md:px-12 md:py-16">
           <div className="grid items-center gap-10 lg:grid-cols-2">
-            <Reveal>
+            <Reveal direction="left" distance={24}>
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Быстрый запрос</h2>
               <p className="mt-4 max-w-md text-brand-100">
                 Опишите вашу задачу — модель, серийный номер, партномер или техническое задание. Подготовим
@@ -177,7 +177,7 @@ export default async function Home() {
                 </li>
               </ul>
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.1} direction="right" distance={24}>
               <div className="rounded-xl border border-white/15 bg-surface p-6 text-foreground shadow-lg md:p-8">
                 <LeadFormHome />
               </div>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion, useScroll } from "motion/react";
 import { MENU_ITEMS } from "@/lib/constants";
 import { track } from "@/lib/analytics";
-import { EASE_OUT } from "@/lib/motion";
+import { DURATIONS, EASE_DRAWER, EASE_OUT, translate3d } from "@/lib/motion";
 import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Phone, WhatsappLogo, ArrowRight } from "@/components/ui/icons";
@@ -14,17 +14,17 @@ import { cn } from "@/lib/cn";
 type SalesProps = { name: string; phone: string; whatsapp: string };
 
 const listVariants = {
-  hidden: { opacity: 0, y: -12 },
+  hidden: { opacity: 0, transform: translate3d(0, -14) },
   show: {
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.34, ease: EASE_OUT, staggerChildren: 0.05, delayChildren: 0.04 },
+    transform: translate3d(0, 0),
+    transition: { duration: 0.34, ease: EASE_OUT, staggerChildren: 0.045, delayChildren: 0.03 },
   },
-  exit: { opacity: 0, y: -8, transition: { duration: 0.22, ease: EASE_OUT } },
+  exit: { opacity: 0, transform: translate3d(0, -10), transition: { duration: 0.2, ease: EASE_OUT } },
 };
 const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT } },
+  hidden: { opacity: 0, transform: translate3d(0, 16) },
+  show: { opacity: 1, transform: translate3d(0, 0), transition: { duration: DURATIONS.medium, ease: EASE_OUT } },
 };
 
 export default function Header({ sales }: { sales: SalesProps }) {
@@ -151,10 +151,10 @@ export default function Header({ sales }: { sales: SalesProps }) {
         {open && (
           <motion.div
             key="mobile-menu"
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: EASE_OUT }}
+            initial={reduce ? false : { opacity: 0, transform: translate3d(0, -18) }}
+            animate={{ opacity: 1, transform: translate3d(0, 0) }}
+            exit={{ opacity: 0, transform: translate3d(0, -12) }}
+            transition={{ duration: DURATIONS.short, ease: EASE_DRAWER }}
             className="fixed inset-x-0 top-20 z-overlay h-[calc(100dvh-5rem)] overflow-hidden border-t border-border bg-background/92 supports-[backdrop-filter]:backdrop-blur-2xl xl:hidden"
           >
             <motion.nav

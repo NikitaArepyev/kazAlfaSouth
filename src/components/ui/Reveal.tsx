@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { EASE_OUT } from "@/lib/motion";
+import { DURATIONS, EASE_OUT, REVEAL_VIEWPORT, translateScale } from "@/lib/motion";
 import type { CSSProperties } from "react";
 
 type RevealProps = {
@@ -11,8 +11,10 @@ type RevealProps = {
   style?: CSSProperties;
   /** Stagger delay in seconds (use with index * step for lists). */
   delay?: number;
-  /** Vertical travel distance in px. */
-  y?: number;
+  /** Travel distance in px. */
+  distance?: number;
+  /** Reveal direction. */
+  direction?: "up" | "left" | "right" | "scale";
 };
 
 /**
@@ -22,13 +24,23 @@ type RevealProps = {
  */
 export default function Reveal({
   delay = 0,
-  y = 22,
+  distance = 22,
+  direction = "up",
   className,
   id,
   style,
   children,
 }: RevealProps) {
   const reduce = useReducedMotion();
+
+  const axis =
+    direction === "left"
+      ? { x: distance, y: 0, scale: 1 }
+      : direction === "right"
+        ? { x: -distance, y: 0, scale: 1 }
+        : direction === "scale"
+          ? { x: 0, y: 0, scale: 0.975 }
+          : { x: 0, y: distance, scale: 0.985 };
 
   if (reduce) {
     return (
@@ -43,10 +55,10 @@ export default function Reveal({
       id={id}
       style={style}
       className={className}
-      initial={{ opacity: 0, y, scale: 0.985 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "0px 0px -12% 0px", amount: 0.2 }}
-      transition={{ duration: 0.68, ease: EASE_OUT, delay }}
+      initial={{ opacity: 0, transform: translateScale(axis.x, axis.y, axis.scale) }}
+      whileInView={{ opacity: 1, transform: translateScale(0, 0, 1) }}
+      viewport={REVEAL_VIEWPORT}
+      transition={{ duration: DURATIONS.reveal, ease: EASE_OUT, delay }}
     >
       {children}
     </motion.div>

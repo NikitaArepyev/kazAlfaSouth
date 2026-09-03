@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Moon, Sun } from "@/components/ui/icons";
-import { EASE_OUT } from "@/lib/motion";
+import { DURATIONS, EASE_OUT, translateScale } from "@/lib/motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/cn";
 
@@ -26,10 +26,10 @@ export default function ThemeToggle({ className }: { className?: string }) {
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={isDark ? "moon" : "sun"}
-          initial={reduce ? false : { opacity: 0, rotate: -30 }}
-          animate={{ opacity: 1, rotate: 0 }}
-          exit={reduce ? { opacity: 0 } : { opacity: 0, rotate: 30 }}
-          transition={{ duration: 0.2, ease: EASE_OUT }}
+          initial={reduce ? false : { opacity: 0, transform: `${translateScale(0, 0, 0.84)} rotate(-24deg)` }}
+          animate={{ opacity: 1, transform: `${translateScale(0, 0, 1)} rotate(0deg)` }}
+          exit={reduce ? { opacity: 0 } : { opacity: 0, transform: `${translateScale(0, 0, 0.84)} rotate(24deg)` }}
+          transition={{ duration: DURATIONS.short, ease: EASE_OUT }}
           className="absolute inline-flex"
         >
           {isDark ? (

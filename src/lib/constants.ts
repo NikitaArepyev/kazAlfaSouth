@@ -16,14 +16,27 @@ export const COMPANY_INFO = {
   },
 };
 
-export const MENU_ITEMS = [
+export type MenuItem = {
+  label: string;
+  href: string;
+  /** Dropdown sub-links shown under this item; the item itself stays a plain link too. */
+  children?: { label: string; href: string }[];
+};
+
+/**
+ * Three-item primary nav. Brands, projects, about and contacts live in the
+ * footer nav columns instead of competing for header space.
+ */
+export const MENU_ITEMS: MenuItem[] = [
   { label: "Главная", href: "/" },
-  { label: "Оборудование", href: "/equipment" },
-  { label: "Запасные части", href: "/spare-parts" },
-  { label: "Расходные материалы", href: "/consumables" },
-  { label: "Сервис и ремонт", href: "/service" },
-  { label: "Бренды", href: "/brands" },
-  { label: "Опыт работы", href: "/projects" },
-  { label: "О компании", href: "/about" },
-  { label: "Контакты", href: "/contacts" },
+  {
+    label: "Сервис",
+    href: "/service",
+    children: [
+      { label: "Запасные части", href: "/spare-parts" },
+      { label: "Расходные материалы", href: "/consumables" },
+      { label: "Сервис и ремонт", href: "/service" },
+    ],
+  },
+  { label: "Каталог", href: "/equipment" },
 ];

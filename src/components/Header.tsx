@@ -1,16 +1,75 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useScroll } from "motion/react";
-import { MENU_ITEMS } from "@/lib/constants";
+import { MENU_ITEMS, type MenuItem } from "@/lib/constants";
 import { track } from "@/lib/analytics";
 import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/theme/ThemeToggle";
-import { Phone, ArrowRight } from "@/components/ui/icons";
+import { Phone, ArrowRight, CaretDown } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 
 type SalesProps = { name: string; phone: string; whatsapp: string };
+
+function NavLink({ item }: { item: MenuItem }) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onPointerDown(e: MouseEvent) {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  const linkClass = "text-[13px] sm:text-sm font-medium text-muted transition-colors duration-200 hover:text-brand-700 whitespace-nowrap";
+
+  if (!item.children) {
+    return (
+      <Link href={item.href} className={linkClass}>
+        {item.label}
+      </Link>
+    );
+  }
+
+  return (
+    <div ref={rootRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className={cn(linkClass, "inline-flex items-center gap-0.5")}
+      >
+        {item.label}
+        <CaretDown className={cn("h-3 w-3 transition-transform duration-200", open && "rotate-180")} weight="bold" />
+      </button>
+      {open && (
+        <div className="absolute left-0 top-full z-header mt-2 min-w-[220px] rounded-xl border border-border bg-surface p-1.5 shadow-md">
+          {item.children.map((child) => (
+            <Link
+              key={child.href}
+              href={child.href}
+              onClick={() => setOpen(false)}
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
+            >
+              {child.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Header({ sales }: { sales: SalesProps }) {
   const [scrolled, setScrolled] = useState(false);
@@ -31,23 +90,17 @@ export default function Header({ sales }: { sales: SalesProps }) {
       )}
     >
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between gap-4 md:h-20">
+        <div className="flex h-16 items-center justify-between gap-1.5 sm:gap-4 md:h-20">
           <Link
             href="/"
-            className="shrink-0 text-lg font-bold tracking-tight text-foreground"
+            className="shrink-0 text-base font-bold tracking-tight text-foreground sm:text-lg"
           >
             КАЗ<span className="text-brand-600">АЛЬФА</span>ЮГ
           </Link>
 
-          <nav className="hidden items-center gap-7 lg:flex">
+          <nav className="flex items-center gap-2 sm:gap-7">
             {MENU_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-muted transition-colors duration-200 hover:text-brand-700"
-              >
-                {item.label}
-              </Link>
+              <NavLink key={item.href} item={item} />
             ))}
           </nav>
 
@@ -75,19 +128,13 @@ export default function Header({ sales }: { sales: SalesProps }) {
             </div>
           </div>
         </div>
-
-        <nav className="-mx-4 flex gap-5 overflow-x-auto border-t border-border/70 px-4 py-3 text-sm lg:hidden">
-          {MENU_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="whitespace-nowrap font-medium text-muted transition-colors duration-200 hover:text-brand-700"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
       </div>
+
+      {/* Soft trailing blur: content fades out gradually instead of cutting off hard at the border. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-full h-8 backdrop-blur-sm [mask-image:linear-gradient(to_bottom,black,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]"
+      />
     </header>
   );
 }

@@ -132,6 +132,29 @@
   max-width: 80rem;
 }
 
+/*
+ * Named z-index utilities. Tailwind v4 doesn't auto-generate utilities from
+ * arbitrary custom properties the way it does for colors/radii/shadows via
+ * @theme, so the scale defined on :root needs explicit @utility rules too —
+ * without these, classes like `z-header` compile to no CSS at all and every
+ * sticky/overlay element silently falls back to `z-index: auto`.
+ */
+@utility z-sticky {
+  z-index: var(--z-sticky);
+}
+@utility z-header {
+  z-index: var(--z-header);
+}
+@utility z-overlay {
+  z-index: var(--z-overlay);
+}
+@utility z-modal {
+  z-index: var(--z-modal);
+}
+@utility z-toast {
+  z-index: var(--z-toast);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

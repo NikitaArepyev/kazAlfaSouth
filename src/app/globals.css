@@ -55,10 +55,10 @@
 
   /* z-index scale */
   --z-sticky: 40;
-  --z-header: 50;
-  --z-overlay: 60;
-  --z-modal: 70;
-  --z-toast: 80;
+  --z-header: 120;
+  --z-overlay: 130;
+  --z-modal: 140;
+  --z-toast: 150;
 }
 
 .dark {
@@ -188,12 +188,6 @@
       scroll-behavior: auto !important;
     }
   }
-}
-
-.mobile-menu-open .floating-whatsapp {
-  opacity: 0;
-  transform: translate3d(0, 1rem, 0);
-  pointer-events: none;
 }
 
 /* Thin, calm scrollbar in dark surfaces */

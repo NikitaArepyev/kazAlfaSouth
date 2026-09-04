@@ -81,7 +81,7 @@ export default async function RootLayout({
             <Header
               sales={{ name: c.salesName, phone: c.salesPhone, whatsapp: c.salesWhatsapp }}
             />
-            <main className="flex-grow">{children}</main>
+            <main className="relative z-0 flex-grow overflow-x-clip">{children}</main>
             <Footer />
           </div>
           <FloatingWhatsApp whatsapp={c.salesWhatsapp} />

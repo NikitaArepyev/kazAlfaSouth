@@ -3,7 +3,6 @@ import { COMPANY_INFO } from "@/lib/constants";
 import { getContent } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import Section from "@/components/ui/Section";
-import Card from "@/components/ui/Card";
 import Reveal from "@/components/ui/Reveal";
 import LeadForm from "@/components/LeadForm";
 import Button from "@/components/ui/Button";
@@ -15,7 +14,6 @@ import {
   ShieldCheck,
   Cube,
   Plug,
-  Wrench,
   Funnel,
   ArrowRight,
   WhatsappLogo,
@@ -31,20 +29,37 @@ export async function generateMetadata() {
   );
 }
 
-const TRUST = [
-  { icon: CalendarDots, title: `Работаем с ${COMPANY_INFO.foundedYear} года`, desc: "Стабильный опыт на рынке" },
-  { icon: MapTrifold, title: "Казахстан и Центральная Азия", desc: "Поставки в любой регион" },
-  { icon: Gear, title: "Технический подбор", desc: "По модели и партномеру" },
-  { icon: ShieldCheck, title: "Альтернативные решения", desc: "Проверенные аналоги с гарантией" },
+const FACTS = [
+  { icon: CalendarDots, title: `С ${COMPANY_INFO.foundedYear} года`, desc: "Работаем с промышленными объектами" },
+  { icon: MapTrifold, title: "Казахстан и ЦА", desc: "Поставка и сопровождение по регионам" },
+  { icon: Gear, title: "Подбор инженером", desc: "По модели, партномеру и режиму работы" },
 ];
 
-const NEED_CARDS = [
-  { title: "Купить оборудование", href: "/equipment", icon: Cube, span: "lg:col-span-2", action: "Ведёт в раздел оборудования / опросный лист" },
-  { title: "Подобрать запасную часть", href: "/#request-form", icon: Plug, span: "", action: "Открывает техническую форму по номеру / модели" },
-  { title: "Найти альтернативу оригиналу", href: "/#request-form", icon: ShieldCheck, span: "", action: "Открывает форму подбора аналога" },
-  { title: "Заказать сервис", href: "/service", icon: Gear, span: "", action: "Ведёт на страницу сервиса" },
-  { title: "Отправить в ремонт", href: "/#request-form", icon: Wrench, span: "", action: "Ведёт на форму ремонта" },
-  { title: "Расходные материалы", href: "/consumables", icon: Funnel, span: "", action: "Ведёт на фильтры, масла и комплекты" },
+const OFFER_CARDS = [
+  {
+    title: "Оборудование",
+    href: "/equipment",
+    icon: Cube,
+    desc: "Передвижные и стационарные компрессоры, осушители и подготовка воздуха.",
+  },
+  {
+    title: "Запчасти и аналоги",
+    href: "/#request-form",
+    icon: Plug,
+    desc: "Оригинальные позиции и проверенные альтернативы с подтверждением применимости.",
+  },
+  {
+    title: "Сервис и ремонт",
+    href: "/service",
+    icon: ShieldCheck,
+    desc: "Диагностика, регламентное обслуживание, ремонт узлов и техническая поддержка.",
+  },
+  {
+    title: "Расходные материалы",
+    href: "/consumables",
+    icon: Funnel,
+    desc: "Фильтры, сепараторы, масла и сервисные комплекты под конкретную установку.",
+  },
 ];
 
 export default async function Home() {
@@ -54,13 +69,12 @@ export default async function Home() {
 
   return (
     <>
-      {/* Hero — asymmetric split */}
       <section className="relative overflow-hidden border-b border-border">
         <div
           className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-transparent dark:from-brand-950/40"
           aria-hidden
         />
-        <div className="container mx-auto grid items-center gap-12 px-4 py-20 md:py-28 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="container mx-auto grid items-center gap-10 px-4 py-16 md:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
           <Reveal direction="left" distance={28}>
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">
               <span className="h-3 w-[2px] rounded-full bg-brand-500" aria-hidden />
@@ -95,6 +109,19 @@ export default async function Home() {
               Для расчёта направьте модель оборудования, серийный номер, партномер, фотографию детали или
               техническое задание.
             </p>
+            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+              {FACTS.map((fact, i) => (
+                <Reveal key={fact.title} delay={0.08 + i * 0.05} direction="scale" distance={14}>
+                  <div className="rounded-xl border border-border bg-surface/90 p-4">
+                    <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                      <fact.icon className="h-4 w-4" weight="regular" />
+                    </span>
+                    <div className="text-sm font-semibold text-foreground">{fact.title}</div>
+                    <div className="mt-1 text-xs leading-relaxed text-muted">{fact.desc}</div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </Reveal>
 
           <Reveal delay={0.12} direction="right" distance={32}>
@@ -108,46 +135,24 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Trust block */}
-      <Section
-        eyebrow="Почему КазАльфаЮг"
-        title="Надёжный поставщик технических решений"
-        description="Работаем с промышленными предприятиями Казахстана и Центральной Азии: от подбора до сервисного сопровождения."
-      >
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {TRUST.map((t, i) => (
-            <Reveal key={i} delay={i * 0.06} direction="scale" distance={18}>
-              <Card>
-                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                  <t.icon className="h-5 w-5" weight="regular" />
-                </span>
-                <div className="font-bold text-foreground">{t.title}</div>
-                <div className="mt-1 text-sm text-muted">{t.desc}</div>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* What you need — restrained bento */}
       <Section
         surface
-        eyebrow="Навигация по запросу"
-        title="Что вам требуется?"
-        description="Выберите направление — мы подберём оборудование, запчасть или сервис под вашу задачу."
+        eyebrow="Основные направления"
+        title="Оборудование, комплектующие и сервис без лишних уровней навигации"
+        description="Собрали похожие запросы в четыре понятных направления, чтобы путь к нужному разделу был короче."
       >
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {NEED_CARDS.map((card, i) => (
-            <Reveal key={i} delay={(i % 3) * 0.06} direction="up" distance={18} className={card.span}>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {OFFER_CARDS.map((card, i) => (
+            <Reveal key={card.title} delay={i * 0.05} direction="up" distance={16}>
               <Link
                 href={card.href}
-                className="group block h-full rounded-xl border border-border bg-surface p-6 shadow-sm transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-md md:p-8"
+                className="group block h-full rounded-xl border border-border bg-surface p-6 transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-sm md:p-7"
               >
                 <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-brand-contrast">
                   <card.icon className="h-5 w-5" weight="regular" />
                 </span>
                 <h3 className="text-lg font-bold text-foreground">{card.title}</h3>
-                <p className="mt-2 text-sm text-muted">{card.action}</p>
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">{card.desc}</p>
                 <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">
                   Подробнее
                   <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" weight="bold" />
@@ -158,27 +163,27 @@ export default async function Home() {
         </div>
       </Section>
 
-      {/* Quick request */}
       <Section id="request-form" className="scroll-mt-24">
-        <div className="overflow-hidden rounded-2xl border border-border bg-brand-600 px-6 py-12 text-brand-contrast md:px-12 md:py-16">
+        <div className="overflow-hidden rounded-2xl border border-border bg-surface-2 px-6 py-10 md:px-12 md:py-14">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <Reveal direction="left" distance={24}>
-              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Быстрый запрос</h2>
-              <p className="mt-4 max-w-md text-brand-100">
+              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">Быстрый запрос</span>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">Один канал для подбора и сервиса</h2>
+              <p className="mt-4 max-w-md text-muted">
                 Опишите вашу задачу — модель, серийный номер, партномер или техническое задание. Подготовим
                 предложение с проверкой применимости.
               </p>
-              <ul className="mt-8 space-y-3 text-sm text-brand-100">
+              <ul className="mt-8 space-y-3 text-sm text-muted">
                 <li className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-brand-200" weight="fill" /> Проверка применимости инженерами
+                  <ShieldCheck className="h-4 w-4 text-brand-600" weight="fill" /> Проверка применимости инженерами
                 </li>
                 <li className="flex items-center gap-2">
-                  <ArrowRight className="h-4 w-4 text-brand-200" weight="bold" /> Оригинал и проверенные аналоги
+                  <ArrowRight className="h-4 w-4 text-brand-600" weight="bold" /> Оригинал и проверенные аналоги
                 </li>
               </ul>
             </Reveal>
             <Reveal delay={0.1} direction="right" distance={24}>
-              <div className="rounded-xl border border-white/15 bg-surface p-6 text-foreground shadow-lg md:p-8">
+              <div className="rounded-xl border border-border bg-surface p-6 text-foreground shadow-sm md:p-8">
                 <LeadFormHome />
               </div>
             </Reveal>

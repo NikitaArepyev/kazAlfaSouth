@@ -7,7 +7,7 @@ import { MENU_ITEMS } from "@/lib/constants";
 import { track } from "@/lib/analytics";
 import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/theme/ThemeToggle";
-import { Phone, WhatsappLogo, ArrowRight } from "@/components/ui/icons";
+import { Phone, ArrowRight } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 
 type SalesProps = { name: string; phone: string; whatsapp: string };
@@ -22,7 +22,6 @@ export default function Header({ sales }: { sales: SalesProps }) {
   }, [scrollY]);
 
   const telHref = `tel:${sales.phone.replace(/\s+/g, "")}`;
-  const waHref = `https://wa.me/${sales.whatsapp}`;
 
   return (
     <header
@@ -68,17 +67,6 @@ export default function Header({ sales }: { sales: SalesProps }) {
             </a>
 
             <ThemeToggle />
-
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => track("whatsapp_click", { location: "header" })}
-              aria-label="WhatsApp"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-brand-contrast transition-colors duration-200 hover:bg-brand-700"
-            >
-              <WhatsappLogo className="h-5 w-5" weight="fill" />
-            </a>
 
             <div className="hidden sm:block">
               <Button href="/#request-form" variant="primary" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>

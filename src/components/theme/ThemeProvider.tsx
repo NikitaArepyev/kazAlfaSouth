@@ -4,7 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
-  useState,
+  useSyncExternalStore,
 } from "react";
 
 type Theme = "light" | "dark";
@@ -17,37 +17,41 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
+const listeners = new Set<() => void>();
+
+function getSnapshot(): Theme {
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+
+// The server can't know the visitor's stored/preferred theme, so it always
+// reports "light". The inline script in <head> already applies the real
+// class to <html> before hydration (no flash of the wrong theme visually);
+// useSyncExternalStore is what lets the *toggle*'s own state pick up the
+// real value right after hydration without a client/server mismatch.
+function getServerSnapshot(): Theme {
+  return "light";
+}
+
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  return () => listeners.delete(onChange);
+}
+
 function applyTheme(theme: Theme) {
-  const root = document.documentElement;
-  root.classList.toggle("dark", theme === "dark");
+  document.documentElement.classList.toggle("dark", theme === "dark");
   try {
     localStorage.setItem("theme", theme);
   } catch {
     /* ignore */
   }
+  listeners.forEach((onChange) => onChange());
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof document === "undefined") {
-      return "light";
-    }
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-    return document.documentElement.classList.contains("dark") ? "dark" : "light";
-  });
-
-  const setTheme = useCallback((t: Theme) => {
-    setThemeState(t);
-    applyTheme(t);
-  }, []);
-
-  const toggle = useCallback(() => {
-    setThemeState((prev) => {
-      const next: Theme = prev === "dark" ? "light" : "dark";
-      applyTheme(next);
-      return next;
-    });
-  }, []);
+  const setTheme = useCallback((t: Theme) => applyTheme(t), []);
+  const toggle = useCallback(() => applyTheme(getSnapshot() === "dark" ? "light" : "dark"), []);
 
   return (
     <ThemeContext.Provider value={{ theme, toggle, setTheme }}>

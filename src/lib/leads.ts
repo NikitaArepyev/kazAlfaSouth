@@ -25,10 +25,10 @@ export async function appendLead(lead: Lead): Promise<void> {
   await fs.appendFile(LEADS_FILE, JSON.stringify(lead) + "\n", "utf8");
 }
 
-export async function saveUpload(file: File, id: string): Promise<string> {
-  const safeName = file.name.replace(/[^a-zA-Zа-яА-Я0-9._-]/g, "_").slice(-80);
+export async function saveUpload(buffer: Buffer, fileName: string, id: string): Promise<string> {
+  const safeName = fileName.replace(/[^a-zA-Zа-яА-Я0-9._-]/g, "_").slice(-80);
   const savedAs = `${id}__${safeName}`;
-  const buf = Buffer.from(await file.arrayBuffer());
-  await fs.writeFile(path.join(DATA_DIR, "uploads", savedAs), buf);
+  await fs.mkdir(path.join(DATA_DIR, "uploads"), { recursive: true });
+  await fs.writeFile(path.join(DATA_DIR, "uploads", savedAs), buffer);
   return savedAs;
 }

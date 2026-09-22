@@ -187,13 +187,13 @@ export default function LeadForm({
       {showFile && (
         <div>
           <label className={labelCls} htmlFor={`${formType}-file`}>
-            Файл / фото / ТЗ / список запчастей (PDF, DOC, XLS, JPG, PNG)
+            Файл / фото / видео / ТЗ / список запчастей (PDF, DOC, XLS, JPG, PNG, HEIC, MP4, MOV — до 25 МБ)
           </label>
           <input
             id={`${formType}-file`}
             name="file"
             type="file"
-            accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+            accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.webp,.heic,.heif,.mp4,.mov"
             className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-foreground file:mr-4 file:rounded-md file:border-0 file:bg-brand-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-contrast hover:file:bg-brand-700"
           />
         </div>

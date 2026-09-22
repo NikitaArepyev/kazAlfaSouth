@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { appendLead, saveUpload, type Lead } from "@/lib/leads";
+import { notifyLead } from "@/lib/notify";
 
 export const runtime = "nodejs";
 
@@ -11,8 +12,14 @@ const ALLOWED_TYPES = [
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   "image/jpeg",
   "image/png",
+  "image/webp",
+  "image/heic",
+  "image/heif",
+  "video/mp4",
+  "video/quicktime",
 ];
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+// Kept under both the Telegram bot upload cap and typical mailbox attachment limits.
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 export async function POST(req: NextRequest) {
   let data: FormData;
@@ -61,16 +68,19 @@ export async function POST(req: NextRequest) {
   };
 
   const file = data.get("file");
+  let attachment: { name: string; type: string; buffer: Buffer } | undefined;
   if (file && typeof file === "object" && "arrayBuffer" in file && (file as File).size > 0) {
     const f = file as File;
     if (!ALLOWED_TYPES.includes(f.type)) {
       return NextResponse.json({ ok: false, error: "Недопустимый тип файла" }, { status: 400 });
     }
     if (f.size > MAX_FILE_SIZE) {
-      return NextResponse.json({ ok: false, error: "Файл слишком большой (макс. 10 МБ)" }, { status: 400 });
+      return NextResponse.json({ ok: false, error: "Файл слишком большой (макс. 25 МБ)" }, { status: 400 });
     }
+    const buffer = Buffer.from(await f.arrayBuffer());
+    attachment = { name: f.name, type: f.type, buffer };
     try {
-      const savedAs = await saveUpload(f, id);
+      const savedAs = await saveUpload(buffer, f.name, id);
       lead.file = { name: f.name, size: f.size, type: f.type, savedAs };
     } catch {
       return NextResponse.json({ ok: false, error: "Не удалось сохранить файл" }, { status: 500 });
@@ -81,6 +91,15 @@ export async function POST(req: NextRequest) {
     await appendLead(lead);
   } catch {
     return NextResponse.json({ ok: false, error: "Ошибка сохранения заявки" }, { status: 500 });
+  }
+
+  // The disk is ephemeral on the host, so a configured channel failing everywhere means the lead is lost.
+  const delivery = await notifyLead(lead, attachment);
+  if (delivery.configured && !delivery.telegram && !delivery.email) {
+    return NextResponse.json(
+      { ok: false, error: "Не удалось отправить заявку. Напишите нам в WhatsApp — мы ответим сразу." },
+      { status: 502 }
+    );
   }
 
   return NextResponse.json({ ok: true, id });

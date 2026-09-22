@@ -246,10 +246,28 @@ export default function CatalogView({
 
         {filtered.length === 0 ? (
           <Card className="text-center">
-            <p className="text-muted">По заданным фильтрам ничего не найдено.</p>
-            <button type="button" onClick={resetFilters} className="mt-3 text-sm font-semibold text-brand-700 hover:underline">
-              Сбросить фильтры
-            </button>
+            {category !== "all" && !categoryCounts.has(category) ? (
+              <>
+                <p className="text-muted">
+                  Раздел «{category}» пока в наполнении. Нужную позицию подберёт инженер — пришлите модель
+                  оборудования или партномер.
+                </p>
+                <Button
+                  className="mt-4"
+                  href="/#request-form"
+                  icon={<ArrowRight className="h-4 w-4" weight="bold" />}
+                >
+                  Запросить КП
+                </Button>
+              </>
+            ) : (
+              <>
+                <p className="text-muted">По заданным фильтрам ничего не найдено.</p>
+                <button type="button" onClick={resetFilters} className="mt-3 text-sm font-semibold text-brand-700 hover:underline">
+                  Сбросить фильтры
+                </button>
+              </>
+            )}
           </Card>
         ) : (
           <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
@@ -282,7 +300,7 @@ export default function CatalogView({
                       <div className="mt-4 flex flex-1 items-end justify-between gap-3">
                         <div>
                           <div className="text-lg font-bold text-foreground">{formatPrice(p.price)}</div>
-                          <div className="text-xs text-subtle">за {p.unit}</div>
+                          {p.price > 0 && <div className="text-xs text-subtle">за {p.unit}</div>}
                         </div>
                       </div>
                     </div>

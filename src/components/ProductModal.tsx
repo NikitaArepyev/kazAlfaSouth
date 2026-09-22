@@ -212,7 +212,9 @@ export default function ProductModal({
               <div className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-5">
                 <div>
                   <div className="text-xl font-bold text-foreground">{formatPrice(product.price)}</div>
-                  <div className="text-xs text-subtle">за {product.unit}</div>
+                  <div className="text-xs text-subtle">
+                    {product.price > 0 ? `за ${product.unit}` : `Фасовка: ${product.unit}`}
+                  </div>
                 </div>
                 <Button href="/#request-form" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
                   Запросить КП

@@ -9,6 +9,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const links = [
     { href: "/admin", label: "Дашборд" },
     { href: "/admin/brands", label: "Бренды" },
+    { href: "/admin/products", label: "Товары" },
     { href: "/admin/cases", label: "Кейсы" },
     { href: "/admin/contacts", label: "Контакты" },
   ];

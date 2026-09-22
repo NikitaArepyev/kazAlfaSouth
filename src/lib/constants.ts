@@ -24,19 +24,10 @@ export type MenuItem = {
 };
 
 /**
- * Three-item primary nav. Brands, projects, about and contacts live in the
- * footer nav columns instead of competing for header space.
+ * All product/service browsing funnels through the catalog — no separate
+ * per-category nav destinations.
  */
 export const MENU_ITEMS: MenuItem[] = [
   { label: "Главная", href: "/" },
-  {
-    label: "Сервис",
-    href: "/service",
-    children: [
-      { label: "Запасные части", href: "/spare-parts" },
-      { label: "Расходные материалы", href: "/consumables" },
-      { label: "Сервис и ремонт", href: "/service" },
-    ],
-  },
-  { label: "Каталог", href: "/equipment" },
+  { label: "Каталог", href: "/catalog" },
 ];

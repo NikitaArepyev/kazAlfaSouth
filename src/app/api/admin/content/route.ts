@@ -26,6 +26,7 @@ export async function PUT(req: NextRequest) {
   const content = await getContent();
   if (section === "brands") content.brands = data;
   else if (section === "cases") content.cases = data;
+  else if (section === "products") content.products = data;
   else if (section === "contacts") content.contacts = { ...content.contacts, ...data };
   else if (section === "settings") {
     content.tagline = data.tagline ?? content.tagline;

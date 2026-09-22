@@ -17,6 +17,7 @@ export default async function AdminDashboard() {
 
   const cards = [
     { label: "Активные бренды", value: content.brands.filter((b) => b.active).length, href: "/admin/brands" },
+    { label: "Товары в каталоге", value: content.products.filter((p) => p.active).length, href: "/admin/products" },
     { label: "Кейсы", value: content.cases.filter((c) => c.active).length, href: "/admin/cases" },
     { label: "Заявки", value: leadsCount, href: "/admin/leads" },
   ];

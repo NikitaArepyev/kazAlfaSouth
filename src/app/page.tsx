@@ -7,6 +7,7 @@ import Reveal from "@/components/ui/Reveal";
 import LeadForm from "@/components/LeadForm";
 import Button from "@/components/ui/Button";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import { catalogCategoryHref } from "@/lib/catalog";
 import {
   CalendarDots,
   MapTrifold,
@@ -38,25 +39,25 @@ const FACTS = [
 const OFFER_CARDS = [
   {
     title: "Оборудование",
-    href: "/equipment",
+    href: catalogCategoryHref("Оборудование"),
     icon: Cube,
     desc: "Передвижные и стационарные компрессоры, осушители и подготовка воздуха.",
   },
   {
     title: "Запчасти и аналоги",
-    href: "/#request-form",
+    href: catalogCategoryHref("Запасные части"),
     icon: Plug,
     desc: "Оригинальные позиции и проверенные альтернативы с подтверждением применимости.",
   },
   {
     title: "Сервис и ремонт",
-    href: "/service",
+    href: catalogCategoryHref("Сервис"),
     icon: ShieldCheck,
     desc: "Диагностика, регламентное обслуживание, ремонт узлов и техническая поддержка.",
   },
   {
     title: "Расходные материалы",
-    href: "/consumables",
+    href: catalogCategoryHref("Расходные материалы"),
     icon: Funnel,
     desc: "Фильтры, сепараторы, масла и сервисные комплекты под конкретную установку.",
   },

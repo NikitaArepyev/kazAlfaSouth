@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getContent } from "@/lib/content";
 import Button from "@/components/ui/Button";
 import { Phone, EnvelopeSimple, MapPin, ArrowRight, WhatsappLogo } from "@/components/ui/icons";
+import { catalogCategoryHref } from "@/lib/catalog";
 
 export default async function Footer() {
   const content = await getContent();
@@ -12,10 +13,11 @@ export default async function Footer() {
     {
       title: "Каталог",
       links: [
-        { label: "Оборудование", href: "/equipment" },
-        { label: "Запасные части", href: "/spare-parts" },
-        { label: "Расходные материалы", href: "/consumables" },
-        { label: "Сервис и ремонт", href: "/service" },
+        { label: "Все товары", href: "/catalog" },
+        { label: "Оборудование", href: catalogCategoryHref("Оборудование") },
+        { label: "Запасные части", href: catalogCategoryHref("Запасные части") },
+        { label: "Расходные материалы", href: catalogCategoryHref("Расходные материалы") },
+        { label: "Сервис и ремонт", href: catalogCategoryHref("Сервис") },
       ],
     },
     {

@@ -5,6 +5,7 @@ const BASE = "https://kazalfayug.kz";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
+    "/catalog",
     "/equipment",
     "/equipment/mobile",
     "/equipment/stationary",

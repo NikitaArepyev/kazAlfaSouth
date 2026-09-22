@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { COMPANY_INFO } from "@/lib/constants";
 import { getContent } from "@/lib/content";
@@ -6,7 +7,6 @@ import Section from "@/components/ui/Section";
 import Reveal from "@/components/ui/Reveal";
 import LeadForm from "@/components/LeadForm";
 import Button from "@/components/ui/Button";
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import { catalogCategoryHref } from "@/lib/catalog";
 import {
   CalendarDots,
@@ -126,12 +126,24 @@ export default async function Home() {
           </Reveal>
 
           <Reveal delay={0.12} direction="right" distance={32}>
-            <MediaPlaceholder
-              label="Промышленный компрессор"
-              caption="TODO: фото оборудования на объекте заказчика"
-              icon={<Cube className="h-7 w-7" weight="regular" />}
-              ratio="4 / 3"
-            />
+            <figure className="w-full">
+              <div
+                className="relative overflow-hidden rounded-xl border border-border bg-surface-2"
+                style={{ aspectRatio: "4 / 3" }}
+              >
+                <Image
+                  src="/products/xas185-desert-rig.jpg"
+                  alt="Передвижной компрессор Atlas Copco на буровой площадке"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                />
+              </div>
+              <figcaption className="mt-2 text-xs text-subtle">
+                Передвижной компрессор на объекте заказчика
+              </figcaption>
+            </figure>
           </Reveal>
         </div>
       </section>

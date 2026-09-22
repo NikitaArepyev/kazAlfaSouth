@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import Button from "@/components/ui/Button";
 import { ArrowRight, CaretLeft, CaretRight, ImageIcon, X } from "@/components/ui/icons";
@@ -10,6 +11,11 @@ import { formatPrice } from "@/lib/catalog";
 import type { Product } from "@/lib/content";
 
 const TRANSITION = { duration: DURATIONS.short, ease: EASE_OUT };
+
+/** Real photo paths are stored alongside plain caption placeholders in the same array. */
+function isRealImage(slide: string): boolean {
+  return slide.startsWith("/") || slide.startsWith("http");
+}
 
 function Carousel({ images, productName }: { images: string[]; productName: string }) {
   const [index, setIndex] = useState(0);
@@ -37,23 +43,42 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
           aria-hidden
         />
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={TRANSITION}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center"
-          >
-            <span className="text-subtle">
-              <ImageIcon className="h-8 w-8" weight="regular" />
-            </span>
-            <span className="text-xs font-medium text-subtle">{slides[index]}</span>
-          </motion.div>
+          {isRealImage(slides[index]) ? (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={TRANSITION}
+              className="absolute inset-0"
+            >
+              <Image
+                src={slides[index]}
+                alt={`${productName} — фото ${index + 1}`}
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 50vw, 100vw"
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={TRANSITION}
+              className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center"
+            >
+              <span className="text-subtle">
+                <ImageIcon className="h-8 w-8" weight="regular" />
+              </span>
+              <span className="text-xs font-medium text-subtle">{slides[index]}</span>
+              <span className="absolute right-2 top-2 rounded-full border border-border bg-surface/80 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-subtle">
+                TODO
+              </span>
+            </motion.div>
+          )}
         </AnimatePresence>
-        <span className="absolute right-2 top-2 rounded-full border border-border bg-surface/80 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-subtle">
-          TODO
-        </span>
 
         {slides.length > 1 && (
           <>
@@ -84,7 +109,7 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
               key={slide + i}
               type="button"
               onClick={() => setIndex(i)}
-              aria-label={`Фото ${i + 1}: ${slide} — ${productName}`}
+              aria-label={`Фото ${i + 1}${isRealImage(slide) ? "" : `: ${slide}`} — ${productName}`}
               aria-current={i === index}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-200",

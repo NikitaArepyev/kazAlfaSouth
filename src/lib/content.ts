@@ -118,7 +118,7 @@ function defaultContent(): SiteContent {
         sku: "AC-XAS185",
         active: true,
         description: "Дизельный передвижной компрессор на шасси для строительных и дорожных работ, устойчив к пыли и перепадам температур.",
-        images: ["Общий вид на шасси", "Панель приборов", "Дизельный двигатель", "Буксировочное устройство"],
+        images: ["/products/xas185-desert-rig.jpg", "/products/xas185-desert-panel.jpg", "/products/xas185-wellhead.jpg", "Буксировочное устройство"],
         specs: [
           { label: "Производительность", value: "10.4 м³/мин" },
           { label: "Рабочее давление", value: "7 бар" },
@@ -217,7 +217,7 @@ function defaultContent(): SiteContent {
         sku: "CA-VLV-KIT",
         active: true,
         description: "Комплект для планового ремонта впускного клапана: клапан, прокладки и уплотнения.",
-        images: ["Состав комплекта", "Впускной клапан крупным планом"],
+        images: ["/products/valve-kit-parts.jpg", "Впускной клапан крупным планом"],
         specs: [
           { label: "Совместимость", value: "DH 55, DH 75" },
           { label: "Состав комплекта", value: "впускной клапан, прокладки, уплотнения" },
@@ -255,7 +255,7 @@ function defaultContent(): SiteContent {
         sku: "FG-OF-501",
         active: true,
         description: "Полнопоточный масляный фильтр для планового технического обслуживания компрессора.",
-        images: ["Общий вид фильтра", "Резьба присоединения"],
+        images: ["/products/filter-install.jpg", "/products/oil-filters-block.jpg"],
         specs: [
           { label: "Тип фильтрации", value: "Полнопоточный" },
           { label: "Тонкость фильтрации", value: "15 мкм" },
@@ -293,7 +293,7 @@ function defaultContent(): SiteContent {
         sku: "LM-OIL-20",
         active: true,
         description: "Синтетическое компрессорное масло для винтовых компрессоров, расширенный интервал замены.",
-        images: ["Канистра 20 л", "Этикетка с характеристиками"],
+        images: ["/products/oil-fill.jpg", "Этикетка с характеристиками"],
         specs: [
           { label: "Тип", value: "Синтетическое" },
           { label: "Вязкость", value: "ISO VG 46" },
@@ -331,7 +331,7 @@ function defaultContent(): SiteContent {
         sku: "SRV-TO-1000",
         active: true,
         description: "Плановое техническое обслуживание компрессора каждые 1000 моточасов с выездом специалиста.",
-        images: ["Выезд специалиста", "Диагностика узла", "Акт выполненных работ"],
+        images: ["/products/service-warehouse.jpg", "Диагностика узла", "Акт выполненных работ"],
         specs: [
           { label: "Периодичность", value: "каждые 1000 моточасов" },
           { label: "Состав работ", value: "замена масляного и воздушного фильтров, осмотр ремней" },
@@ -387,7 +387,7 @@ function defaultContent(): SiteContent {
         sku: "SRV-REP-CB",
         active: true,
         description: "Капитальный ремонт компрессорной части: разборка, дефектовка, замена изношенных узлов.",
-        images: ["Разборка узла", "Замена компонентов", "Сборка и тест"],
+        images: ["/products/engine-repair-field.jpg", "/products/engine-rebuild-shop.jpg", "Сборка и тест"],
         specs: [
           { label: "Состав работ", value: "разборка, дефектовка, замена узлов" },
           { label: "Длительность", value: "1–3 рабочих дня" },

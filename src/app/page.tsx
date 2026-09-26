@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { COMPANY_INFO } from "@/lib/constants";
 import { getContent } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
@@ -7,15 +6,14 @@ import Section, { Eyebrow } from "@/components/ui/Section";
 import Reveal from "@/components/ui/Reveal";
 import LeadForm from "@/components/LeadForm";
 import Button from "@/components/ui/Button";
+import DirectionsIndex from "@/components/DirectionsIndex";
 import { catalogCategoryHref } from "@/lib/catalog";
 import {
   CalendarDots,
   MapTrifold,
   Gear,
   ShieldCheck,
-  Cube,
   Plug,
-  Funnel,
   ArrowRight,
   WhatsappLogo,
 } from "@/components/ui/icons";
@@ -36,30 +34,34 @@ const FACTS = [
   { icon: Gear, title: "Подбор инженером", desc: "По модели, партномеру и режиму работы" },
 ];
 
-const OFFER_CARDS = [
+const DIRECTIONS = [
   {
     title: "Оборудование",
-    href: catalogCategoryHref("Оборудование"),
-    icon: Cube,
+    category: "Оборудование",
     desc: "Передвижные и стационарные компрессоры, осушители и подготовка воздуха.",
+    image: "/products/xas185-wellhead.jpg",
+    imageAlt: "Передвижной компрессор у скважины на объекте",
   },
   {
     title: "Запчасти и аналоги",
-    href: catalogCategoryHref("Запасные части"),
-    icon: Plug,
+    category: "Запасные части",
     desc: "Оригинальные позиции и проверенные альтернативы с подтверждением применимости.",
+    image: "/products/valve-kit-parts.jpg",
+    imageAlt: "Комплект клапанов и запасных частей компрессора",
   },
   {
     title: "Сервис и ремонт",
-    href: catalogCategoryHref("Сервис"),
-    icon: ShieldCheck,
+    category: "Сервис",
     desc: "Диагностика, регламентное обслуживание, ремонт узлов и техническая поддержка.",
+    image: "/products/engine-repair-field.jpg",
+    imageAlt: "Ремонт двигателя компрессорной установки на объекте",
   },
   {
     title: "Расходные материалы",
-    href: catalogCategoryHref("Расходные материалы"),
-    icon: Funnel,
+    category: "Расходные материалы",
     desc: "Фильтры, сепараторы, масла и сервисные комплекты под конкретную установку.",
+    image: "/products/oil-filters-block.jpg",
+    imageAlt: "Масляные фильтры для компрессорного оборудования",
   },
 ];
 
@@ -67,6 +69,12 @@ export default async function Home() {
   const content = await getContent();
   const tagline = content.tagline;
   const wa = COMPANY_INFO.contacts.sales.whatsapp;
+  const activeProducts = content.products.filter((p) => p.active);
+  const directions = DIRECTIONS.map(({ category, ...d }) => ({
+    ...d,
+    href: catalogCategoryHref(category),
+    count: activeProducts.filter((p) => p.category === category).length,
+  }));
 
   return (
     <>
@@ -154,30 +162,10 @@ export default async function Home() {
 
       <Section
         surface
-        eyebrow="Основные направления"
-        title="Оборудование, комплектующие и сервис без лишних уровней навигации"
-        description="Собрали похожие запросы в четыре понятных направления, чтобы путь к нужному разделу был короче."
+        title="Всё для компрессорной станции у одного поставщика"
+        description="Выберите направление, чтобы перейти к позициям каталога."
       >
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {OFFER_CARDS.map((card, i) => (
-            <Reveal key={card.title} delay={i * 0.05} direction="up" distance={16}>
-              <Link
-                href={card.href}
-                className="group flex h-full flex-col rounded-xl border border-border bg-surface p-6 transition-[translate,scale,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] hover:border-brand-600 hover:shadow-sm md:p-7"
-              >
-                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent-soft text-accent-ink transition-colors group-hover:bg-brand-600 group-hover:text-brand-contrast">
-                  <card.icon className="h-5 w-5" weight="regular" />
-                </span>
-                <h3 className="text-lg font-bold text-foreground">{card.title}</h3>
-                <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">{card.desc}</p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-accent-ink">
-                  Подробнее
-                  <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" weight="bold" />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <DirectionsIndex directions={directions} />
       </Section>
 
       <Section id="request-form" className="scroll-mt-24">

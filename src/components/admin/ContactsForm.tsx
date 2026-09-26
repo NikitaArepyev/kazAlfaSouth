@@ -54,7 +54,7 @@ export default function ContactsForm({ initial }: { initial: Contacts }) {
         <button onClick={save} disabled={status === "saving"} className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-brand-contrast transition-colors hover:bg-brand-700 disabled:opacity-60">
           {status === "saving" ? "Сохранение..." : "Сохранить"}
         </button>
-        {status === "saved" && <span className="ml-3 font-medium text-brand-700">Сохранено</span>}
+        {status === "saved" && <span className="ml-3 font-medium text-accent-ink">Сохранено</span>}
         {status === "error" && <span className="ml-3 font-medium text-red-600">Ошибка</span>}
       </div>
     </div>

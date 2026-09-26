@@ -32,7 +32,7 @@ function NavLink({ item }: { item: MenuItem }) {
     };
   }, [open]);
 
-  const linkClass = "text-[13px] sm:text-sm font-medium text-muted transition-colors duration-200 hover:text-brand-700 whitespace-nowrap";
+  const linkClass = "text-[13px] sm:text-sm font-medium text-muted transition-colors duration-200 hover:text-accent-ink whitespace-nowrap";
 
   if (!item.children) {
     return (
@@ -51,10 +51,10 @@ function NavLink({ item }: { item: MenuItem }) {
         className={cn(linkClass, "inline-flex items-center gap-0.5")}
       >
         {item.label}
-        <CaretDown className={cn("h-3 w-3 transition-transform duration-200", open && "rotate-180")} weight="bold" />
+        <CaretDown className={cn("h-3 w-3 transition-[rotate] duration-200 ease-out", open && "rotate-180")} weight="bold" />
       </button>
       {open && (
-        <div className="absolute left-0 top-full z-header mt-2 min-w-[220px] rounded-xl border border-border bg-surface p-1.5 shadow-md">
+        <div className="absolute left-0 top-full z-header mt-2 min-w-[220px] origin-top-left rounded-xl border border-border bg-surface p-1.5 shadow-md transition-[opacity,translate,scale] duration-180 ease-out starting:-translate-y-1 starting:scale-[0.97] starting:opacity-0">
           {item.children.map((child) => (
             <Link
               key={child.href}
@@ -85,7 +85,7 @@ export default function Header({ sales }: { sales: SalesProps }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-header isolate border-b bg-background/95 transition-[border-color,box-shadow] duration-300 ease-out supports-[backdrop-filter]:backdrop-blur-xl",
+        "sticky top-0 z-header isolate border-b bg-background/95 transition-[border-color,box-shadow] duration-200 ease-out supports-[backdrop-filter]:backdrop-blur-xl",
         scrolled ? "border-border shadow-sm" : "border-border/80"
       )}
     >
@@ -95,7 +95,7 @@ export default function Header({ sales }: { sales: SalesProps }) {
             href="/"
             className="shrink-0 text-base font-bold tracking-tight text-foreground sm:text-lg"
           >
-            КАЗ<span className="text-brand-600">АЛЬФА</span>ЮГ
+            КАЗ<span className="text-accent-ink">АЛЬФА</span>ЮГ
           </Link>
 
           <nav className="flex items-center gap-2 sm:gap-7">
@@ -110,7 +110,7 @@ export default function Header({ sales }: { sales: SalesProps }) {
               onClick={() => track("phone_click", { location: "header" })}
               className="hidden items-center gap-2 md:flex"
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-brand-600 transition-colors hover:border-brand-600">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-accent-ink transition-colors hover:border-brand-600">
                 <Phone className="h-4 w-4" weight="regular" />
               </span>
               <span className="flex flex-col leading-none">

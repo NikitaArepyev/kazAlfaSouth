@@ -28,7 +28,7 @@ export default async function AdminDashboard() {
       <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {cards.map((c) => (
           <Link key={c.href} href={c.href} className="rounded-2xl border border-border bg-surface p-6 shadow-sm transition-shadow hover:shadow-md">
-            <div className="text-3xl font-bold text-brand-700">{c.value}</div>
+            <div className="text-3xl font-bold text-accent-ink">{c.value}</div>
             <div className="mt-1 text-sm text-subtle">{c.label}</div>
           </Link>
         ))}

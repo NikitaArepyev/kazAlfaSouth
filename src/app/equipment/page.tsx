@@ -74,13 +74,13 @@ export default function EquipmentPage() {
                 <ul className="mt-5 grid gap-2">
                   {cat.features.map((feat, j) => (
                     <li key={j} className="flex items-center gap-2 text-sm text-muted">
-                      <Check className="h-4 w-4 shrink-0 text-brand-600" weight="bold" /> {feat}
+                      <Check className="h-4 w-4 shrink-0 text-accent-ink" weight="bold" /> {feat}
                     </li>
                   ))}
                 </ul>
                 <Link
                   href={cat.href}
-                  className="group mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700"
+                  className="group mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-ink"
                 >
                   Подробнее
                   <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" weight="bold" />

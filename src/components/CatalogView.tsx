@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import { motion } from "motion/react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-import Reveal from "@/components/ui/Reveal";
 import ProductModal from "@/components/ProductModal";
 import { ArrowRight, Funnel, X } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
@@ -43,13 +42,13 @@ function FilterRow({
         onClick={onClick}
         className={cn(
           "relative flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition-colors duration-200",
-          active ? "font-semibold text-brand-700" : "text-muted hover:text-foreground"
+          active ? "font-semibold text-accent-ink" : "text-muted hover:text-foreground"
         )}
       >
         {active && (
           <motion.span
             layoutId={layoutId}
-            className="absolute inset-0 rounded-lg bg-brand-50"
+            className="absolute inset-0 rounded-lg bg-accent-soft"
             transition={PILL_TRANSITION}
           />
         )}
@@ -178,7 +177,7 @@ export default function CatalogView({
         </div>
 
         {hasActiveFilters && (
-          <button type="button" onClick={resetFilters} className="text-sm font-medium text-brand-700 hover:underline">
+          <button type="button" onClick={resetFilters} className="text-sm font-medium text-accent-ink hover:underline">
             Сбросить фильтры
           </button>
         )}
@@ -263,7 +262,7 @@ export default function CatalogView({
             ) : (
               <>
                 <p className="text-muted">По заданным фильтрам ничего не найдено.</p>
-                <button type="button" onClick={resetFilters} className="mt-3 text-sm font-semibold text-brand-700 hover:underline">
+                <button type="button" onClick={resetFilters} className="mt-3 text-sm font-semibold text-accent-ink hover:underline">
                   Сбросить фильтры
                 </button>
               </>
@@ -271,9 +270,8 @@ export default function CatalogView({
           </Card>
         ) : (
           <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((p, i) => (
+            {filtered.map((p) => (
               <motion.div key={p.id} layout transition={PILL_TRANSITION}>
-                <Reveal delay={(i % 6) * 0.04}>
                   <Card
                     as="article"
                     className="flex h-full cursor-pointer flex-col transition-colors duration-200 hover:border-brand-600"
@@ -308,7 +306,7 @@ export default function CatalogView({
                       <button
                         type="button"
                         onClick={() => setSelectedProduct(p)}
-                        className="text-xs font-semibold text-brand-700 hover:underline"
+                        className="text-xs font-semibold text-accent-ink hover:underline"
                       >
                         Фото и характеристики
                       </button>
@@ -319,7 +317,6 @@ export default function CatalogView({
                       </span>
                     </div>
                   </Card>
-                </Reveal>
               </motion.div>
             ))}
           </motion.div>

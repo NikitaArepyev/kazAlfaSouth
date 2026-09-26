@@ -85,7 +85,7 @@ export default function LeadForm({
         transition={{ duration: DURATIONS.medium, ease: EASE_OUT }}
         className="rounded-xl border border-border bg-surface p-8 text-center shadow-sm"
       >
-        <span className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+        <span className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft text-accent-ink">
           <CheckCircle className="h-7 w-7" weight="fill" />
         </span>
         <h3 className="text-xl font-bold text-foreground">Заявка отправлена</h3>
@@ -103,7 +103,7 @@ export default function LeadForm({
       <div className={cn("grid grid-cols-1 gap-4", compact && "md:grid-cols-2")}>
         <div>
           <label className={labelCls} htmlFor={`${formType}-name`}>
-            Имя <span className="text-brand-600">*</span>
+            Имя <span className="text-accent-ink">*</span>
           </label>
           <input
             id={`${formType}-name`}
@@ -116,7 +116,7 @@ export default function LeadForm({
         </div>
         <div>
           <label className={labelCls} htmlFor={`${formType}-contact`}>
-            Телефон / WhatsApp / E-mail <span className="text-brand-600">*</span>
+            Телефон / WhatsApp / E-mail <span className="text-accent-ink">*</span>
           </label>
           <input
             id={`${formType}-contact`}
@@ -133,7 +133,7 @@ export default function LeadForm({
         <div key={f.name}>
           <label className={labelCls} htmlFor={`${formType}-${f.name}`}>
             {f.label}
-            {f.required ? <span className="text-brand-600"> *</span> : ""}
+            {f.required ? <span className="text-accent-ink"> *</span> : ""}
           </label>
           {f.textarea ? (
             <textarea
@@ -172,7 +172,7 @@ export default function LeadForm({
 
       <div>
         <label className={labelCls} htmlFor={`${formType}-message`}>
-          {messageLabel} <span className="text-brand-600">*</span>
+          {messageLabel} <span className="text-accent-ink">*</span>
         </label>
         <textarea
           id={`${formType}-message`}
@@ -205,7 +205,7 @@ export default function LeadForm({
         <input required type="checkbox" className="mt-1 accent-brand-600" />
         <span>
           Нажимая кнопку, вы соглашаетесь с{" "}
-          <a href="/policy" className="font-medium text-brand-700 underline">
+          <a href="/policy" className="font-medium text-accent-ink underline">
             политикой обработки персональных данных
           </a>
           . Мы проверим запрос и подготовим предложение.

@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">
+    <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">
       <span className="h-3 w-[2px] rounded-full bg-brand-500" aria-hidden />
       {children}
     </span>

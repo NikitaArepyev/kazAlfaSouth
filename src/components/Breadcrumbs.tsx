@@ -23,7 +23,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
           return (
             <li key={i} className="flex items-center gap-1.5">
               {it.href && !last ? (
-                <Link href={it.href} className="text-muted transition-colors hover:text-brand-700">
+                <Link href={it.href} className="text-muted transition-colors hover:text-accent-ink">
                   {it.name}
                 </Link>
               ) : (

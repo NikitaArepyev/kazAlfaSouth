@@ -35,27 +35,27 @@ export default async function ContactsPage() {
           <Reveal>
             <div className="space-y-10">
               <section>
-                <h2 className="mb-6 border-b border-border pb-2 text-xl font-bold text-brand-700">
+                <h2 className="mb-6 border-b border-border pb-2 text-xl font-bold text-accent-ink">
                   Отдел продаж / Текущий контакт
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                       <Phone className="h-5 w-5" weight="regular" />
                     </span>
                     <div>
-                      <a href={`tel:${sales.phone.replace(/\s+/g, "")}`} className="font-bold text-foreground hover:text-brand-700">
+                      <a href={`tel:${sales.phone.replace(/\s+/g, "")}`} className="font-bold text-foreground hover:text-accent-ink">
                         {sales.phone}
                       </a>
                       <div className="text-sm text-subtle">Звонки и WhatsApp</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                       <EnvelopeSimple className="h-5 w-5" weight="regular" />
                     </span>
                     <div>
-                      <a href={`mailto:${sales.email}`} className="font-bold text-foreground hover:text-brand-700">
+                      <a href={`mailto:${sales.email}`} className="font-bold text-foreground hover:text-accent-ink">
                         {sales.email}
                       </a>
                       <div className="text-sm text-subtle">Для коммерческих запросов</div>
@@ -65,27 +65,27 @@ export default async function ContactsPage() {
               </section>
 
               <section>
-                <h2 className="mb-6 border-b border-border pb-2 text-xl font-bold text-brand-700">
+                <h2 className="mb-6 border-b border-border pb-2 text-xl font-bold text-accent-ink">
                   Общие контакты компании
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                       <Phone className="h-5 w-5" weight="regular" />
                     </span>
                     <div>
-                      <a href={`tel:${general.phone.replace(/\s+/g, "")}`} className="font-bold text-foreground hover:text-brand-700">
+                      <a href={`tel:${general.phone.replace(/\s+/g, "")}`} className="font-bold text-foreground hover:text-accent-ink">
                         {general.phone}
                       </a>
                       <div className="text-sm text-subtle">Приёмная</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                       <EnvelopeSimple className="h-5 w-5" weight="regular" />
                     </span>
                     <div>
-                      <a href={`mailto:${general.email}`} className="font-bold text-foreground hover:text-brand-700">
+                      <a href={`mailto:${general.email}`} className="font-bold text-foreground hover:text-accent-ink">
                         {general.email}
                       </a>
                       <div className="text-sm text-subtle">Для официальных писем</div>
@@ -95,12 +95,12 @@ export default async function ContactsPage() {
               </section>
 
               <section>
-                <h2 className="mb-6 border-b border-border pb-2 text-xl font-bold text-brand-700">
+                <h2 className="mb-6 border-b border-border pb-2 text-xl font-bold text-accent-ink">
                   Адреса офисов и площадок
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                       <MapPin className="h-5 w-5" weight="regular" />
                     </span>
                     <div>
@@ -109,7 +109,7 @@ export default async function ContactsPage() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                       <MapPin className="h-5 w-5" weight="regular" />
                     </span>
                     <div>

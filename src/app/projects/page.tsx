@@ -52,7 +52,7 @@ export default async function ProjectsPage() {
                 <Card>
                   <div className="mb-3 flex flex-wrap items-center gap-2">
                     {c.industry && (
-                      <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-700">
+                      <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent-ink">
                         {c.industry}
                       </span>
                     )}
@@ -92,7 +92,7 @@ export default async function ProjectsPage() {
           {INDUSTRIES.map((ind, i) => (
             <Reveal key={i} delay={(i % 2) * 0.05}>
               <li className="flex items-center gap-3 rounded-xl bg-surface-2 p-4 font-medium text-foreground">
-                <Check className="h-5 w-5 shrink-0 text-brand-600" weight="bold" /> {ind}
+                <Check className="h-5 w-5 shrink-0 text-accent-ink" weight="bold" /> {ind}
               </li>
             </Reveal>
           ))}

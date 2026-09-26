@@ -37,7 +37,7 @@ export default function SparePartsPage() {
         </Reveal>
 
         <Reveal>
-          <div className="mt-6 rounded-xl border-l-2 border-brand-600 bg-brand-50 px-6 py-5">
+          <div className="mt-6 rounded-xl border-l-2 border-brand-600 bg-accent-soft px-6 py-5">
             <p className="font-medium italic text-brand-900">
               «Для точного подбора предоставьте бренд, модель, серийный номер оборудования и партномер детали,
               если он известен. Применимость подтверждается после инженерной проверки.»
@@ -55,7 +55,7 @@ export default function SparePartsPage() {
             <ul className="mt-4 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
               {parts.map((part, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-muted">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" weight="bold" /> {part}
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent-ink" weight="bold" /> {part}
                 </li>
               ))}
             </ul>

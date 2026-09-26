@@ -40,7 +40,7 @@ export default function AboutPage() {
         </Reveal>
 
         <Reveal>
-          <blockquote className="mt-8 rounded-xl border-l-2 border-brand-600 bg-brand-50 px-6 py-5">
+          <blockquote className="mt-8 rounded-xl border-l-2 border-brand-600 bg-accent-soft px-6 py-5">
             <p className="font-medium italic text-brand-900">
               «{COMPANY_INFO.name} работает с {COMPANY_INFO.foundedYear} года. Компания поставляет компрессорное
               оборудование, запасные части и расходные материалы, а также оказывает услуги по техническому
@@ -64,7 +64,7 @@ export default function AboutPage() {
           {DIRECTIONS.map((d, i) => (
             <Reveal key={i} delay={(i % 2) * 0.05}>
               <li className="flex items-center gap-3 rounded-xl bg-surface-2 p-4 font-medium text-foreground">
-                <Check className="h-5 w-5 shrink-0 text-brand-600" weight="bold" /> {d}
+                <Check className="h-5 w-5 shrink-0 text-accent-ink" weight="bold" /> {d}
               </li>
             </Reveal>
           ))}
@@ -77,7 +77,7 @@ export default function AboutPage() {
           {PILLARS.map((p, i) => (
             <Reveal key={i} delay={i * 0.06}>
               <Card className="h-full">
-                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                   <p.icon className="h-5 w-5" weight="regular" />
                 </span>
                 <h3 className="font-bold text-foreground">{p.title}</h3>

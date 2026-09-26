@@ -135,7 +135,7 @@ export default function ProductManager({ initial, brands }: { initial: Product[]
               </div>
 
               <div className="mt-3 flex items-center justify-between">
-                <button type="button" onClick={() => toggleExpanded(p.id)} className="text-sm font-medium text-brand-700 hover:underline">
+                <button type="button" onClick={() => toggleExpanded(p.id)} className="text-sm font-medium text-accent-ink hover:underline">
                   {isOpen ? "Свернуть описание и фото" : "Описание, характеристики и фото"}
                 </button>
                 <button onClick={() => remove(p.id)} className="text-sm text-red-500 hover:underline">
@@ -193,7 +193,7 @@ export default function ProductManager({ initial, brands }: { initial: Product[]
         <button onClick={save} disabled={status === "saving"} className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-brand-contrast transition-colors hover:bg-brand-700 disabled:opacity-60">
           {status === "saving" ? "Сохранение..." : "Сохранить"}
         </button>
-        {status === "saved" && <span className="font-medium text-brand-700">Сохранено</span>}
+        {status === "saved" && <span className="font-medium text-accent-ink">Сохранено</span>}
         {status === "error" && <span className="font-medium text-red-600">{error}</span>}
       </div>
     </div>

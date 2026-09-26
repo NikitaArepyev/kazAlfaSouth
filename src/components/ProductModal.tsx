@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Button from "@/components/ui/Button";
 import { ArrowRight, CaretLeft, CaretRight, ImageIcon, X } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
-import { DURATIONS, EASE_OUT } from "@/lib/motion";
+import { DURATIONS, EASE_OUT, translateScale } from "@/lib/motion";
 import { formatPrice } from "@/lib/catalog";
 import type { Product } from "@/lib/content";
 
 const TRANSITION = { duration: DURATIONS.short, ease: EASE_OUT };
+/** Exit faster than enter: the system is responding, not the user deciding. */
+const EXIT_TRANSITION = { duration: DURATIONS.micro, ease: EASE_OUT };
 
 /** Real photo paths are stored alongside plain caption placeholders in the same array. */
 function isRealImage(slide: string): boolean {
@@ -42,7 +44,7 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
           }}
           aria-hidden
         />
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence initial={false}>
           {isRealImage(slides[index]) ? (
             <motion.div
               key={index}
@@ -86,7 +88,7 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
               type="button"
               onClick={prev}
               aria-label="Предыдущее фото"
-              className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground transition-colors hover:bg-surface"
+              className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground transition-[background-color,scale] duration-160 ease-out hover:bg-surface active:scale-[0.94]"
             >
               <CaretLeft className="h-4 w-4" weight="bold" />
             </button>
@@ -94,7 +96,7 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
               type="button"
               onClick={next}
               aria-label="Следующее фото"
-              className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground transition-colors hover:bg-surface"
+              className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground transition-[background-color,scale] duration-160 ease-out hover:bg-surface active:scale-[0.94]"
             >
               <CaretRight className="h-4 w-4" weight="bold" />
             </button>
@@ -112,7 +114,7 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
               aria-label={`Фото ${i + 1}${isRealImage(slide) ? "" : `: ${slide}`} — ${productName}`}
               aria-current={i === index}
               className={cn(
-                "h-1.5 rounded-full transition-all duration-200",
+                "h-1.5 rounded-full transition-[width,background-color] duration-200 ease-out",
                 i === index ? "w-5 bg-brand-600" : "w-1.5 bg-border-strong hover:bg-subtle"
               )}
             />
@@ -132,6 +134,11 @@ export default function ProductModal({
   brandName: string;
   onClose: () => void;
 }) {
+  const reduce = useReducedMotion();
+  const hidden = reduce
+    ? { opacity: 0 }
+    : { opacity: 0, transform: translateScale(0, 12, 0.96) };
+
   useEffect(() => {
     if (!product) return;
     function onKeyDown(e: KeyboardEvent) {
@@ -151,33 +158,28 @@ export default function ProductModal({
       {product && (
         <motion.div
           className="fixed inset-0 z-modal flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={TRANSITION}
         >
           <motion.div
             className="absolute inset-0 bg-black/50"
             onClick={onClose}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: TRANSITION }}
+            exit={{ opacity: 0, transition: EXIT_TRANSITION }}
           />
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label={product.name}
             className="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-y-auto rounded-2xl border border-border bg-surface shadow-xl md:flex-row md:overflow-hidden"
-            initial={{ opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={TRANSITION}
+            initial={hidden}
+            animate={{ opacity: 1, transform: translateScale(0, 0, 1), transition: TRANSITION }}
+            exit={{ ...hidden, transition: EXIT_TRANSITION }}
           >
             <button
               type="button"
               onClick={onClose}
               aria-label="Закрыть"
-              className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface/90 text-muted transition-colors hover:text-foreground"
+              className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface/90 text-muted transition-[color,scale] duration-160 ease-out hover:text-foreground active:scale-[0.94]"
             >
               <X className="h-4 w-4" weight="bold" />
             </button>

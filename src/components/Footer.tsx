@@ -37,7 +37,7 @@ export default async function Footer() {
         <div className="mb-14 grid grid-cols-1 gap-6 lg:grid-cols-3">
           <div className="lg:col-span-1">
             <h3 className="text-lg font-bold tracking-tight text-foreground">
-              КАЗ<span className="text-brand-600">АЛЬФА</span>ЮГ
+              КАЗ<span className="text-accent-ink">АЛЬФА</span>ЮГ
             </h3>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted">
               {content.tagline}
@@ -54,9 +54,9 @@ export default async function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-brand-700"
+                      className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent-ink"
                     >
-                      <span className="h-px w-0 bg-brand-500 transition-all duration-200 ease-out group-hover:w-3" />
+                      <span className="h-px w-3 origin-left scale-x-0 bg-brand-500 transition-[scale] duration-200 ease-out group-hover:scale-x-100" />
                       {l.label}
                     </Link>
                   </li>
@@ -68,29 +68,29 @@ export default async function Footer() {
 
         <div className="mb-14 grid grid-cols-1 gap-6 md:grid-cols-3">
           <div className="flex items-start gap-3">
-            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
               <Phone className="h-4 w-4" weight="regular" />
             </span>
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-subtle">Отдел продаж</div>
-              <a href={`tel:${c.salesPhone.replace(/\s+/g, "")}`} className="font-semibold text-foreground hover:text-brand-700">
+              <a href={`tel:${c.salesPhone.replace(/\s+/g, "")}`} className="font-semibold text-foreground hover:text-accent-ink">
                 {c.salesPhone}
               </a>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
               <EnvelopeSimple className="h-4 w-4" weight="regular" />
             </span>
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-subtle">Почта</div>
-              <a href={`mailto:${c.salesEmail}`} className="font-semibold text-foreground hover:text-brand-700">
+              <a href={`mailto:${c.salesEmail}`} className="font-semibold text-foreground hover:text-accent-ink">
                 {c.salesEmail}
               </a>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
               <MapPin className="h-4 w-4" weight="regular" />
             </span>
             <div>
@@ -133,7 +133,7 @@ export default async function Footer() {
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-border pt-8 text-sm text-subtle md:flex-row">
           <p>© {currentYear} ТОО «КазАльфаЮг». Все права защищены.</p>
           <div className="flex gap-6">
-            <Link href="/policy" className="transition-colors hover:text-brand-700">
+            <Link href="/policy" className="transition-colors hover:text-accent-ink">
               Политика конфиденциальности
             </Link>
           </div>

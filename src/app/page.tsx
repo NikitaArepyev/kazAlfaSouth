@@ -3,7 +3,7 @@ import Link from "next/link";
 import { COMPANY_INFO } from "@/lib/constants";
 import { getContent } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import Section from "@/components/ui/Section";
+import Section, { Eyebrow } from "@/components/ui/Section";
 import Reveal from "@/components/ui/Reveal";
 import LeadForm from "@/components/LeadForm";
 import Button from "@/components/ui/Button";
@@ -77,11 +77,11 @@ export default async function Home() {
         />
         <div className="container mx-auto grid items-center gap-10 px-4 py-16 md:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
           <Reveal direction="left" distance={28}>
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">
               <span className="h-3 w-[2px] rounded-full bg-brand-500" aria-hidden />
               Промышленные компрессорные системы
             </span>
-            <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight text-foreground md:text-5xl">
+            <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-5xl">
               {tagline}
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
@@ -102,7 +102,7 @@ export default async function Home() {
                 rel="noopener noreferrer"
                 className="inline-flex h-11 items-center gap-2 rounded-lg px-4 text-sm font-semibold text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
               >
-                <WhatsappLogo className="h-5 w-5 text-brand-600" weight="fill" />
+                <WhatsappLogo className="h-5 w-5 text-accent-ink" weight="fill" />
                 WhatsApp
               </a>
             </div>
@@ -110,19 +110,23 @@ export default async function Home() {
               Для расчёта направьте модель оборудования, серийный номер, партномер, фотографию детали или
               техническое задание.
             </p>
-            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+            <dl className="mt-10 grid gap-5 border-t border-border pt-6 sm:grid-cols-3 sm:gap-0">
               {FACTS.map((fact, i) => (
-                <Reveal key={fact.title} delay={0.08 + i * 0.05} direction="scale" distance={14}>
-                  <div className="rounded-xl border border-border bg-surface/90 p-4">
-                    <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                      <fact.icon className="h-4 w-4" weight="regular" />
-                    </span>
-                    <div className="text-sm font-semibold text-foreground">{fact.title}</div>
-                    <div className="mt-1 text-xs leading-relaxed text-muted">{fact.desc}</div>
-                  </div>
+                <Reveal
+                  key={fact.title}
+                  delay={0.08 + i * 0.05}
+                  direction="up"
+                  distance={10}
+                  className="sm:border-l sm:border-border sm:px-5 sm:first:border-l-0 sm:first:pl-0"
+                >
+                  <dt className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <fact.icon className="h-4 w-4 shrink-0 text-accent-ink" weight="regular" />
+                    {fact.title}
+                  </dt>
+                  <dd className="mt-1.5 text-xs leading-relaxed text-muted">{fact.desc}</dd>
                 </Reveal>
               ))}
-            </div>
+            </dl>
           </Reveal>
 
           <Reveal delay={0.12} direction="right" distance={32}>
@@ -159,14 +163,14 @@ export default async function Home() {
             <Reveal key={card.title} delay={i * 0.05} direction="up" distance={16}>
               <Link
                 href={card.href}
-                className="group block h-full rounded-xl border border-border bg-surface p-6 transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand-600 hover:shadow-sm md:p-7"
+                className="group flex h-full flex-col rounded-xl border border-border bg-surface p-6 transition-[translate,scale,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] hover:border-brand-600 hover:shadow-sm md:p-7"
               >
-                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-brand-contrast">
+                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent-soft text-accent-ink transition-colors group-hover:bg-brand-600 group-hover:text-brand-contrast">
                   <card.icon className="h-5 w-5" weight="regular" />
                 </span>
                 <h3 className="text-lg font-bold text-foreground">{card.title}</h3>
                 <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">{card.desc}</p>
-                <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">
+                <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-accent-ink">
                   Подробнее
                   <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" weight="bold" />
                 </span>
@@ -177,30 +181,28 @@ export default async function Home() {
       </Section>
 
       <Section id="request-form" className="scroll-mt-24">
-        <div className="overflow-hidden rounded-2xl border border-border bg-surface-2 px-6 py-10 md:px-12 md:py-14">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <Reveal direction="left" distance={24}>
-              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-700">Быстрый запрос</span>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">Один канал для подбора и сервиса</h2>
-              <p className="mt-4 max-w-md text-muted">
-                Опишите вашу задачу — модель, серийный номер, партномер или техническое задание. Подготовим
-                предложение с проверкой применимости.
-              </p>
-              <ul className="mt-8 space-y-3 text-sm text-muted">
-                <li className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-brand-600" weight="fill" /> Проверка применимости инженерами
-                </li>
-                <li className="flex items-center gap-2">
-                  <ArrowRight className="h-4 w-4 text-brand-600" weight="bold" /> Оригинал и проверенные аналоги
-                </li>
-              </ul>
-            </Reveal>
-            <Reveal delay={0.1} direction="right" distance={24}>
-              <div className="rounded-xl border border-border bg-surface p-6 text-foreground shadow-sm md:p-8">
-                <LeadFormHome />
-              </div>
-            </Reveal>
-          </div>
+        <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          <Reveal direction="left" distance={24} className="lg:sticky lg:top-32">
+            <Eyebrow>Быстрый запрос</Eyebrow>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">Один канал для подбора и сервиса</h2>
+            <p className="mt-4 max-w-md leading-relaxed text-muted">
+              Опишите вашу задачу — модель, серийный номер, партномер или техническое задание. Подготовим
+              предложение с проверкой применимости.
+            </p>
+            <ul className="mt-8 space-y-3 text-sm text-muted">
+              <li className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-accent-ink" weight="fill" /> Проверка применимости инженерами
+              </li>
+              <li className="flex items-center gap-2">
+                <ArrowRight className="h-4 w-4 text-accent-ink" weight="bold" /> Оригинал и проверенные аналоги
+              </li>
+            </ul>
+          </Reveal>
+          <Reveal delay={0.1} direction="right" distance={24}>
+            <div className="rounded-2xl border border-border bg-surface p-6 text-foreground shadow-md md:p-8">
+              <LeadFormHome />
+            </div>
+          </Reveal>
         </div>
       </Section>
     </>

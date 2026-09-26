@@ -57,7 +57,7 @@ export default function PolicyPage() {
           <h2 className="pt-4 text-xl font-bold text-foreground">6. Контакты</h2>
           <p className="leading-relaxed">
             По вопросам обработки персональных данных:{" "}
-            <a href="mailto:kazalfayug@gmail.com" className="font-medium text-brand-700 underline">
+            <a href="mailto:kazalfayug@gmail.com" className="font-medium text-accent-ink underline">
               kazalfayug@gmail.com
             </a>
             , тел. +7 727 297 64 77.

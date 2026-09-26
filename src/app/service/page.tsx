@@ -47,7 +47,7 @@ export default function ServicePage() {
           {services.map((s, i) => (
             <Reveal key={i} delay={(i % 3) * 0.06}>
               <Card className="h-full">
-                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                   <s.icon className="h-5 w-5" weight="regular" />
                 </span>
                 <h3 className="text-xl font-bold text-foreground">{s.title}</h3>
@@ -58,7 +58,7 @@ export default function ServicePage() {
         </div>
 
         <Reveal>
-          <div className="mt-16 max-w-4xl rounded-xl border-l-2 border-brand-600 bg-brand-50 px-8 py-6">
+          <div className="mt-16 max-w-4xl rounded-xl border-l-2 border-brand-600 bg-accent-soft px-8 py-6">
             <h4 className="text-lg font-bold text-brand-900">Важная информация</h4>
             <p className="mt-2 font-medium text-brand-900">
               «Стоимость и срок ремонта определяются после диагностики оборудования и согласования объёма

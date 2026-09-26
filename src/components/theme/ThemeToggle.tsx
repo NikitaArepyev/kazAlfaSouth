@@ -19,16 +19,16 @@ export default function ThemeToggle({ className }: { className?: string }) {
       aria-checked={isDark}
       aria-label={isDark ? "Включить светлую тему" : "Включить тёмную тему"}
       className={cn(
-        "relative inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface text-muted transition-colors duration-200 ease-out hover:border-brand-600 hover:text-brand-700",
+        "relative inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface text-muted transition-[color,border-color,scale] duration-160 ease-out hover:border-brand-600 hover:text-accent-ink active:scale-[0.94]",
         className
       )}
     >
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence initial={false}>
         <motion.span
           key={isDark ? "moon" : "sun"}
-          initial={reduce ? false : { opacity: 0, transform: `${translateScale(0, 0, 0.84)} rotate(-24deg)` }}
-          animate={{ opacity: 1, transform: `${translateScale(0, 0, 1)} rotate(0deg)` }}
-          exit={reduce ? { opacity: 0 } : { opacity: 0, transform: `${translateScale(0, 0, 0.84)} rotate(24deg)` }}
+          initial={reduce ? false : { opacity: 0, filter: "blur(2px)", transform: `${translateScale(0, 0, 0.84)} rotate(-24deg)` }}
+          animate={{ opacity: 1, filter: "blur(0px)", transform: `${translateScale(0, 0, 1)} rotate(0deg)` }}
+          exit={reduce ? { opacity: 0 } : { opacity: 0, filter: "blur(2px)", transform: `${translateScale(0, 0, 0.84)} rotate(24deg)` }}
           transition={{ duration: DURATIONS.short, ease: EASE_OUT }}
           className="absolute inline-flex"
         >

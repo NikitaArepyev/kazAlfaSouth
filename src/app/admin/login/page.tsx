@@ -35,7 +35,7 @@ function LoginForm() {
     <div className="container mx-auto px-4 py-32 max-w-sm">
       <div className="rounded-2xl border border-border bg-surface p-8 shadow-sm">
         <div className="mb-6 flex flex-col items-center text-center">
-          <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+          <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
             <Lock className="h-5 w-5" weight="regular" />
           </span>
           <h1 className="text-2xl font-bold text-foreground">Вход в админ-панель</h1>

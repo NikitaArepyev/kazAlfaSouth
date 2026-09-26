@@ -30,14 +30,14 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const base =
   "group inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold " +
-  "transition-[transform,background-color,color,border-color,box-shadow] duration-250 ease-out " +
-  "hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none disabled:opacity-60 disabled:pointer-events-none";
+  "transition-[translate,scale,background-color,color,border-color,box-shadow] duration-160 ease-out " +
+  "hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97] focus-visible:outline-none disabled:opacity-60 disabled:pointer-events-none";
 
 const variants: Record<Variant, string> = {
   primary:
     "bg-brand-600 text-brand-contrast shadow-sm hover:bg-brand-700 hover:shadow-md",
   secondary:
-    "border border-border-strong bg-surface text-foreground hover:border-brand-600 hover:text-brand-700",
+    "border border-border-strong bg-surface text-foreground hover:border-brand-600 hover:text-accent-ink",
   ghost: "text-muted hover:bg-surface-2 hover:text-foreground",
 };
 
@@ -45,7 +45,7 @@ function Chip({ icon, variant }: { icon: ReactNode; variant: Variant }) {
   const chip =
     variant === "primary"
       ? "bg-white/15 text-brand-contrast"
-      : "bg-brand-50 text-brand-600";
+      : "bg-accent-soft text-accent-ink";
   return (
     <span
       className={cn(

@@ -23,6 +23,10 @@
   --brand-950: #142147;
   --brand-contrast: #ffffff;
 
+  /* Semantic accent roles — re-tuned per theme so tints never glare in dark mode */
+  --accent-soft: var(--brand-50);
+  --accent-ink: var(--brand-700);
+
   /* Neutrals — off-white / off-black, never pure #000/#fff */
   --bg: #fbfbfa;
   --surface: #ffffff;
@@ -50,7 +54,7 @@
 
   /* Easing tokens */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
   /* z-index scale */
@@ -70,6 +74,9 @@
   --fg: #edeff2;
   --fg-muted: #9aa1ab;
   --fg-subtle: #6b7280;
+
+  --accent-soft: #17223a;
+  --accent-ink: #8fb4ff;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
   --shadow-md: 0 6px 16px -4px rgb(0 0 0 / 0.55), 0 2px 6px -2px rgb(0 0 0 / 0.45);
@@ -105,6 +112,8 @@
   --color-brand-900: var(--brand-900);
   --color-brand-950: var(--brand-950);
   --color-brand-contrast: var(--brand-contrast);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
 
   --radius-xs: var(--radius-xs);
   --radius-sm: var(--radius-sm);
@@ -184,6 +193,16 @@
     background:
       radial-gradient(circle at top, rgb(47 107 237 / 0.14), transparent 40%),
       linear-gradient(180deg, rgb(20 33 71 / 0.35), transparent 22%);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   ::selection {

@@ -57,7 +57,7 @@ export default function MobileCompressorsPage() {
         </div>
 
         <Reveal>
-          <div className="mt-12 rounded-xl border-l-2 border-brand-600 bg-brand-50 px-6 py-5">
+          <div className="mt-12 rounded-xl border-l-2 border-brand-600 bg-accent-soft px-6 py-5">
             <p className="font-medium text-brand-900">
               Для подбора укажите требуемые производительность, давление, режим работы и условия эксплуатации.
             </p>

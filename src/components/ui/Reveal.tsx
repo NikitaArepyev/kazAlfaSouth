@@ -20,7 +20,7 @@ type RevealProps = {
 /**
  * Fade-up on enter. Only transform + opacity, triggered by viewport
  * (whileInView / IntersectionObserver under the hood — no scroll listeners).
- * Honors prefers-reduced-motion by rendering statically.
+ * Honors prefers-reduced-motion with an opacity-only fade (no movement).
  */
 export default function Reveal({
   delay = 0,
@@ -44,9 +44,17 @@ export default function Reveal({
 
   if (reduce) {
     return (
-      <div id={id} style={style} className={className}>
+      <motion.div
+        id={id}
+        style={style}
+        className={className}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={REVEAL_VIEWPORT}
+        transition={{ duration: DURATIONS.short, ease: "easeOut" }}
+      >
         {children}
-      </div>
+      </motion.div>
     );
   }
 

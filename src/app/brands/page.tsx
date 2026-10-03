@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { getContent } from "@/lib/content";
 import Reveal from "@/components/ui/Reveal";
@@ -13,6 +14,17 @@ export async function generateMetadata() {
     "Бренды компрессорного оборудования, запасных частей и расходных материалов, с которыми работает ТОО «КазАльфаЮг»: Atlas Copco, CompAir, ELGi, Özen, Lupamat, Fleetguard, Hifi Filter."
   );
 }
+
+/** Logo files in /public/brands, keyed by brand id. Brands without a file fall back to a text plate. */
+const BRAND_LOGOS: Record<string, string> = {
+  "atlas-copco": "/brands/atlas-copco.jpg",
+  compair: "/brands/compair.png",
+  elgi: "/brands/elgi.png",
+  ozen: "/brands/ozen.png",
+  lupamat: "/brands/lupamat.png",
+  fleetguard: "/brands/fleetguard.png",
+  "hifi-filter": "/brands/hifi-filter.png",
+};
 
 export default async function BrandsPage() {
   const content = await getContent();
@@ -37,9 +49,22 @@ export default async function BrandsPage() {
           {brands.map((brand, i) => (
             <Reveal key={brand.id} delay={(i % 4) * 0.05}>
               <Card className="flex h-full flex-col items-center text-center">
-                <div className="mb-4 flex h-20 w-full md:h-24 items-center justify-center rounded-lg border border-border bg-surface-2 px-4">
-                  <span className="break-words text-base font-bold tracking-tight text-foreground md:text-lg">{brand.name}</span>
-                </div>
+                {BRAND_LOGOS[brand.id] ? (
+                  // Logos are drawn for a white ground, so the plate stays white in dark mode too
+                  <div className="relative mb-4 h-20 w-full overflow-hidden rounded-lg border border-border bg-white md:h-24">
+                    <Image
+                      src={BRAND_LOGOS[brand.id]}
+                      alt={`Логотип ${brand.name}`}
+                      fill
+                      sizes="(min-width: 1024px) 240px, (min-width: 768px) 30vw, 45vw"
+                      className="object-contain p-3 md:p-4"
+                    />
+                  </div>
+                ) : (
+                  <div className="mb-4 flex h-20 w-full items-center justify-center rounded-lg border border-border bg-surface-2 px-4 md:h-24">
+                    <span className="break-words text-base font-bold tracking-tight text-foreground md:text-lg">{brand.name}</span>
+                  </div>
+                )}
                 <h3 className="font-bold text-foreground">{brand.name}</h3>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-subtle">
                   {brand.status}

@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
 
   const extra: Record<string, string> = {};
   for (const key of data.keys()) {
-    if (["hp", "formType", "name", "contact", "company", "message", "file", "pageUrl", "referrer", "createdAt"].includes(key)) continue;
+    if (["hp", "formType", "name", "contact", "company", "message", "file", "pageUrl", "referrer", "createdAt", "utm"].includes(key)) continue;
     const v = data.get(key);
     if (typeof v === "string" && v.trim()) extra[key] = v.trim();
   }

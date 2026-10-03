@@ -39,8 +39,8 @@ export default function DirectionsIndex({ directions }: { directions: Direction[
   const [active, setActive] = useState(0);
 
   return (
-    <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16">
-      <ul className="self-start border-b border-border">
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-14">
+      <ul className="self-start border-b border-border-strong">
         {directions.map((d, i) => {
           const isActive = i === active;
           return (
@@ -51,7 +51,7 @@ export default function DirectionsIndex({ directions }: { directions: Direction[
                   onPointerEnter={() => setActive(i)}
                   onFocus={() => setActive(i)}
                   data-active={isActive || undefined}
-                  className="group relative grid grid-cols-[1fr_auto] items-center gap-x-6 border-t border-border py-7 focus-visible:outline-none md:py-8"
+                  className="group relative grid grid-cols-[1fr_auto] items-center gap-x-6 border-t border-border-strong py-6 focus-visible:outline-none md:py-7"
                 >
                   {/* Active marker: draws along the row's top rule instead of recoloring a box. */}
                   <span
@@ -59,11 +59,11 @@ export default function DirectionsIndex({ directions }: { directions: Direction[
                     className="absolute inset-x-0 -top-px hidden h-0.5 origin-left scale-x-0 bg-brand-600 transition-transform duration-500 ease-out group-data-active:scale-x-100 lg:block"
                   />
 
-                  <div className="relative col-span-2 mb-5 aspect-[16/9] overflow-hidden rounded-xl bg-surface-2 lg:hidden">
+                  <div className="relative col-span-2 mb-4 aspect-[16/9] overflow-hidden rounded-xl border border-border bg-surface-2 lg:hidden">
                     <Image src={d.image} alt={d.imageAlt} fill sizes="100vw" className="object-cover" />
                   </div>
 
-                  <span className="text-2xl font-semibold tracking-[-0.025em] text-foreground transition-colors duration-300 ease-out md:text-4xl lg:text-subtle lg:group-hover:text-foreground lg:group-focus-visible:text-foreground lg:group-data-active:text-foreground">
+                  <span className="min-w-0 text-[1.375rem] font-semibold leading-tight tracking-[-0.025em] sm:text-2xl text-foreground transition-colors duration-300 ease-out md:text-4xl lg:text-subtle lg:group-hover:text-foreground lg:group-focus-visible:text-foreground lg:group-data-active:text-foreground">
                     {d.title}
                   </span>
 
@@ -71,7 +71,7 @@ export default function DirectionsIndex({ directions }: { directions: Direction[
                     {d.count > 0 && (
                       <span className="hidden text-sm tabular-nums text-muted sm:inline">{countLabel(d.count)}</span>
                     )}
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full border border-border-strong text-foreground transition-[background-color,border-color,color] duration-300 ease-out group-focus-visible:ring-2 group-focus-visible:ring-brand-500/50 group-data-active:border-brand-600 group-data-active:bg-brand-600 group-data-active:text-brand-contrast">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-strong text-foreground transition-[background-color,border-color,color] duration-300 ease-out group-focus-visible:ring-2 group-focus-visible:ring-brand-500/50 group-data-active:border-brand-600 group-data-active:bg-brand-600 group-data-active:text-brand-contrast">
                       <ArrowRight
                         className="h-4 w-4 -rotate-45 transition-transform duration-300 ease-out group-hover:rotate-0 group-data-active:rotate-0"
                         weight="bold"

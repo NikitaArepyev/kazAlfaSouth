@@ -10,3 +10,8 @@ export function formatPrice(price: number) {
   if (price <= 0) return "Цена по запросу";
   return `${price.toLocaleString("ru-RU")} ₸`;
 }
+
+/** Real photo paths are stored alongside plain caption placeholders in the same array. */
+export function isRealImage(slide: string): boolean {
+  return slide.startsWith("/") || slide.startsWith("http");
+}

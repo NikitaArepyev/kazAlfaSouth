@@ -38,7 +38,7 @@ export default function Section({
     <section
       id={id}
       className={cn(
-        "py-16 md:py-24",
+        "py-12 md:py-16 lg:py-20",
         surface && "bg-surface-2",
         className
       )}
@@ -47,7 +47,7 @@ export default function Section({
         {(eyebrow || title || description) && (
           <Reveal
             className={cn(
-              "mb-12 max-w-3xl",
+              "mb-8 max-w-3xl md:mb-10",
               align === "center" && "mx-auto text-center"
             )}
           >
@@ -57,12 +57,12 @@ export default function Section({
               </div>
             )}
             {title && (
-              <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+              <h2 className="text-[1.75rem] font-bold leading-tight tracking-tight text-foreground sm:text-3xl md:text-4xl">
                 {title}
               </h2>
             )}
             {description && (
-              <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
+              <p className="mt-3 text-base leading-relaxed text-muted md:text-lg">
                 {description}
               </p>
             )}

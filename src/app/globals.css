@@ -28,19 +28,21 @@
   --accent-ink: var(--brand-700);
 
   /* Neutrals — off-white / off-black, never pure #000/#fff */
-  --bg: #fbfbfa;
-  --surface: #ffffff;
-  --surface-2: #f3f4f7;
-  --border: #e6e8ec;
-  --border-strong: #d3d8df;
+  /* Light theme: a cool grey page so white surfaces read as objects, with
+     borders dark enough to define edges without relying on shadow alone. */
+  --bg: #f2f4f7;
+  --surface: #fdfdfe;
+  --surface-2: #e9ecf1;
+  --border: #d5dae2;
+  --border-strong: #b9c0cb;
   --fg: #0f1216;
-  --fg-muted: #555c66;
-  --fg-subtle: #8a9099;
+  --fg-muted: #4b525c;
+  --fg-subtle: #6b727d;
 
-  /* Toned shadows (never pure black) */
-  --shadow-sm: 0 1px 2px 0 rgb(15 18 22 / 0.05), 0 1px 3px 0 rgb(15 18 22 / 0.06);
-  --shadow-md: 0 4px 12px -2px rgb(15 18 22 / 0.08), 0 2px 6px -2px rgb(15 18 22 / 0.05);
-  --shadow-lg: 0 14px 34px -10px rgb(15 18 22 / 0.14), 0 4px 12px -4px rgb(15 18 22 / 0.08);
+  /* Toned shadows (never pure black), tinted to the slate page hue */
+  --shadow-sm: 0 1px 2px 0 rgb(30 41 59 / 0.07), 0 1px 3px 0 rgb(30 41 59 / 0.08);
+  --shadow-md: 0 6px 16px -4px rgb(30 41 59 / 0.12), 0 2px 6px -2px rgb(30 41 59 / 0.08);
+  --shadow-lg: 0 16px 36px -10px rgb(30 41 59 / 0.18), 0 4px 12px -4px rgb(30 41 59 / 0.1);
 
   /* Radii — Shape Consistency Lock (cards / buttons / inputs share scale) */
   --radius-xs: 6px;
@@ -199,6 +201,18 @@
   h2,
   h3 {
     text-wrap: balance;
+    /* Long Russian compounds must wrap instead of pushing the page sideways on phones */
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* iOS zooms the page when a focused field is under 16px; keep fields at 16px on phones */
+  @media (max-width: 767px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
   }
 
   p {
@@ -230,6 +244,11 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* The floating WhatsApp button would cover a dialog's own CTA, so it steps aside while one is open */
+body:has([role="dialog"][aria-modal="true"]) .floating-whatsapp {
+  display: none;
 }
 
 /* Thin, calm scrollbar in dark surfaces */

@@ -33,9 +33,9 @@ export default async function ProjectsPage() {
     <div className="pb-20">
       <Breadcrumbs items={[{ name: "Главная", href: "/" }, { name: "Опыт работы" }]} />
 
-      <div className="container mx-auto max-w-4xl px-4 pt-10">
+      <div className="container mx-auto max-w-6xl px-4 pt-8 md:pt-10">
         <Reveal>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">Опыт работы</h1>
+          <h1 className="text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">Опыт работы</h1>
         </Reveal>
         <Reveal>
           <p className="mt-4 max-w-2xl text-muted">
@@ -86,12 +86,12 @@ export default async function ProjectsPage() {
         )}
 
         <Reveal>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-foreground">Отрасли заказчиков</h2>
+          <h2 className="mt-14 text-2xl font-bold tracking-tight text-foreground">Отрасли заказчиков</h2>
         </Reveal>
         <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {INDUSTRIES.map((ind, i) => (
             <Reveal key={i} delay={(i % 2) * 0.05}>
-              <li className="flex items-center gap-3 rounded-xl bg-surface-2 p-4 font-medium text-foreground">
+              <li className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4 font-medium shadow-sm text-foreground">
                 <Check className="h-5 w-5 shrink-0 text-accent-ink" weight="bold" /> {ind}
               </li>
             </Reveal>
@@ -99,7 +99,7 @@ export default async function ProjectsPage() {
         </ul>
 
         <Reveal>
-          <div className="mt-16 overflow-hidden rounded-2xl border border-border bg-brand-600 px-8 py-12 text-brand-contrast md:px-12">
+          <div className="mt-14 overflow-hidden rounded-2xl border border-border bg-brand-600 px-6 py-8 md:py-12 text-brand-contrast md:px-12">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div>
                 <h2 className="text-2xl font-bold tracking-tight">Нужен подбор или расчёт?</h2>

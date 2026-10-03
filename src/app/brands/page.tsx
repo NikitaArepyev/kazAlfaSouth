@@ -23,7 +23,7 @@ export default async function BrandsPage() {
 
       <div className="container mx-auto px-4 pt-10">
         <Reveal>
-          <h1 className="text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">Бренды</h1>
+          <h1 className="text-center text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">Бренды</h1>
         </Reveal>
         <Reveal>
           <p className="mx-auto mt-4 max-w-2xl text-center text-muted">
@@ -33,12 +33,12 @@ export default async function BrandsPage() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
           {brands.map((brand, i) => (
             <Reveal key={brand.id} delay={(i % 4) * 0.05}>
               <Card className="flex h-full flex-col items-center text-center">
-                <div className="mb-6 flex h-24 w-full items-center justify-center rounded-lg border border-border bg-surface-2 px-4">
-                  <span className="text-lg font-bold tracking-tight text-foreground">{brand.name}</span>
+                <div className="mb-4 flex h-20 w-full md:h-24 items-center justify-center rounded-lg border border-border bg-surface-2 px-4">
+                  <span className="break-words text-base font-bold tracking-tight text-foreground md:text-lg">{brand.name}</span>
                 </div>
                 <h3 className="font-bold text-foreground">{brand.name}</h3>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-subtle">

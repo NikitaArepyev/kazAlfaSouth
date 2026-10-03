@@ -34,9 +34,9 @@ export default function AboutPage() {
     <div className="pb-20">
       <Breadcrumbs items={[{ name: "Главная", href: "/" }, { name: "О компании" }]} />
 
-      <div className="container mx-auto max-w-4xl px-4 pt-10">
+      <div className="container mx-auto max-w-6xl px-4 pt-8 md:pt-10">
         <Reveal>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">О компании</h1>
+          <h1 className="text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">О компании</h1>
         </Reveal>
 
         <Reveal>
@@ -63,7 +63,7 @@ export default function AboutPage() {
         <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           {DIRECTIONS.map((d, i) => (
             <Reveal key={i} delay={(i % 2) * 0.05}>
-              <li className="flex items-center gap-3 rounded-xl bg-surface-2 p-4 font-medium text-foreground">
+              <li className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4 font-medium shadow-sm text-foreground">
                 <Check className="h-5 w-5 shrink-0 text-accent-ink" weight="bold" /> {d}
               </li>
             </Reveal>
@@ -88,7 +88,7 @@ export default function AboutPage() {
         </div>
 
         <Reveal>
-          <div className="mt-20 flex flex-col items-center justify-between gap-8 rounded-3xl bg-surface-2 px-10 py-12 md:flex-row">
+          <div className="mt-14 flex flex-col items-start justify-between gap-6 rounded-2xl border border-border bg-surface-2 px-6 py-8 md:flex-row md:items-center md:px-10 md:py-10">
             <div>
               <h2 className="text-2xl font-bold tracking-tight text-foreground">Нужна консультация?</h2>
               <p className="mt-2 text-muted">Свяжитесь с нами для получения подробной информации.</p>

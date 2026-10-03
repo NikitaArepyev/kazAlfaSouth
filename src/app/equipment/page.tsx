@@ -51,7 +51,7 @@ export default function EquipmentPage() {
 
       <div className="container mx-auto px-4 pt-10">
         <Reveal>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">Оборудование</h1>
+          <h1 className="text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">Оборудование</h1>
           <p className="mt-4 max-w-2xl text-muted">
             Поставляем компрессорное оборудование от ведущих мировых производителей и выполняем технический
             подбор под ваши задачи. Точный перечень брендов и моделей подтверждается менеджером. Технические
@@ -91,7 +91,7 @@ export default function EquipmentPage() {
         </div>
 
         <Reveal>
-          <div className="mt-16 overflow-hidden rounded-2xl border border-border bg-brand-600 px-8 py-12 text-brand-contrast md:px-12 md:py-16">
+          <div className="mt-14 overflow-hidden rounded-2xl border border-border bg-brand-600 px-6 py-8 text-brand-contrast md:px-12 md:py-16">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div>
                 <h2 className="text-2xl font-bold tracking-tight">Нужен подбор оборудования?</h2>

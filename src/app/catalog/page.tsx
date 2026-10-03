@@ -29,12 +29,12 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
     <div className="pb-20">
       <Breadcrumbs items={[{ name: "Главная", href: "/" }, { name: "Каталог" }]} />
 
-      <div className="container mx-auto px-4 pt-10">
+      <div className="container mx-auto px-4 pt-8 md:pt-10">
         <Reveal>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">Каталог товаров</h1>
+          <h1 className="text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">Каталог товаров</h1>
           <p className="mt-4 max-w-2xl text-muted">
-            Оборудование, запасные части, расходные материалы и сервисные работы — единый каталог. Отфильтруйте
-            список по бренду и категории или отсортируйте по цене — итоговая стоимость и сроки подтверждаются
+            Оборудование, запасные части, расходные материалы и сервисные работы: единый каталог. Отфильтруйте
+            список по бренду и категории или отсортируйте по цене. Итоговая стоимость и сроки подтверждаются
             менеджером в коммерческом предложении.
           </p>
         </Reveal>

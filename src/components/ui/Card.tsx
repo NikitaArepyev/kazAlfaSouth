@@ -34,7 +34,7 @@ export default function Card({
         <div
           className={cn(
             "rounded-xl bg-surface-2",
-            padded && "p-6 md:p-8",
+            padded && "p-5 md:p-7",
             "h-full"
           )}
         >
@@ -48,7 +48,7 @@ export default function Card({
     <Tag
       className={cn(
         "rounded-xl border border-border bg-surface shadow-sm",
-        padded && "p-6 md:p-8",
+        padded && "p-5 md:p-7",
         className
       )}
     >

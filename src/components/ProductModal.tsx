@@ -1,23 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Button from "@/components/ui/Button";
 import { ArrowRight, CaretLeft, CaretRight, ImageIcon, X } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { DURATIONS, EASE_OUT, translateScale } from "@/lib/motion";
-import { formatPrice } from "@/lib/catalog";
+import { formatPrice, isRealImage } from "@/lib/catalog";
 import type { Product } from "@/lib/content";
 
 const TRANSITION = { duration: DURATIONS.short, ease: EASE_OUT };
 /** Exit faster than enter: the system is responding, not the user deciding. */
 const EXIT_TRANSITION = { duration: DURATIONS.micro, ease: EASE_OUT };
 
-/** Real photo paths are stored alongside plain caption placeholders in the same array. */
-function isRealImage(slide: string): boolean {
-  return slide.startsWith("/") || slide.startsWith("http");
-}
+const subscribeNoop = () => () => {};
 
 function Carousel({ images, productName }: { images: string[]; productName: string }) {
   const [index, setIndex] = useState(0);
@@ -56,7 +54,7 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
             >
               <Image
                 src={slides[index]}
-                alt={`${productName} — фото ${index + 1}`}
+                alt={`${productName}, фото ${index + 1}`}
                 fill
                 className="object-cover"
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -75,9 +73,6 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
                 <ImageIcon className="h-8 w-8" weight="regular" />
               </span>
               <span className="text-xs font-medium text-subtle">{slides[index]}</span>
-              <span className="absolute right-2 top-2 rounded-full border border-border bg-surface/80 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-subtle">
-                TODO
-              </span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -111,7 +106,7 @@ function Carousel({ images, productName }: { images: string[]; productName: stri
               key={slide + i}
               type="button"
               onClick={() => setIndex(i)}
-              aria-label={`Фото ${i + 1}${isRealImage(slide) ? "" : `: ${slide}`} — ${productName}`}
+              aria-label={`Фото ${i + 1}${isRealImage(slide) ? "" : `: ${slide}`}, ${productName}`}
               aria-current={i === index}
               className={cn(
                 "h-1.5 rounded-full transition-[width,background-color] duration-200 ease-out",
@@ -153,11 +148,15 @@ export default function ProductModal({
     };
   }, [product, onClose]);
 
-  return (
+  // Portalled to <body>: <main> is its own stacking context, which would trap the dialog under the sticky header.
+  const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {product && (
         <motion.div
-          className="fixed inset-0 z-modal flex items-center justify-center p-4"
+          className="fixed inset-0 z-modal flex items-end justify-center sm:items-center sm:p-4"
         >
           <motion.div
             className="absolute inset-0 bg-black/50"
@@ -170,7 +169,7 @@ export default function ProductModal({
             role="dialog"
             aria-modal="true"
             aria-label={product.name}
-            className="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-y-auto rounded-2xl border border-border bg-surface shadow-xl md:flex-row md:overflow-hidden"
+            className="relative flex max-h-[92dvh] w-full max-w-3xl flex-col overflow-y-auto overscroll-contain rounded-t-2xl border border-border bg-surface shadow-xl sm:max-h-[90dvh] sm:rounded-2xl md:flex-row md:overflow-hidden"
             initial={hidden}
             animate={{ opacity: 1, transform: translateScale(0, 0, 1), transition: TRANSITION }}
             exit={{ ...hidden, transition: EXIT_TRANSITION }}
@@ -184,11 +183,11 @@ export default function ProductModal({
               <X className="h-4 w-4" weight="bold" />
             </button>
 
-            <div className="p-5 pt-16 md:w-1/2 md:overflow-y-auto md:p-6 md:pt-6">
+            <div className="p-4 pt-16 sm:p-5 sm:pt-16 md:w-1/2 md:overflow-y-auto md:p-6 md:pt-6">
               <Carousel images={product.images} productName={product.name} />
             </div>
 
-            <div className="border-t border-border p-5 md:w-1/2 md:overflow-y-auto md:border-l md:border-t-0 md:p-6">
+            <div className="border-t border-border p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5 md:w-1/2 md:overflow-y-auto md:border-l md:border-t-0 md:p-6">
               <span className="text-xs font-semibold uppercase tracking-wider text-subtle">{brandName}</span>
               <h2 className="mt-1.5 text-xl font-bold leading-snug text-foreground">{product.name}</h2>
               <p className="mt-1 text-xs text-subtle">
@@ -211,14 +210,14 @@ export default function ProductModal({
                 </div>
               )}
 
-              <div className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-5">
+              <div className="mt-6 flex flex-col gap-4 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <div className="text-xl font-bold text-foreground">{formatPrice(product.price)}</div>
                   <div className="text-xs text-subtle">
                     {product.price > 0 ? `за ${product.unit}` : `Фасовка: ${product.unit}`}
                   </div>
                 </div>
-                <Button href="/#request-form" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
+                <Button href="/#request-form" className="w-full sm:w-auto" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
                   Запросить КП
                 </Button>
               </div>
@@ -226,6 +225,7 @@ export default function ProductModal({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

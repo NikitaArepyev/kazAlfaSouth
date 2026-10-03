@@ -26,12 +26,12 @@ export default async function ContactsPage() {
     <div className="pb-20">
       <Breadcrumbs items={[{ name: "Главная", href: "/" }, { name: "Контакты" }]} />
 
-      <div className="container mx-auto max-w-5xl px-4 pt-10">
+      <div className="container mx-auto max-w-6xl px-4 pt-8 md:pt-10">
         <Reveal>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">Контакты</h1>
+          <h1 className="text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">Контакты</h1>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-10 md:mt-12 lg:grid-cols-2 lg:gap-12">
           <Reveal>
             <div className="space-y-10">
               <section>
@@ -55,7 +55,7 @@ export default async function ContactsPage() {
                       <EnvelopeSimple className="h-5 w-5" weight="regular" />
                     </span>
                     <div>
-                      <a href={`mailto:${sales.email}`} className="font-bold text-foreground hover:text-accent-ink">
+                      <a href={`mailto:${sales.email}`} className="break-all font-bold text-foreground hover:text-accent-ink">
                         {sales.email}
                       </a>
                       <div className="text-sm text-subtle">Для коммерческих запросов</div>
@@ -85,7 +85,7 @@ export default async function ContactsPage() {
                       <EnvelopeSimple className="h-5 w-5" weight="regular" />
                     </span>
                     <div>
-                      <a href={`mailto:${general.email}`} className="font-bold text-foreground hover:text-accent-ink">
+                      <a href={`mailto:${general.email}`} className="break-all font-bold text-foreground hover:text-accent-ink">
                         {general.email}
                       </a>
                       <div className="text-sm text-subtle">Для официальных писем</div>

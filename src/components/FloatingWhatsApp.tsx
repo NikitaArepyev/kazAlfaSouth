@@ -21,7 +21,7 @@ export default function FloatingWhatsApp({ whatsapp }: { whatsapp: string }) {
       transition={{ duration: DURATIONS.medium, ease: EASE_OUT, delay: 0.4 }}
       whileHover={reduce ? undefined : { transform: translateScale(0, -3, 1.03) }}
       whileTap={reduce ? undefined : { transform: translateScale(0, 0, 0.97), transition: { duration: 0.12, ease: EASE_OUT } }}
-      className="floating-whatsapp fixed bottom-6 right-6 z-toast flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-brand-contrast shadow-lg transition-colors duration-200 hover:bg-brand-700"
+      className="floating-whatsapp fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-toast flex h-14 w-14 sm:bottom-6 sm:right-6 items-center justify-center rounded-full bg-brand-600 text-brand-contrast shadow-lg transition-colors duration-200 hover:bg-brand-700"
     >
       {!reduce && (
         <motion.span

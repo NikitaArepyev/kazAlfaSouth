@@ -83,21 +83,21 @@ export default async function Home() {
           className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-transparent dark:from-brand-950/40"
           aria-hidden
         />
-        <div className="container mx-auto grid items-center gap-10 px-4 py-16 md:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <div className="container mx-auto grid items-center gap-8 px-4 py-10 md:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:py-16">
           <Reveal direction="left" distance={28}>
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">
               <span className="h-3 w-[2px] rounded-full bg-brand-500" aria-hidden />
               Промышленные компрессорные системы
             </span>
-            <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-5xl">
+            <h1 className="mt-4 text-[2rem] font-bold leading-[1.08] tracking-[-0.03em] text-foreground sm:text-4xl md:text-5xl">
               {tagline}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
               Поставляем передвижные и стационарные компрессоры, оригинальные и альтернативные запасные
               части, фильтры, сепараторы, масла и сервисные комплекты. Выполняем техническое обслуживание,
               диагностику и ремонт.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-7 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap sm:items-center">
               <Button href="/#request-form" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
                 Запросить КП
               </Button>
@@ -108,17 +108,17 @@ export default async function Home() {
                 href={`https://wa.me/${wa}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-11 items-center gap-2 rounded-lg px-4 text-sm font-semibold text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 text-sm sm:border-transparent sm:bg-transparent font-semibold text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
               >
                 <WhatsappLogo className="h-5 w-5 text-accent-ink" weight="fill" />
                 WhatsApp
               </a>
             </div>
-            <p className="mt-6 text-sm text-subtle">
+            <p className="mt-5 text-sm text-subtle">
               Для расчёта направьте модель оборудования, серийный номер, партномер, фотографию детали или
               техническое задание.
             </p>
-            <dl className="mt-10 grid gap-5 border-t border-border pt-6 sm:grid-cols-3 sm:gap-0">
+            <dl className="mt-8 grid gap-4 border-t border-border pt-6 sm:grid-cols-3 sm:gap-0">
               {FACTS.map((fact, i) => (
                 <Reveal
                   key={fact.title}
@@ -140,7 +140,7 @@ export default async function Home() {
           <Reveal delay={0.12} direction="right" distance={32}>
             <figure className="w-full">
               <div
-                className="relative overflow-hidden rounded-xl border border-border bg-surface-2"
+                className="relative overflow-hidden rounded-xl border border-border bg-surface-2 shadow-md"
                 style={{ aspectRatio: "4 / 3" }}
               >
                 <Image
@@ -169,15 +169,15 @@ export default async function Home() {
       </Section>
 
       <Section id="request-form" className="scroll-mt-24">
-        <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <div className="grid items-start gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <Reveal direction="left" distance={24} className="lg:sticky lg:top-32">
             <Eyebrow>Быстрый запрос</Eyebrow>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">Один канал для подбора и сервиса</h2>
+            <h2 className="mt-4 text-[1.75rem] font-bold leading-tight tracking-tight text-foreground sm:text-3xl md:text-4xl">Один канал для подбора и сервиса</h2>
             <p className="mt-4 max-w-md leading-relaxed text-muted">
               Опишите вашу задачу — модель, серийный номер, партномер или техническое задание. Подготовим
               предложение с проверкой применимости.
             </p>
-            <ul className="mt-8 space-y-3 text-sm text-muted">
+            <ul className="mt-6 space-y-3 text-sm text-muted">
               <li className="flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-accent-ink" weight="fill" /> Проверка применимости инженерами
               </li>
@@ -187,7 +187,7 @@ export default async function Home() {
             </ul>
           </Reveal>
           <Reveal delay={0.1} direction="right" distance={24}>
-            <div className="rounded-2xl border border-border bg-surface p-6 text-foreground shadow-md md:p-8">
+            <div className="rounded-2xl border border-border bg-surface p-5 text-foreground shadow-md md:p-8">
               <LeadFormHome />
             </div>
           </Reveal>

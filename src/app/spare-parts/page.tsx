@@ -31,9 +31,9 @@ export default function SparePartsPage() {
     <div className="pb-20">
       <Breadcrumbs items={[{ name: "Главная", href: "/" }, { name: "Запасные части" }]} />
 
-      <div className="container mx-auto max-w-5xl px-4 pt-10">
+      <div className="container mx-auto max-w-6xl px-4 pt-8 md:pt-10">
         <Reveal>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">Запасные части</h1>
+          <h1 className="text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">Запасные части</h1>
         </Reveal>
 
         <Reveal>

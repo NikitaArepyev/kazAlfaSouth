@@ -1,15 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import ProductModal from "@/components/ProductModal";
-import { ArrowRight, Funnel, X } from "@/components/ui/icons";
+import { ArrowRight, Funnel, ImageIcon, X } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { DURATIONS, EASE_OUT } from "@/lib/motion";
 import type { Brand, Product } from "@/lib/content";
-import { PRODUCT_CATEGORIES, formatPrice } from "@/lib/catalog";
+import { PRODUCT_CATEGORIES, formatPrice, isRealImage } from "@/lib/catalog";
 
 type SortOrder = "default" | "price-asc" | "price-desc";
 
@@ -75,6 +77,16 @@ export default function CatalogView({
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  // Lock page scroll behind the mobile filter drawer
+  useEffect(() => {
+    if (!filtersOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [filtersOpen]);
+
   const brandById = useMemo(() => new Map(brands.map((b) => [b.id, b.name])), [brands]);
 
   const availableBrands = useMemo(() => {
@@ -123,7 +135,7 @@ export default function CatalogView({
 
   function renderSidebar(scope: "desktop" | "mobile") {
     return (
-      <div className="space-y-8">
+      <div className="space-y-6">
         <div>
           <label htmlFor={`catalog-search-${scope}`} className="mb-2 block text-xs font-semibold uppercase tracking-wider text-subtle">
             Поиск
@@ -133,7 +145,7 @@ export default function CatalogView({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Название или артикул"
-            className="w-full rounded-lg border border-border bg-surface p-2.5 text-sm text-foreground placeholder:text-subtle focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="w-full rounded-lg border border-border-strong bg-surface p-2.5 text-sm text-foreground placeholder:text-subtle focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
         </div>
 
@@ -186,7 +198,7 @@ export default function CatalogView({
   }
 
   return (
-    <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[260px_1fr]">
+    <div className="mt-8 grid grid-cols-1 gap-6 md:mt-10 lg:grid-cols-[260px_1fr] lg:gap-8">
       {/* Mobile filter toggle */}
       <div className="lg:hidden">
         <button
@@ -200,13 +212,13 @@ export default function CatalogView({
         </button>
       </div>
 
-      {filtersOpen && (
-        <div className="fixed inset-0 z-header flex lg:hidden">
+      {filtersOpen && createPortal(
+        <div className="fixed inset-0 z-overlay flex lg:hidden">
           <div className="absolute inset-0 bg-black/40" onClick={() => setFiltersOpen(false)} />
-          <div className="relative ml-auto flex h-full w-[86%] max-w-sm flex-col overflow-y-auto bg-surface p-5 shadow-xl">
+          <div className="relative ml-auto flex h-dvh w-[86%] max-w-sm flex-col overflow-y-auto overscroll-contain border-l border-border bg-surface p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-xl">
             <div className="mb-4 flex items-center justify-between">
               <span className="font-bold text-foreground">Фильтры</span>
-              <button type="button" onClick={() => setFiltersOpen(false)} aria-label="Закрыть">
+              <button type="button" onClick={() => setFiltersOpen(false)} aria-label="Закрыть" className="-mr-2 flex h-10 w-10 items-center justify-center rounded-lg">
                 <X className="h-5 w-5 text-muted" weight="bold" />
               </button>
             </div>
@@ -215,15 +227,16 @@ export default function CatalogView({
               Показать {filtered.length}
             </Button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       <aside className="hidden lg:block">
-        <div className="sticky top-24">{renderSidebar("desktop")}</div>
+        <div className="sticky top-24 rounded-xl border border-border bg-surface p-4 shadow-sm">{renderSidebar("desktop")}</div>
       </aside>
 
       <div>
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-muted">
             Найдено позиций: <span className="font-semibold text-foreground">{filtered.length}</span>
           </p>
@@ -232,7 +245,7 @@ export default function CatalogView({
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOrder)}
-              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors duration-200 focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+              className="rounded-lg border border-border-strong bg-surface px-3 py-2 text-sm text-foreground transition-colors duration-200 focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
             >
               {Object.entries(SORT_LABELS).map(([value, label]) => (
                 <option key={value} value={value}>
@@ -269,56 +282,64 @@ export default function CatalogView({
             )}
           </Card>
         ) : (
-          <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((p) => (
-              <motion.div key={p.id} layout transition={PILL_TRANSITION}>
+          <motion.div layout className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
+            {filtered.map((p) => {
+              const cover = p.images.find(isRealImage);
+              return (
+                <motion.div key={p.id} layout transition={PILL_TRANSITION}>
                   <Card
                     as="article"
-                    className="flex h-full cursor-pointer flex-col transition-colors duration-200 hover:border-brand-600"
+                    padded={false}
+                    className="group relative flex h-full flex-col overflow-hidden transition-[border-color,box-shadow] duration-200 hover:border-brand-600 hover:shadow-md has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-brand-500/40"
                   >
-                    <div
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => setSelectedProduct(p)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setSelectedProduct(p);
-                        }
-                      }}
-                      className="flex flex-1 flex-col text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
-                    >
+                    <div className="relative aspect-[16/10] overflow-hidden border-b border-border bg-surface-2">
+                      {cover ? (
+                        <Image
+                          src={cover}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1280px) 300px, (min-width: 640px) 45vw, 100vw"
+                          className="object-cover transition-[scale] duration-500 ease-out group-hover:scale-[1.03]"
+                        />
+                      ) : (
+                        <span className="absolute inset-0 flex items-center justify-center text-subtle">
+                          <ImageIcon className="h-8 w-8" weight="regular" />
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex flex-1 flex-col p-4 md:p-5">
                       <span className="text-xs font-semibold uppercase tracking-wider text-subtle">
                         {brandById.get(p.brand) ?? p.brand}
                       </span>
-                      <h3 className="mt-1.5 font-bold leading-snug text-foreground">{p.name}</h3>
+                      <h3 className="mt-1.5 font-bold leading-snug text-foreground">
+                        {/* Stretched over the whole card: a click anywhere opens photos and specs */}
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProduct(p)}
+                          className="text-left after:absolute after:inset-0 after:content-[''] focus:outline-none"
+                        >
+                          {p.name}
+                        </button>
+                      </h3>
                       <p className="mt-1 text-xs text-subtle">
                         Арт. {p.sku} · {p.category}
                       </p>
-                      <div className="mt-4 flex flex-1 items-end justify-between gap-3">
-                        <div>
-                          <div className="text-lg font-bold text-foreground">{formatPrice(p.price)}</div>
-                          {p.price > 0 && <div className="text-xs text-subtle">за {p.unit}</div>}
-                        </div>
+                      <div className="mt-auto pt-4">
+                        <div className="text-lg font-bold text-foreground">{formatPrice(p.price)}</div>
+                        {p.price > 0 && <div className="text-xs text-subtle">за {p.unit}</div>}
+                      </div>
+                      {/* Sits above the stretched button so it keeps its own action */}
+                      <div className="relative mt-4">
+                        <Button href="/#request-form" fullWidth icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
+                          Запросить КП
+                        </Button>
                       </div>
                     </div>
-                    <div className="mt-4 flex items-center justify-between gap-3 border-t border-border pt-4">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedProduct(p)}
-                        className="text-xs font-semibold text-accent-ink hover:underline"
-                      >
-                        Фото и характеристики
-                      </button>
-                      <span onClick={(e) => e.stopPropagation()}>
-                        <Button href="/#request-form" variant="secondary" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
-                          КП
-                        </Button>
-                      </span>
-                    </div>
                   </Card>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </div>

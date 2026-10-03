@@ -31,7 +31,7 @@ export default function ServicePage() {
 
       <div className="container mx-auto px-4 pt-10">
         <Reveal>
-          <h1 className="text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+          <h1 className="text-center text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             Сервис и ремонт
           </h1>
         </Reveal>
@@ -58,7 +58,7 @@ export default function ServicePage() {
         </div>
 
         <Reveal>
-          <div className="mt-16 max-w-4xl rounded-xl border-l-2 border-brand-600 bg-accent-soft px-8 py-6">
+          <div className="mt-16 max-w-4xl rounded-xl border-l-2 border-brand-600 bg-accent-soft px-5 py-5 md:px-8 md:py-6">
             <h4 className="text-lg font-bold text-brand-900">Важная информация</h4>
             <p className="mt-2 font-medium text-brand-900">
               «Стоимость и срок ремонта определяются после диагностики оборудования и согласования объёма

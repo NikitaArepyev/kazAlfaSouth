@@ -33,9 +33,9 @@ export default async function Footer() {
 
   return (
     <footer className="border-t border-border bg-surface-2">
-      <div className="container mx-auto px-4 py-16">
-        <div className="mb-14 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <div className="lg:col-span-1">
+      <div className="container mx-auto px-4 py-12 md:py-14">
+        <div className="mb-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="sm:col-span-2 lg:col-span-1">
             <h3 className="text-lg font-bold tracking-tight text-foreground">
               КАЗ<span className="text-accent-ink">АЛЬФА</span>ЮГ
             </h3>
@@ -66,7 +66,7 @@ export default async function Footer() {
           ))}
         </div>
 
-        <div className="mb-14 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="mb-10 grid grid-cols-1 gap-5 md:grid-cols-3">
           <div className="flex items-start gap-3">
             <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
               <Phone className="h-4 w-4" weight="regular" />
@@ -84,7 +84,7 @@ export default async function Footer() {
             </span>
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-subtle">Почта</div>
-              <a href={`mailto:${c.salesEmail}`} className="font-semibold text-foreground hover:text-accent-ink">
+              <a href={`mailto:${c.salesEmail}`} className="break-all font-semibold text-foreground hover:text-accent-ink">
                 {c.salesEmail}
               </a>
             </div>
@@ -101,18 +101,18 @@ export default async function Footer() {
         </div>
 
         <div className="rounded-2xl border border-border bg-surface p-[3px] shadow-sm">
-          <div className="flex flex-col items-start justify-between gap-6 rounded-xl bg-brand-600 p-8 text-brand-contrast md:flex-row md:items-center">
+          <div className="flex flex-col items-start justify-between gap-6 rounded-xl bg-brand-600 p-6 text-brand-contrast md:p-8 md:flex-row md:items-center">
             <div>
               <h3 className="text-xl font-bold">Нужна консультация по оборудованию?</h3>
               <p className="mt-1 max-w-xl text-sm text-brand-100">
                 Направьте модель, серийный номер или техническое задание — подберём решение и подготовим предложение.
               </p>
             </div>
-            <div className="flex shrink-0 gap-3">
+            <div className="flex w-full shrink-0 gap-3 md:w-auto">
               <Button
                 href="/#request-form"
                 variant="primary"
-                className="!bg-white !text-brand-700 hover:!bg-brand-50"
+                className="flex-1 !bg-white !text-brand-700 hover:!bg-brand-50 md:flex-none"
                 icon={<ArrowRight className="h-4 w-4" weight="bold" />}
               >
                 Запросить КП
@@ -122,7 +122,7 @@ export default async function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
-                className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/15 text-white transition-colors hover:bg-white/25"
+                className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-lg bg-white/15 text-white transition-colors hover:bg-white/25"
               >
                 <WhatsappLogo className="h-5 w-5" weight="fill" />
               </a>
@@ -130,7 +130,7 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-border pt-8 text-sm text-subtle md:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-center text-sm text-subtle md:flex-row md:text-left">
           <p>© {currentYear} ТОО «КазАльфаЮг». Все права защищены.</p>
           <div className="flex gap-6">
             <Link href="/policy" className="transition-colors hover:text-accent-ink">

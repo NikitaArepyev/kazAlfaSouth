@@ -36,9 +36,9 @@ export default function StationaryCompressorsPage() {
         ]}
       />
 
-      <div className="container mx-auto max-w-4xl px-4 pt-10">
+      <div className="container mx-auto max-w-6xl px-4 pt-8 md:pt-10">
         <Reveal>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">Стационарные компрессоры</h1>
+          <h1 className="text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">Стационарные компрессоры</h1>
         </Reveal>
         <Reveal>
           <p className="mt-4 max-w-2xl text-muted">

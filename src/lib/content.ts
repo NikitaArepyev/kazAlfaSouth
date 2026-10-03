@@ -98,7 +98,7 @@ function defaultContent(): SiteContent {
         sku: "1630016100",
         active: true,
         description: "Компрессорное синтетическое масло для передвижных компрессоров.",
-        images: ["/products/375c7f6c-image.jpg"],
+        images: ["/products/paroil-s-20l.jpg"],
         specs: [
           { label: "Партномер", value: "1630016100" },
           { label: "Тип", value: "Синтетическое компрессорное" },
@@ -116,7 +116,7 @@ function defaultContent(): SiteContent {
         sku: "1630016200",
         active: true,
         description: "Компрессорное синтетическое масло для передвижных компрессоров.",
-        images: ["/products/fcc8b362-image.jpg"],
+        images: ["/products/paroil-s-210l.jpg"],
         specs: [
           { label: "Партномер", value: "1630016200" },
           { label: "Тип", value: "Синтетическое компрессорное" },
@@ -134,7 +134,7 @@ function defaultContent(): SiteContent {
         sku: "1615595400",
         active: true,
         description: "Моторное минеральное масло для передвижных компрессоров.",
-        images: ["/products/49019240-image.jpg"],
+        images: ["/products/paroil-e-20l.jpg"],
         specs: [
           { label: "Партномер", value: "1615595400" },
           { label: "Тип", value: "Минеральное моторное" },
@@ -152,7 +152,7 @@ function defaultContent(): SiteContent {
         sku: "1615595500",
         active: true,
         description: "Моторное минеральное масло для передвижных компрессоров.",
-        images: ["/products/377a6788-image.jpg"],
+        images: ["/products/paroil-e-210l.jpg"],
         specs: [
           { label: "Партномер", value: "1615595500" },
           { label: "Тип", value: "Минеральное моторное" },
@@ -170,7 +170,7 @@ function defaultContent(): SiteContent {
         sku: "2912600103",
         active: true,
         description: "Моторное синтетическое масло для передвижных компрессоров. Встречается под названием ParOil EXTRA.",
-        images: ["/products/42a621d5-image.jpg"],
+        images: ["/products/paroil-e-advance-20l.jpg"],
         specs: [
           { label: "Партномер", value: "2912600103" },
           { label: "Тип", value: "Синтетическое моторное" },
@@ -188,7 +188,7 @@ function defaultContent(): SiteContent {
         sku: "1630091800",
         active: true,
         description: "Минеральное масло для маслозаполненных винтовых компрессоров.",
-        images: ["/products/dc9b957f-image.jpg"],
+        images: ["/products/rif-ndurance-20l.jpg"],
         specs: [
           { label: "Партномер", value: "1630091800" },
           { label: "Тип", value: "Минеральное" },
@@ -206,7 +206,7 @@ function defaultContent(): SiteContent {
         sku: "1630091900",
         active: true,
         description: "Минеральное масло для маслозаполненных винтовых компрессоров.",
-        images: ["/products/fd0f3120-image.jpg"],
+        images: ["/products/rif-ndurance-209l.jpg"],
         specs: [
           { label: "Партномер", value: "1630091900" },
           { label: "Тип", value: "Минеральное" },
@@ -224,7 +224,7 @@ function defaultContent(): SiteContent {
         sku: "3002609010",
         active: true,
         description: "Сервисный набор на 1000 моточасов для компрессора XAXS600E.",
-        images: ["/products/151cbdea-image.jpg"],
+        images: ["/products/kit-xaxs600e-1000h.jpg"],
         specs: [
           { label: "Партномер", value: "3002609010" },
           { label: "Интервал ТО", value: "1000 моточасов" },
@@ -241,7 +241,7 @@ function defaultContent(): SiteContent {
         sku: "3002608700",
         active: true,
         description: "Сервисный набор маслосепаратора S1.5/2LP для компрессора XAXS600E.",
-        images: ["/products/valve-kit-parts.jpg"],
+        images: ["/products/kit-xaxs600e-separator.jpg"],
         specs: [
           { label: "Партномер", value: "3002608700" },
           { label: "Узел", value: "Маслосепаратор S1.5/2LP" },
@@ -258,7 +258,7 @@ function defaultContent(): SiteContent {
         sku: "3002608800",
         active: true,
         description: "Сервисный набор на 400 моточасов для компрессора V900 с двигателем Cummins.",
-        images: ["/products/service-warehouse.jpg", "/products/engine-repair-field.jpg"],
+        images: ["/products/kit-v900-400h.jpg"],
         specs: [
           { label: "Партномер", value: "3002608800" },
           { label: "Интервал ТО", value: "400 моточасов" },
@@ -276,7 +276,7 @@ function defaultContent(): SiteContent {
         sku: "3002608820",
         active: true,
         description: "Сервисный набор на 1000 моточасов для компрессора V900.",
-        images: ["/products/engine-rebuild-shop.jpg", "/products/filter-install.jpg"],
+        images: ["/products/kit-v900-1000h.jpg"],
         specs: [
           { label: "Партномер", value: "3002608820" },
           { label: "Интервал ТО", value: "1000 моточасов" },
@@ -293,7 +293,7 @@ function defaultContent(): SiteContent {
         sku: "3002608710",
         active: true,
         description: "Сервисный набор маслосепаратора для компрессора V900.",
-        images: ["/products/valve-kit-parts.jpg"],
+        images: ["/products/kit-v900-separator.jpg"],
         specs: [
           { label: "Партномер", value: "3002608710" },
           { label: "Узел", value: "Маслосепаратор" },
@@ -310,7 +310,7 @@ function defaultContent(): SiteContent {
         sku: "2912443005",
         active: true,
         description: "Сервисный набор на 500 моточасов для компрессора XRVS336 с двигателем CAT C9.",
-        images: ["/products/engine-repair-field.jpg"],
+        images: ["/products/kit-xrvs336-500h.jpg"],
         specs: [
           { label: "Партномер", value: "2912443005" },
           { label: "Интервал ТО", value: "500 моточасов" },
@@ -328,7 +328,7 @@ function defaultContent(): SiteContent {
         sku: "2912443006",
         active: true,
         description: "Сервисный набор на 1000 моточасов для компрессора XRVS336 в исполнении на 30 бар.",
-        images: ["/products/oil-filters-block.jpg"],
+        images: ["/products/kit-xrvs336-1000h.jpg"],
         specs: [
           { label: "Партномер", value: "2912443006" },
           { label: "Интервал ТО", value: "1000 моточасов" },
@@ -346,7 +346,7 @@ function defaultContent(): SiteContent {
         sku: "2911011700",
         active: true,
         description: "Сервисный набор маслосепаратора для компрессора XRVS336.",
-        images: ["/products/valve-kit-parts.jpg"],
+        images: ["/products/kit-xrvs336-separator.jpg"],
         specs: [
           { label: "Партномер", value: "2911011700" },
           { label: "Узел", value: "Маслосепаратор" },

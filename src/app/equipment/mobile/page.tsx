@@ -1,6 +1,7 @@
 import LeadForm from "@/components/LeadForm";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/ui/Reveal";
+import PageBanner from "@/components/ui/PageBanner";
 import Card from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo";
 
@@ -43,6 +44,10 @@ export default function MobileCompressorsPage() {
             Передвижные компрессоры на шасси применяются на строительных площадках, в дорожном хозяйстве и на
             буровых работах. Подбираем дизельные и электрические модели под требуемые параметры.
           </p>
+        </Reveal>
+
+        <Reveal>
+          <PageBanner className="mt-10" src="/products/mobile-compressor-road.jpg" alt="Передвижной дизельный компрессор на дорожных работах" />
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">

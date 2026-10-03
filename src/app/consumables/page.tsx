@@ -1,6 +1,7 @@
 import LeadForm from "@/components/LeadForm";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/ui/Reveal";
+import PageBanner from "@/components/ui/PageBanner";
 import Card from "@/components/ui/Card";
 import { Check } from "@/components/ui/icons";
 import { buildMetadata } from "@/lib/seo";
@@ -42,6 +43,10 @@ export default function ConsumablesPage() {
               если он известен. Применимость подтверждается после инженерной проверки.»
             </p>
           </div>
+        </Reveal>
+
+        <Reveal>
+          <PageBanner className="mt-10" src="/products/consumables-shelf.jpg" alt="Фильтры, сепараторы и масло для обслуживания компрессоров на складе" />
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 items-start gap-12 lg:grid-cols-2">

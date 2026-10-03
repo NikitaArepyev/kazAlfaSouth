@@ -1,6 +1,7 @@
 import LeadForm from "@/components/LeadForm";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/ui/Reveal";
+import PageBanner from "@/components/ui/PageBanner";
 import Card from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo";
 
@@ -45,6 +46,10 @@ export default function StationaryCompressorsPage() {
             Стационарные винтовые и поршневые компрессоры для цехов и производств. Подбираем решение под
             требуемое качество сжатого воздуха, режим работы и параметры электросети.
           </p>
+        </Reveal>
+
+        <Reveal>
+          <PageBanner className="mt-10" src="/products/stationary-compressor-room.jpg" alt="Винтовые компрессоры и ресивер в компрессорной станции" />
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">

@@ -1,10 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Card from "@/components/ui/Card";
 import Reveal from "@/components/ui/Reveal";
+import PageBanner from "@/components/ui/PageBanner";
 import Button from "@/components/ui/Button";
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
-import { Check, ArrowRight, Cube, Factory, Wind } from "@/components/ui/icons";
+import { Check, ArrowRight } from "@/components/ui/icons";
 import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -23,24 +24,24 @@ const CATEGORIES = [
     description: "Дизельные и электрические компрессоры на шасси для строительных и дорожных работ.",
     features: ["Области применения", "Тип привода", "Рабочее давление", "Производительность"],
     href: "/equipment/mobile",
-    icon: Cube,
     label: "Передвижной компрессор на шасси",
+    image: "/products/mobile-compressor-road.jpg",
   },
   {
     title: "Стационарные компрессоры",
     description: "Винтовые и поршневые компрессоры для промышленных предприятий и цехов.",
     features: ["Режим работы", "Наличие резерва", "Качество воздуха", "Электросеть"],
     href: "/equipment/stationary",
-    icon: Factory,
     label: "Стационарная компрессорная станция",
+    image: "/products/stationary-compressor-room.jpg",
   },
   {
     title: "Осушители и подготовка воздуха",
     description: "Оборудование для удаления влаги и очистки сжатого воздуха.",
     features: ["Рефрижераторные", "Адсорбционные", "Фильтры", "Сепараторы"],
     href: "/equipment/air-treatment",
-    icon: Wind,
     label: "Осушитель и система подготовки воздуха",
+    image: "/products/air-treatment-dryer.jpg",
   },
 ];
 
@@ -59,16 +60,17 @@ export default function EquipmentPage() {
           </p>
         </Reveal>
 
+        <Reveal>
+          <PageBanner className="mt-10" src="/products/equipment-fleet.jpg" alt="Передвижные компрессоры и стационарная установка на площадке" />
+        </Reveal>
+
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {CATEGORIES.map((cat, i) => (
             <Reveal key={i} delay={i * 0.06}>
               <Card bezel className="flex flex-col">
-                <MediaPlaceholder
-                  label={cat.label}
-                  icon={<cat.icon className="h-7 w-7" weight="regular" />}
-                  ratio="16 / 10"
-                  className="mb-6"
-                />
+                <div className="relative mb-6 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border bg-surface-2">
+                  <Image src={cat.image} alt={cat.label} fill className="object-cover" sizes="(min-width: 1024px) 33vw, 100vw" />
+                </div>
                 <h3 className="text-xl font-bold text-foreground">{cat.title}</h3>
                 <p className="mt-2 text-sm text-muted">{cat.description}</p>
                 <ul className="mt-5 grid gap-2">

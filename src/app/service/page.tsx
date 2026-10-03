@@ -1,6 +1,7 @@
 import LeadForm from "@/components/LeadForm";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/ui/Reveal";
+import PageBanner from "@/components/ui/PageBanner";
 import Card from "@/components/ui/Card";
 import { Gauge, CalendarDots, Wrench, Gear, ShieldCheck, Headset } from "@/components/ui/icons";
 import { buildMetadata } from "@/lib/seo";
@@ -41,6 +42,10 @@ export default function ServicePage() {
             Сервисный отдел ТОО «КазАльфаЮг» помогает обеспечивать бесперебойную работу вашего оборудования.
             Выезд специалиста на объект обсуждается при поступлении заявки и подтверждается по согласованию.
           </p>
+        </Reveal>
+
+        <Reveal>
+          <PageBanner className="mt-10" src="/products/service-engineer-field.jpg" alt="Инженер обслуживает дизельный компрессор на объекте" />
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -1,6 +1,7 @@
 import LeadForm from "@/components/LeadForm";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/ui/Reveal";
+import PageBanner from "@/components/ui/PageBanner";
 import Card from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo";
 
@@ -45,6 +46,10 @@ export default function AirTreatmentPage() {
             Оборудование для удаления влаги и очистки сжатого воздуха: осушители, магистральные фильтры и
             системы отвода конденсата. Подбираем под требуемую точку росы и класс чистоты.
           </p>
+        </Reveal>
+
+        <Reveal>
+          <PageBanner className="mt-10" src="/products/air-treatment-dryer.jpg" alt="Рефрижераторный осушитель и магистральные фильтры сжатого воздуха" />
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">

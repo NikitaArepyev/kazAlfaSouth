@@ -7,11 +7,12 @@ import { motion } from "motion/react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import ProductModal from "@/components/ProductModal";
+import QuantityDialog from "@/components/QuantityDialog";
 import { ArrowRight, Funnel, ImageIcon, X } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { DURATIONS, EASE_OUT } from "@/lib/motion";
 import type { Brand, Product } from "@/lib/content";
-import { PRODUCT_CATEGORIES, formatPrice, isRealImage, quoteHref } from "@/lib/catalog";
+import { PRODUCT_CATEGORIES, formatPrice, isConsumable, isRealImage, quoteHref } from "@/lib/catalog";
 
 type SortOrder = "default" | "price-asc" | "price-desc";
 
@@ -76,6 +77,7 @@ export default function CatalogView({
   const [sort, setSort] = useState<SortOrder>("default");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [qtyProduct, setQtyProduct] = useState<Product | null>(null);
 
   // Lock page scroll behind the mobile filter drawer
   useEffect(() => {
@@ -331,7 +333,9 @@ export default function CatalogView({
                       </div>
                       {/* Sits above the stretched button so it keeps its own action */}
                       <div className="relative mt-4">
-                        <Button href={quoteHref(p, brandById.get(p.brand) ?? p.brand)} fullWidth icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
+                        <Button
+                          {...(isConsumable(p) ? { onClick: () => setQtyProduct(p) } : { href: quoteHref(p, brandById.get(p.brand) ?? p.brand) })}
+                          fullWidth icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
                           Запросить КП
                         </Button>
                       </div>
@@ -348,7 +352,16 @@ export default function CatalogView({
         product={selectedProduct}
         brandName={selectedProduct ? brandById.get(selectedProduct.brand) ?? selectedProduct.brand : ""}
         onClose={() => setSelectedProduct(null)}
+        onQuote={selectedProduct && isConsumable(selectedProduct) ? () => setQtyProduct(selectedProduct) : undefined}
       />
+
+      {qtyProduct && (
+        <QuantityDialog
+          product={qtyProduct}
+          brandName={brandById.get(qtyProduct.brand) ?? qtyProduct.brand}
+          onClose={() => setQtyProduct(null)}
+        />
+      )}
     </div>
   );
 }

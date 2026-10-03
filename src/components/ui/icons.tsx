@@ -43,6 +43,8 @@ import {
   Lightning,
   Headset,
   Lock,
+  Minus,
+  Plus,
 } from "@phosphor-icons/react";
 
 /**
@@ -93,6 +95,8 @@ export {
   Lightning,
   Headset,
   Lock,
+  Minus,
+  Plus,
 };
 
 export type IconProps = ComponentProps<typeof ArrowRight>;

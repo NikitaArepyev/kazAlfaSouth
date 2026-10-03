@@ -124,10 +124,13 @@ export default function ProductModal({
   product,
   brandName,
   onClose,
+  onQuote,
 }: {
   product: Product | null;
   brandName: string;
   onClose: () => void;
+  /** When set, "Запросить КП" asks for a quantity first instead of linking straight to the form. */
+  onQuote?: () => void;
 }) {
   const reduce = useReducedMotion();
   const hidden = reduce
@@ -137,7 +140,8 @@ export default function ProductModal({
   useEffect(() => {
     if (!product) return;
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      // Escape inside the quantity <dialog> closes only that dialog
+      if (e.key === "Escape" && !(e.target as Element).closest("dialog")) onClose();
     }
     document.addEventListener("keydown", onKeyDown);
     const prevOverflow = document.body.style.overflow;
@@ -217,7 +221,9 @@ export default function ProductModal({
                     {product.price > 0 ? `за ${product.unit}` : `Фасовка: ${product.unit}`}
                   </div>
                 </div>
-                <Button href={quoteHref(product, brandName)} className="w-full sm:w-auto" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
+                <Button
+                  {...(onQuote ? { onClick: onQuote } : { href: quoteHref(product, brandName) })}
+                  className="w-full sm:w-auto" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
                   Запросить КП
                 </Button>
               </div>

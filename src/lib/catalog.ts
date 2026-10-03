@@ -16,11 +16,16 @@ export function isRealImage(slide: string): boolean {
   return slide.startsWith("/") || slide.startsWith("http");
 }
 
+/** Only consumables ask for a quantity before the quote; equipment and service are scoped with an engineer. */
+export function isConsumable(p: { category: string }) {
+  return p.category === "Расходные материалы";
+}
+
 /** Quote link that pre-fills the home form's message with this product (read by LeadForm via ?request=). */
-export function quoteHref(p: { name: string; sku: string }, brandName: string) {
+export function quoteHref(p: { name: string; sku: string; unit: string }, brandName: string, qty?: number) {
   const text =
     `Здравствуйте! Прошу подготовить коммерческое предложение на ${p.name}, артикул ${p.sku} (${brandName}).\n` +
     `Интересует цена, наличие и срок поставки.\n` +
-    `Количество: `;
+    `Количество: ${qty ? `${qty} шт. (фасовка: ${p.unit})` : ""}`;
   return `/?request=${encodeURIComponent(text)}#request-form`;
 }

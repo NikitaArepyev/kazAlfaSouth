@@ -16,12 +16,6 @@ function escapeHtml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-function formatSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} Б`;
-  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} КБ`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} МБ`;
-}
-
 function leadLines(lead: Lead): [string, string][] {
   const lines: [string, string][] = [
     ["Имя", lead.name],
@@ -30,7 +24,6 @@ function leadLines(lead: Lead): [string, string][] {
   if (lead.company) lines.push(["Компания", lead.company]);
   if (lead.message) lines.push(["Сообщение", lead.message]);
   for (const [k, v] of Object.entries(lead.extra ?? {})) lines.push([k, v]);
-  if (lead.file) lines.push(["Файл", `${lead.file.name} (${formatSize(lead.file.size)})`]);
   for (const [k, v] of Object.entries(lead.utm ?? {})) lines.push([`utm_${k}`, v]);
   lines.push(["Время", new Date(lead.createdAt).toLocaleString("ru-RU")]);
   return lines;

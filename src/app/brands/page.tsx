@@ -4,6 +4,7 @@ import { getContent } from "@/lib/content";
 import Reveal from "@/components/ui/Reveal";
 import Card from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo";
+import { BRAND_LOGOS } from "@/lib/brands";
 
 export const dynamic = "force-dynamic";
 
@@ -14,17 +15,6 @@ export async function generateMetadata() {
     "Бренды компрессорного оборудования, запасных частей и расходных материалов, с которыми работает ТОО «КазАльфаЮг»: Atlas Copco, CompAir, ELGi, Özen, Lupamat, Fleetguard, Hifi Filter."
   );
 }
-
-/** Logo files in /public/brands, keyed by brand id. Brands without a file fall back to a text plate. */
-const BRAND_LOGOS: Record<string, string> = {
-  "atlas-copco": "/brands/atlas-copco.jpg",
-  compair: "/brands/compair.png",
-  elgi: "/brands/elgi.png",
-  ozen: "/brands/ozen.png",
-  lupamat: "/brands/lupamat.png",
-  fleetguard: "/brands/fleetguard.png",
-  "hifi-filter": "/brands/hifi-filter.png",
-};
 
 export default async function BrandsPage() {
   const content = await getContent();

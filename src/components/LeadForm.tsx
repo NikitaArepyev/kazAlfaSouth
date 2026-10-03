@@ -80,6 +80,8 @@ export default function LeadForm({
   if (status === "success") {
     return (
       <motion.div
+        // The long form collapses into this short card; bring it into view so phones don't land on the footer
+        ref={(el) => el?.scrollIntoView({ block: "center" })}
         initial={reduce ? false : { opacity: 0, transform: translateScale(0, 18, 0.96) }}
         animate={{ opacity: 1, transform: translateScale(0, 0, 1) }}
         transition={{ duration: DURATIONS.medium, ease: EASE_OUT }}
@@ -201,7 +203,8 @@ export default function LeadForm({
 
       <input type="text" name="hp" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-      <div className="flex items-start gap-3 text-xs text-muted">
+      {/* label, so tapping the text (not just the tiny box) toggles consent */}
+      <label className="flex cursor-pointer items-start gap-3 text-xs text-muted">
         <input required type="checkbox" className="mt-1 accent-brand-600" />
         <span>
           Нажимая кнопку, вы соглашаетесь с{" "}
@@ -210,7 +213,7 @@ export default function LeadForm({
           </a>
           . Мы проверим запрос и подготовим предложение.
         </span>
-      </div>
+      </label>
 
       {status === "error" && (
         <motion.p

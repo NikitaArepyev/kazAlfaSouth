@@ -98,7 +98,7 @@ function defaultContent(): SiteContent {
         sku: "1630016100",
         active: true,
         description: "Компрессорное синтетическое масло для передвижных компрессоров.",
-        images: ["/products/oil-fill.jpg", "/products/xas185-desert-panel.jpg"],
+        images: ["/products/375c7f6c-image.jpg"],
         specs: [
           { label: "Партномер", value: "1630016100" },
           { label: "Тип", value: "Синтетическое компрессорное" },
@@ -116,7 +116,7 @@ function defaultContent(): SiteContent {
         sku: "1630016200",
         active: true,
         description: "Компрессорное синтетическое масло для передвижных компрессоров.",
-        images: ["/products/oil-fill.jpg"],
+        images: ["/products/fcc8b362-image.jpg"],
         specs: [
           { label: "Партномер", value: "1630016200" },
           { label: "Тип", value: "Синтетическое компрессорное" },
@@ -134,7 +134,7 @@ function defaultContent(): SiteContent {
         sku: "1615595400",
         active: true,
         description: "Моторное минеральное масло для передвижных компрессоров.",
-        images: ["/products/oil-fill.jpg"],
+        images: ["/products/49019240-image.jpg"],
         specs: [
           { label: "Партномер", value: "1615595400" },
           { label: "Тип", value: "Минеральное моторное" },
@@ -152,7 +152,7 @@ function defaultContent(): SiteContent {
         sku: "1615595500",
         active: true,
         description: "Моторное минеральное масло для передвижных компрессоров.",
-        images: ["/products/oil-fill.jpg"],
+        images: ["/products/377a6788-image.jpg"],
         specs: [
           { label: "Партномер", value: "1615595500" },
           { label: "Тип", value: "Минеральное моторное" },
@@ -170,7 +170,7 @@ function defaultContent(): SiteContent {
         sku: "2912600103",
         active: true,
         description: "Моторное синтетическое масло для передвижных компрессоров. Встречается под названием ParOil EXTRA.",
-        images: ["/products/oil-fill.jpg", "/products/xas185-wellhead.jpg"],
+        images: ["/products/42a621d5-image.jpg"],
         specs: [
           { label: "Партномер", value: "2912600103" },
           { label: "Тип", value: "Синтетическое моторное" },
@@ -188,7 +188,7 @@ function defaultContent(): SiteContent {
         sku: "1630091800",
         active: true,
         description: "Минеральное масло для маслозаполненных винтовых компрессоров.",
-        images: ["/products/oil-fill.jpg"],
+        images: ["/products/dc9b957f-image.jpg"],
         specs: [
           { label: "Партномер", value: "1630091800" },
           { label: "Тип", value: "Минеральное" },
@@ -206,7 +206,7 @@ function defaultContent(): SiteContent {
         sku: "1630091900",
         active: true,
         description: "Минеральное масло для маслозаполненных винтовых компрессоров.",
-        images: ["/products/oil-fill.jpg"],
+        images: ["/products/fd0f3120-image.jpg"],
         specs: [
           { label: "Партномер", value: "1630091900" },
           { label: "Тип", value: "Минеральное" },
@@ -224,7 +224,7 @@ function defaultContent(): SiteContent {
         sku: "3002609010",
         active: true,
         description: "Сервисный набор на 1000 моточасов для компрессора XAXS600E.",
-        images: ["/products/filter-install.jpg", "/products/oil-filters-block.jpg"],
+        images: ["/products/151cbdea-image.jpg"],
         specs: [
           { label: "Партномер", value: "3002609010" },
           { label: "Интервал ТО", value: "1000 моточасов" },

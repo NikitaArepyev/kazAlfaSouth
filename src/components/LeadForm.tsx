@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { track, getUtm } from "@/lib/analytics";
 import { DURATIONS, EASE_OUT, translateScale } from "@/lib/motion";
@@ -45,6 +45,13 @@ export default function LeadForm({
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [error, setError] = useState("");
   const reduce = useReducedMotion();
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  // Catalog "Запросить КП" links carry a ready request text (see quoteHref); pre-fill it here
+  useEffect(() => {
+    const text = new URLSearchParams(window.location.search).get("request");
+    if (text && messageRef.current && !messageRef.current.value) messageRef.current.value = text;
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -178,6 +185,7 @@ export default function LeadForm({
         </label>
         <textarea
           id={`${formType}-message`}
+          ref={messageRef}
           required
           name="message"
           rows={4}

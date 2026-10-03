@@ -11,7 +11,7 @@ import { ArrowRight, Funnel, ImageIcon, X } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { DURATIONS, EASE_OUT } from "@/lib/motion";
 import type { Brand, Product } from "@/lib/content";
-import { PRODUCT_CATEGORIES, formatPrice, isRealImage } from "@/lib/catalog";
+import { PRODUCT_CATEGORIES, formatPrice, isRealImage, quoteHref } from "@/lib/catalog";
 
 type SortOrder = "default" | "price-asc" | "price-desc";
 
@@ -331,7 +331,7 @@ export default function CatalogView({
                       </div>
                       {/* Sits above the stretched button so it keeps its own action */}
                       <div className="relative mt-4">
-                        <Button href="/#request-form" fullWidth icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
+                        <Button href={quoteHref(p, brandById.get(p.brand) ?? p.brand)} fullWidth icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
                           Запросить КП
                         </Button>
                       </div>

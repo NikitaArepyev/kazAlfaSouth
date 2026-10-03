@@ -15,3 +15,12 @@ export function formatPrice(price: number) {
 export function isRealImage(slide: string): boolean {
   return slide.startsWith("/") || slide.startsWith("http");
 }
+
+/** Quote link that pre-fills the home form's message with this product (read by LeadForm via ?request=). */
+export function quoteHref(p: { name: string; sku: string }, brandName: string) {
+  const text =
+    `Здравствуйте! Прошу подготовить коммерческое предложение на ${p.name}, артикул ${p.sku} (${brandName}).\n` +
+    `Интересует цена, наличие и срок поставки.\n` +
+    `Количество: `;
+  return `/?request=${encodeURIComponent(text)}#request-form`;
+}

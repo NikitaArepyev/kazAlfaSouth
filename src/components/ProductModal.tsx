@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 import { ArrowRight, CaretLeft, CaretRight, ImageIcon, X } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { DURATIONS, EASE_OUT, translateScale } from "@/lib/motion";
-import { formatPrice, isRealImage } from "@/lib/catalog";
+import { formatPrice, isRealImage, quoteHref } from "@/lib/catalog";
 import type { Product } from "@/lib/content";
 
 const TRANSITION = { duration: DURATIONS.short, ease: EASE_OUT };
@@ -217,7 +217,7 @@ export default function ProductModal({
                     {product.price > 0 ? `за ${product.unit}` : `Фасовка: ${product.unit}`}
                   </div>
                 </div>
-                <Button href="/#request-form" className="w-full sm:w-auto" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
+                <Button href={quoteHref(product, brandName)} className="w-full sm:w-auto" icon={<ArrowRight className="h-4 w-4" weight="bold" />}>
                   Запросить КП
                 </Button>
               </div>

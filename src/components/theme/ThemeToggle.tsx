@@ -1,14 +1,14 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Moon, Sun } from "@/components/ui/icons";
-import { DURATIONS, EASE_OUT, translateScale } from "@/lib/motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/cn";
 
+const ICON = "absolute h-5 w-5 transition-[opacity,scale,rotate,filter] duration-240 ease-out";
+const HIDDEN = "scale-[0.84] opacity-0 blur-[2px]";
+
 export default function ThemeToggle({ className }: { className?: string }) {
   const { theme, toggle } = useTheme();
-  const reduce = useReducedMotion();
   const isDark = theme === "dark";
 
   return (
@@ -23,22 +23,9 @@ export default function ThemeToggle({ className }: { className?: string }) {
         className
       )}
     >
-      <AnimatePresence initial={false}>
-        <motion.span
-          key={isDark ? "moon" : "sun"}
-          initial={reduce ? false : { opacity: 0, filter: "blur(2px)", transform: `${translateScale(0, 0, 0.84)} rotate(-24deg)` }}
-          animate={{ opacity: 1, filter: "blur(0px)", transform: `${translateScale(0, 0, 1)} rotate(0deg)` }}
-          exit={reduce ? { opacity: 0 } : { opacity: 0, filter: "blur(2px)", transform: `${translateScale(0, 0, 0.84)} rotate(24deg)` }}
-          transition={{ duration: DURATIONS.short, ease: EASE_OUT }}
-          className="absolute inline-flex"
-        >
-          {isDark ? (
-            <Moon className="h-5 w-5" weight="regular" />
-          ) : (
-            <Sun className="h-5 w-5" weight="regular" />
-          )}
-        </motion.span>
-      </AnimatePresence>
+      {/* Both icons stay mounted and cross-fade with a quarter turn, so no exit animation JS is needed */}
+      <Sun className={cn(ICON, isDark && `${HIDDEN} -rotate-[24deg]`)} weight="regular" />
+      <Moon className={cn(ICON, !isDark && `${HIDDEN} rotate-[24deg]`)} weight="regular" />
     </button>
   );
 }

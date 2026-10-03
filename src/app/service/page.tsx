@@ -6,8 +6,6 @@ import Card from "@/components/ui/Card";
 import { Gauge, CalendarDots, Wrench, Gear, ShieldCheck, Headset } from "@/components/ui/icons";
 import { buildMetadata } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata() {
   return buildMetadata(
     "service",

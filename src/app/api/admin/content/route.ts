@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getContent, saveContent } from "@/lib/content";
 import { AUTH_COOKIE, ROLE_COOKIE, getAuthSecret } from "@/lib/auth";
 
@@ -36,5 +37,7 @@ export async function PUT(req: NextRequest) {
   }
 
   await saveContent(content);
+  // Public pages are prerendered from the content file; mark every page under the root layout stale
+  revalidatePath("/", "layout");
   return NextResponse.json({ ok: true });
 }

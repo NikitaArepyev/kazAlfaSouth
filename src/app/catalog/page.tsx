@@ -5,8 +5,6 @@ import { getContent } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { PRODUCT_CATEGORIES } from "@/lib/catalog";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata() {
   return buildMetadata(
     "catalog",

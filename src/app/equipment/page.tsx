@@ -8,8 +8,6 @@ import Button from "@/components/ui/Button";
 import { Check, ArrowRight } from "@/components/ui/icons";
 import { buildMetadata } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata() {
   return buildMetadata(
     "equipment",

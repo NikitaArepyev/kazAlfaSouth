@@ -1,15 +1,12 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
-import { DURATIONS, EASE_OUT, REVEAL_VIEWPORT, translateScale } from "@/lib/motion";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import { cn } from "@/lib/cn";
 
 type RevealProps = {
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   id?: string;
   style?: CSSProperties;
-  /** Stagger delay in seconds (use with index * step for lists). */
+  /** Stagger step (0-0.3), shifts where in the scroll the element fades in. */
   delay?: number;
   /** Travel distance in px. */
   distance?: number;
@@ -18,57 +15,20 @@ type RevealProps = {
 };
 
 /**
- * Fade-up on enter. Only transform + opacity, triggered by viewport
- * (whileInView / IntersectionObserver under the hood — no scroll listeners).
- * Honors prefers-reduced-motion with an opacity-only fade (no movement).
+ * Fade-in on scroll via a CSS scroll timeline (`.reveal` in globals.css). Server component:
+ * the content is in the HTML and visible before any JS, and no animation library ships.
  */
-export default function Reveal({
-  delay = 0,
-  distance = 22,
-  direction = "up",
-  className,
-  id,
-  style,
-  children,
-}: RevealProps) {
-  const reduce = useReducedMotion();
-
-  const axis =
-    direction === "left"
-      ? { x: distance, y: 0, scale: 1 }
-      : direction === "right"
-        ? { x: -distance, y: 0, scale: 1 }
-        : direction === "scale"
-          ? { x: 0, y: 0, scale: 0.975 }
-          : { x: 0, y: distance, scale: 0.985 };
-
-  if (reduce) {
-    return (
-      <motion.div
-        id={id}
-        style={style}
-        className={className}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={REVEAL_VIEWPORT}
-        transition={{ duration: DURATIONS.short, ease: "easeOut" }}
-      >
-        {children}
-      </motion.div>
-    );
-  }
+export default function Reveal({ delay = 0, distance = 22, direction = "up", className, id, style, children }: RevealProps) {
+  const vars = {
+    "--reveal-delay": delay,
+    "--reveal-x": direction === "left" ? `${distance}px` : direction === "right" ? `${-distance}px` : "0px",
+    "--reveal-y": direction === "up" ? `${distance}px` : "0px",
+    "--reveal-scale": direction === "scale" ? 0.975 : direction === "up" ? 0.985 : 1,
+  } as CSSProperties;
 
   return (
-    <motion.div
-      id={id}
-      style={style}
-      className={className}
-      initial={{ opacity: 0, transform: translateScale(axis.x, axis.y, axis.scale) }}
-      whileInView={{ opacity: 1, transform: translateScale(0, 0, 1) }}
-      viewport={REVEAL_VIEWPORT}
-      transition={{ duration: DURATIONS.reveal, ease: EASE_OUT, delay }}
-    >
+    <div id={id} className={cn("reveal", className)} style={{ ...vars, ...style }}>
       {children}
-    </motion.div>
+    </div>
   );
 }

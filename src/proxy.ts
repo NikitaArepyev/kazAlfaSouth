@@ -3,7 +3,7 @@ import { AUTH_COOKIE, ROLE_COOKIE, getAuthSecret } from "@/lib/auth";
 
 const SECRET = getAuthSecret();
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (!pathname.startsWith("/admin")) return NextResponse.next();
 

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { track, getUtm } from "@/lib/analytics";
+import { DURATIONS, EASE_OUT, translateScale } from "@/lib/motion";
 import Button from "@/components/ui/Button";
 import { CheckCircle, Warning, CircleNotch, PaperPlaneTilt } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
@@ -42,6 +44,7 @@ export default function LeadForm({
 }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [error, setError] = useState("");
+  const reduce = useReducedMotion();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -76,7 +79,12 @@ export default function LeadForm({
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-border bg-surface p-8 text-center shadow-sm transition-[opacity,translate,scale] duration-420 ease-out starting:translate-y-[18px] starting:scale-[0.96] starting:opacity-0">
+      <motion.div
+        initial={reduce ? false : { opacity: 0, transform: translateScale(0, 18, 0.96) }}
+        animate={{ opacity: 1, transform: translateScale(0, 0, 1) }}
+        transition={{ duration: DURATIONS.medium, ease: EASE_OUT }}
+        className="rounded-xl border border-border bg-surface p-8 text-center shadow-sm"
+      >
         <span className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft text-accent-ink">
           <CheckCircle className="h-7 w-7" weight="fill" />
         </span>
@@ -84,7 +92,7 @@ export default function LeadForm({
         <p className="mt-2 text-sm text-muted">
           Спасибо! Мы получили ваши данные и свяжемся с вами. Применимость и срок уточняются после проверки.
         </p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -205,9 +213,14 @@ export default function LeadForm({
       </div>
 
       {status === "error" && (
-        <p className="flex items-center gap-2 text-sm font-medium text-red-600 transition-[opacity,translate] duration-240 ease-out starting:translate-y-2 starting:opacity-0">
+        <motion.p
+          initial={reduce ? false : { opacity: 0, transform: translateScale(0, 8, 0.98) }}
+          animate={{ opacity: 1, transform: translateScale(0, 0, 1) }}
+          transition={{ duration: DURATIONS.short, ease: EASE_OUT }}
+          className="flex items-center gap-2 text-sm font-medium text-red-600"
+        >
           <Warning className="h-4 w-4 shrink-0" weight="fill" /> {error}
-        </p>
+        </motion.p>
       )}
 
       <Button

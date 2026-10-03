@@ -6,6 +6,8 @@ import Card from "@/components/ui/Card";
 import { Check } from "@/components/ui/icons";
 import { buildMetadata } from "@/lib/seo";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata() {
   return buildMetadata(
     "consumables",

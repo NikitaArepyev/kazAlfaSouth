@@ -5,6 +5,8 @@ import PageBanner from "@/components/ui/PageBanner";
 import Card from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata() {
   return buildMetadata(
     "equipment/mobile",

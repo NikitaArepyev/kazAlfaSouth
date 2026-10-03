@@ -18,6 +18,8 @@ import {
   WhatsappLogo,
 } from "@/components/ui/icons";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata() {
   return buildMetadata(
     "home",

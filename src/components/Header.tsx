@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useScroll } from "motion/react";
 import { MENU_ITEMS, type MenuItem } from "@/lib/constants";
 import { track } from "@/lib/analytics";
 import Button from "@/components/ui/Button";
@@ -71,12 +72,22 @@ function NavLink({ item }: { item: MenuItem }) {
 }
 
 export default function Header({ sales }: { sales: SalesProps }) {
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
+
+  useEffect(() => {
+    const unsub = scrollY.on("change", (v) => setScrolled(v > 8));
+    return unsub;
+  }, [scrollY]);
+
   const telHref = `tel:${sales.phone.replace(/\s+/g, "")}`;
 
   return (
     <header
-      // Shadow on scroll comes from a CSS scroll timeline (.header-elevate), not a scroll listener
-      className="header-elevate sticky top-0 z-header isolate border-b border-border bg-background/95 supports-[backdrop-filter]:backdrop-blur-xl"
+      className={cn(
+        "sticky top-0 z-header isolate border-b bg-background/95 transition-[border-color,box-shadow] duration-200 ease-out supports-[backdrop-filter]:backdrop-blur-xl",
+        scrolled ? "border-border shadow-sm" : "border-border/80"
+      )}
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-1.5 sm:gap-4 md:h-20">

@@ -6,6 +6,8 @@ import Card from "@/components/ui/Card";
 import { buildMetadata } from "@/lib/seo";
 import { BRAND_LOGOS } from "@/lib/brands";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata() {
   return buildMetadata(
     "brands",
